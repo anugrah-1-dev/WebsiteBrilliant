@@ -1,0 +1,377 @@
+:root {
+    --primary: #ffffff;
+    --secondary: #ffa500;
+    --background: rgb(6, 0, 23);
+    --text-dark: #000000;
+    --text-muted: #cccccc;
+    --accent: #18005b;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-dark);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary);
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.logo .top {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.logo .bottom {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.nav-links a:not(.btn)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:not(.btn):hover::after {
+    width: 100%;
+}
+
+.nav-links .btn {
+    background-color: var(--secondary);
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.nav-links .btn:hover {
+    background-color: #e69500;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    height: 553px;
+    background-color: #000;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-text {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    z-index: 3;
+    color: white;
+    max-width: 50%;
+}
+
+.carousel-text h1 {
+    font-size: 3.5rem;
+    margin: 0;
+}
+
+.carousel-text p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #e0e0e0;
+}
+
+.carousel-text .cta-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-text .cta-button:hover {
+    background-color: #e69500;
+}
+
+.nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.prev {
+    left: 10px;
+}
+.next {
+    right: 10px;
+}
+
+/* Section Tentang Kami */
+.about {
+    background-color: #ffffff;
+    color: #333;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.about p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.section-divider-wrapper {
+    background-color: #ffffff; /* putih, agar menyatu dengan section sebelumnya */
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.section-divider {
+    height: 6px;
+    background-color: var(--accent); /* tetap pakai warna aksen */
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 999px;
+}
+
+/* Section Program & Harga */
+.program {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.program h2 {
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+}
+
+.program-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.program-col {
+    flex: 1;
+    min-width: 280px;
+}
+
+.program-item {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.program-item:hover {
+    transform: translateY(-5px);
+}
+
+.program-item h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 1.3rem;
+}
+
+.program-item p {
+    font-size: 0.95rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.program-item .price {
+    display: block;
+    font-weight: bold;
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .carousel-text {
+        max-width: 90%;
+        left: 5%;
+    }
+
+    .carousel-text h1 {
+        font-size: 2rem;
+    }
+
+    .carousel-text p {
+        font-size: 1rem;
+    }
+
+    .about h2,
+    .program h2 {
+        font-size: 1.6rem;
+    }
+
+    .about p,
+    .program-item p {
+        font-size: 1rem;
+    }
+}
+.contact {
+    background-color: var(--background);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.contact-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.contact-box {
+    flex: 1;
+    min-width: 250px;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.contact-box:hover {
+    transform: translateY(-6px);
+}
+
+.contact-icon {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.contact-box h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.contact-box p {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-top: 0.4rem;
+}
+
+@media (max-width: 600px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
