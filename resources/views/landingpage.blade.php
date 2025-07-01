@@ -21,10 +21,10 @@
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
-                <img src="{{ asset('asset/img/Astra.Yao.full.4397350.jpg') }}" class="slide active" alt="Slide 1">
-                <img src="{{ asset('asset/img/azur-lane-enterprise-anime-girl-uhdpaper.com-4K-4.1756.jpg') }}"
+                <img src="{{ asset('asset/img/brilliant1.jpg') }}" class="slide active" alt="Slide 1">
+                <img src="{{ asset('asset/img/brilliant2.jpg') }}"
                     class="slide" alt="Slide 2">
-                <img src="{{ asset('asset/img/Feixiao.full.4282475.png') }}" class="slide" alt="Slide 3">
+                <img src="{{ asset('asset/img/brilliant3.jpg') }}" class="slide" alt="Slide 3">
             </div>
             <div class="overlay"></div>
             <div class="carousel-text">
@@ -51,34 +51,41 @@
     </div>
 
     <section class="program" id="program">
-        <h2>PROGRAM & HARGA</h2>
-        <div class="program-container">
-            <div class="program-col">
-                <div class="program-item">
-                    <h3>Paket Dasar</h3>
-                    <p>Belajar dari nol: grammar, speaking, dan vocabulary dasar.</p>
-                    <span class="price">Rp 750.000 / 2 minggu</span>
-                </div>
-                <div class="program-item">
-                    <h3>Paket Intensif</h3>
-                    <p>Program full-day dengan jadwal padat dan fokus speaking.</p>
-                    <span class="price">Rp 1.200.000 / 2 minggu</span>
-                </div>
-            </div>
-            <div class="program-col">
-                <div class="program-item">
-                    <h3>Paket TOEFL</h3>
-                    <p>Persiapan ujian TOEFL dengan latihan soal dan tips jitu.</p>
-                    <span class="price">Rp 950.000 / 2 minggu</span>
-                </div>
-                <div class="program-item">
-                    <h3>Paket Profesional</h3>
-                    <p>Khusus untuk karyawan dan mahasiswa yang ingin belajar praktis.</p>
-                    <span class="price">Rp 1.500.000 / 2 minggu</span>
-                </div>
-            </div>
+    <h2>PROGRAM & HARGA</h2>
+    
+    <!-- Baris pertama: Murah & Super -->
+    <div class="program-row">
+        <div class="program-item">
+            <h3>Paket Murah Holiday</h3>
+            <ul>
+                <li>Rp 498.000 / 1 minggu</li>
+                <li>Rp 854.000 / 2 minggu</li>
+                <li>Biaya Admin: Rp 125.000</li>
+            </ul>
         </div>
-    </section>
+        <div class="program-item">
+            <h3>Paket Super</h3>
+            <ul>
+                <li>Rp 1.398.000 / 1 bulan</li>
+                <li>Rp 2.599.000 / 2 bulan</li>
+                <li><strong>Free Biaya Admin</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Baris kedua: Premium -->
+    <div class="program-row center">
+        <div class="program-item premium">
+            <h3>Paket Premium</h3>
+            <ul>
+                <li>Rp 3.867.000 / 3 bulan</li>
+                <li>Bonus TOEFL Preparation (2 minggu / 10 pertemuan)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
 
     <section id="galeri" class="gallery">
         <h2>GALLERY</h2>
@@ -106,16 +113,16 @@
                         alt="Galeri 5" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('asset/img/21.png') }}" alt="Galeri 21" onclick="openLightbox(this)">
+                    <img src="{{ asset('asset/img/img1.jpg') }}" alt="Galeri 21" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('asset/img/18.png') }}" alt="Galeri 18" onclick="openLightbox(this)">
+                    <img src="{{ asset('asset/img/img2.jpg') }}" alt="Galeri 18" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('asset/img/16.jpg') }}" alt="Galeri 16" onclick="openLightbox(this)">
+                    <img src="{{ asset('asset/img/img3.jpg') }}" alt="Galeri 16" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('asset/img/4.jpg') }}" alt="Galeri 4" onclick="openLightbox(this)">
+                    <img src="{{ asset('asset/img/img4.jpg') }}" alt="Galeri 4" onclick="openLightbox(this)">
                 </div>
             </div>
         </div>
