@@ -1,7 +1,7 @@
 :root {
     --primary: #ffffff;
     --secondary: #ffa500;
-    --background: rgb(6, 0, 23);
+    --background: #060017;
     --text-dark: #000000;
     --text-muted: #cccccc;
     --accent: #18005b;
@@ -81,7 +81,7 @@ nav {
     z-index: 2;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .carousel-text {
@@ -193,26 +193,68 @@ nav {
 }
 
 .program-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+        "murah super"
+        "premium premium";
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
 }
 
 .program-col {
-    flex: 1;
-    min-width: 280px;
+    width: 100%;
+    max-width: 450px;
 }
 
 .program-item {
     background-color: #fff;
     padding: 1.5rem;
     border-radius: 8px;
-    margin-bottom: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
+}
+
+.program-item:hover {
+    transform: translateY(-5px);
+}
+
+.program-item.murah {
+    grid-area: murah;
+}
+
+.program-item.super {
+    grid-area: super;
+}
+
+.program-item.premium {
+    grid-area: premium;
+    border: 2px solid var(--secondary);
+    background-color: #fffdf5;
+    justify-self: center;
+}
+
+/* 🔄 DITAMBAHKAN: Styling untuk program-item dengan daftar harga */
+.program-item ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 250px;
+    color: #333;
+}
+
+/* baru */
+.program-item ul li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* 🌟 Opsional: Sorotan untuk paket premium */
+.program-item.premium {
+    border: 2px solid var(--secondary);
+    background-color: #fffdf5;
 }
 
 .program-item:hover {
@@ -513,13 +555,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    visibility: hidden; 
-    opacity: 0; 
-    transition: opacity 0.3s ease; 
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .lightbox.active {
-    
     visibility: visible;
     opacity: 1;
 }
@@ -532,7 +573,6 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
     animation: zoomIn 0.3s ease;
 }
-
 
 .lightbox-close {
     position: absolute;
@@ -551,4 +591,30 @@ body {
     to {
         transform: scale(1);
     }
+}
+/* Layout dua kolom untuk baris pertama */
+.program-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+}
+
+/* Untuk item program agar punya ukuran seimbang */
+.program-row .program-item {
+    flex: 1;
+    min-width: 280px;
+}
+
+/* Baris kedua (premium) berada di tengah */
+.program-row.center {
+    justify-content: center;
+}
+
+/* Pastikan item premium tetap responsif */
+.program-item.premium {
+    max-width: 600px;
+    width: 100%;
 }
