@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Pelatihan;
+use App\Models\Jadwal;
+use App\Models\Message;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'totalUsers' => User::count(),
+            // 'activeCourses' => Pelatihan::where('status', 'aktif')->count(),
+            // 'todaySchedules' => Jadwal::whereDate('tanggal', now())->count(),
+            // 'inboxCount' => Message::count(),
+        ]);
     }
 }
