@@ -1,23 +1,26 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Dashboard Admin</h1>
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <p>Selamat datang kembali, Admin!</p>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <x-adminlte-info-box title="Total Pengguna" text="124" icon="fas fa-users" theme="info"/>
+        </div>
+        <div class="col-md-3">
+            <x-adminlte-info-box title="Pelatihan Aktif" text="12" icon="fas fa-box" theme="success"/>
+        </div>
+        <div class="col-md-3">
+            <x-adminlte-info-box title="Jadwal Hari Ini" text="3" icon="fas fa-calendar-day" theme="warning"/>
+        </div>
+        <div class="col-md-3">
+            <x-adminlte-info-box title="Pesan Masuk" text="7" icon="fas fa-envelope" theme="danger"/>
         </div>
     </div>
-</div>
 @endsection
