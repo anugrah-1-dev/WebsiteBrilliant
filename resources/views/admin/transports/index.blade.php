@@ -56,7 +56,7 @@
                                 <td>
                                     <div class="d-flex justify-content-center align-items-center">
                                         {{-- [MODAL EDIT] Tombol edit --}}
-                                        <button 
+                                        <button
                                             class="btn btn-warning btn-sm mr-1 btn-edit-transport"
                                             data-id="{{ $transport->id }}"
                                             data-name="{{ $transport->name }}"
@@ -231,7 +231,7 @@
                 $('#editName').val(name);
                 $('#editPrice').val(price);
                 $('#editStatus').val(status);
-                
+
                 const actionUrl = `/admin/transports/${id}`;
                 $('#editTransportForm').attr('action', actionUrl);
 
@@ -239,4 +239,11 @@
             });
         });
     </script>
+
+@if(session('alert'))
+<script>
+    Swal.fire(@json(session('alert')));
+</script>
+@endif
+
 @stop

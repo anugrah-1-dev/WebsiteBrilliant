@@ -114,7 +114,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -350,6 +350,10 @@ return [
             'text' => 'search',
         ],
 
+        [
+            'header' => 'Menu Utama ',
+        ],
+
 
         // ========== BAGIAN DASHBOARD ==========
         [
@@ -379,6 +383,9 @@ return [
             'classes' => 'spacer-item',
         ],
 
+        [
+            'header' => 'Pengaturan ',
+        ],
 
 
         // Menu grup: Pengaturan Akses

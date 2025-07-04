@@ -62,12 +62,12 @@
                                     <div class="btn-group btn-group-sm">
                                         {{-- <x-adminlte-button theme="warning" icon="fas fa-edit"
                                             onclick="window.location='{{ route('admin.banks.edit', $bank->id) }}'" title="Edit"/> --}}
-                                        {{-- <form action="{{ route('admin.banks.destroy', $bank->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('banks.destroy', $bank->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <x-adminlte-button theme="danger" icon="fas fa-trash"
                                                 onclick="confirmDelete(event)" title="Hapus"/>
-                                        </form> --}}
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -168,4 +168,15 @@
             });
         });
     </script>
+    @if(session('sweetalert'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session("success") }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+    @endif
 @stop

@@ -21,7 +21,7 @@ class TransportsController extends Controller
             'price' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
 
-            
+
         ]);
 
         Transports::create([
@@ -62,8 +62,12 @@ class TransportsController extends Controller
         $transport = Transports::findOrFail($id);
         $transport->delete();
 
-        return redirect()->back()->with('success', 'Data transportasi dihapus.');
-    }
+        return redirect()->route('admin.transports.index')->with('alert', [
+            'icon' => 'success',
+            'title' => 'Berhasil!',
+            'text' => 'Transports berhasil dihapus.'
+        ]);
+        }
 
-    
+
 }
