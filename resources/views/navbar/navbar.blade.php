@@ -21,8 +21,8 @@
     <div class="nav-links" id="navLinks">
         <a href="#tentang">TENTANG KAMI</a>
         <a href="#program">PROGRAM</a>
-        <a href="#galeri">GALERI</a>
+        <a href="#galeri">GALLERI</a>
         <a href="#kontak">KONTAK</a>
-        <a href="#daftar" class="btn">PENDAFTARAN</a>
+        <a href="#daftar" class="btn">MASUK</a>
     </div>
 </nav>

@@ -58,10 +58,13 @@ class BankController extends Controller
     }
 
     // Remove the specified bank from storage
-    public function destroy(Banks $bank)
+    public function destroy($id)
     {
+        $bank = Banks::findOrFail($id);
         $bank->delete();
 
-        return redirect()->route('admin.banks.index')->with('success', 'Bank deleted successfully.');
+        return redirect()->route('banks.index')
+            ->with('success', 'Bank deleted successfully.')
+            ->with('sweetalert', true);
     }
 }
