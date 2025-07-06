@@ -77,6 +77,7 @@
                 </div>
             </div>
         </div>
+
         
     </section>
  <div class="wave-divider">
@@ -211,6 +212,55 @@
         </path>
     </svg>
 </div>
+
+    </section>
+    
+    <section class="program-section" id="program">
+        <div class="container">
+            <h2>PILIHAN PROGRAM</h2>
+            <p class="section-subtitle">Temukan program yang paling sesuai dengan tujuan Anda dan mulailah perjalanan Anda menjadi fasih berbahasa Inggris bersama kami.</p>
+
+            <div class="program-tabs">
+                @foreach($programs as $program)
+                    <button class="tab-button @if($program->status_aktif_default) active @endif" data-tab="program-{{ $program->id }}">{{ $program->judul_konten }}</button>
+                @endforeach
+            </div>
+
+            <div class="program-content-wrapper">
+                @foreach($programs as $program)
+                <div 
+                id="program-{{ $program->id }}" 
+                class="program-detail @if($program->status_aktif_default) active @endif @if($program->id % 2 == 0) layout-reversed @endif">                        <div class="content-text content-structured">
+                            <div>
+                                <h3>{{ $program->judul_konten }}</h3>
+                            </div>
+                            <div>
+                                <p class="description">{{ $program->deskripsi }}</p>
+                            </div>
+                            <div>
+                                <p class="benefits-title"><strong>Keunggulan Program:</strong></p>
+                                <ul class="benefits-list">
+                                    @foreach(explode("\n", $program->keunggulan) as $item)
+                                        @if(trim($item) != '')
+                                            <li><i class="fas fa-check-circle"></i> {{ trim($item) }}</li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                                <a href="#" class="btn btn-secondary">Lihat Detail</a>
+                            </div>
+                        </div>
+                        <div class="content-image">
+                            <img src="{{ asset('uploads/programs/' . $program->gambar) }}" alt="{{ $program->judul_konten }}" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+ 
 
         <script>
             // Menunggu hingga seluruh halaman HTML selesai dimuat

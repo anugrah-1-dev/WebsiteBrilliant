@@ -923,6 +923,7 @@ body {
 }
 /* 1. Sembunyikan SEMUA detail program secara default */
 .program-detail {
+
     display: none;
     grid-template-columns: 1.2fr 1fr;
     gap: 50px;
@@ -930,6 +931,7 @@ body {
     text-align: left;
     padding: 60px 0; /* ⬅️ Tambahkan ruang atas & bawah */
 }
+
 
 /* 2. Tampilkan hanya yang active */
 .program-detail.active {
@@ -1178,3 +1180,36 @@ body {
 .wave-divider4 .shape-fill4 {
     fill: #060017; /* Warna atas gelombang */
 }
+=======
+
+/* 2. HANYA tampilkan yang memiliki kelas 'active' */
+.program-detail.active {
+    display: grid; 
+}
+/* Tata letak terbalik untuk program dengan ID genap */
+.program-detail.layout-reversed .content-text {
+    order: 2; /* Pindahkan kolom teks ke posisi kedua */
+}
+
+.program-detail.layout-reversed .content-image {
+    order: 1; /* Pindahkan kolom gambar ke posisi pertama */
+}
+/* STRUKTUR KONTEN PROGRAM YANG BARU */
+.content-text h2 { font-size: 2.5rem; }
+.content-text h3 { font-size: 2rem; }
+.content-text .description { font-size: 1rem; line-height: 1.7; }
+.benefits-title { font-size: 1.1rem; margin-bottom: 0.8rem; }
+.benefits-list { list-style: none; padding: 0; margin: 0; }
+.benefits-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.benefits-list li .fa-check-circle { color: #28a745; font-size: 1.2rem; }
+.action-buttons { display: flex; gap: 15px; }
+.action-buttons .btn { padding: 12px 25px; font-size: 1rem; font-weight: 600; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; }
+.action-buttons .btn-primary { background-color: #f39c12; color: #fff; }
+.action-buttons .btn-secondary { background-color: #fff; color: #f39c12; border: 2px solid #f39c12; }
+.action-buttons .btn:hover { transform: translateY(-2px); }
+.content-image img { width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.content-image {
+    margin-top: 2.5rem; /* Anda bisa sesuaikan angka ini */
+}
+
+
