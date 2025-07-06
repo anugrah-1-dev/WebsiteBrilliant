@@ -10,7 +10,6 @@
 body {
     margin: 0;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background);
     color: var(--text-dark);
 }
 
@@ -44,7 +43,6 @@ nav {
     overflow: hidden;
     height: 553px;
     background-color: #000;
-    
 }
 
 .carousel-container {
@@ -146,10 +144,10 @@ nav {
     right: 10px;
 }
 
-.about {
-    background-color: #ffffff;
-    color: #333;
-    padding: 100px 0 150px 0;
+.about-us-section {
+    background-color: #ffffff; /* GANTI jadi putih */
+    color: #333333; /* Sesuaikan warna teks agar tetap terbaca */
+    padding: 80px 0;
 }
 
 .about-header {
@@ -159,7 +157,6 @@ nav {
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
 }
-
 
 .about-wrapper {
     display: flex;
@@ -187,9 +184,7 @@ nav {
     height: auto;
     border-radius: 12px;
     display: block;
-    
 }
-
 
 .about-image:hover {
     transform: translateY(-4px);
@@ -201,7 +196,7 @@ nav {
     background-color: var(--accent);
     border-radius: 999px;
     margin-bottom: 1rem;
-    margin: 0 0 1.5rem 1.5rem; /* sejajar dengan heading dan icon */
+    margin: 0 0 1.5rem 1.5rem;
 }
 
 .about-text {
@@ -214,14 +209,14 @@ nav {
     font-size: 2.4rem;
     margin-bottom: 1rem;
     color: var(--accent);
-     padding-left: 1.5rem; /* samakan dengan padding horizontal <p> */
+    padding-left: 1.5rem; /* samakan dengan padding horizontal <p> */
 }
 
 .about-text p {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 1rem 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 /* Responsive */
@@ -240,15 +235,13 @@ nav {
     height: 50px;
     margin-left: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--accent); /* 💙 ini penting */
+    color: var(--accent); /* tetap gunakan warna aksen */
 }
-
 
 .section-divider-wrapper {
     background-color: #ffffff;
-    padding: 2rem 0 64px 0; 
+    padding: 2rem 0 64px 0;
     text-align: center;
-   
 }
 
 .section-divider {
@@ -262,10 +255,8 @@ nav {
 .program {
     background-color: #f8f8f8;
     color: #333;
-    padding: 2rem 0 150px 0; 
+    padding: 2rem 0 150px 0;
     text-align: center;
-    
-    
 }
 
 .program h2 {
@@ -274,11 +265,16 @@ nav {
     margin-bottom: 2rem;
 }
 
+.program-content-section {
+    background-color: #2c3e50;
+    padding-top: 0;
+    margin-top: -2px; /* overlap sedikit ke wave */
+}
+
 .program-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-areas:
-        "murah super premium";
+    grid-template-areas: "murah super premium";
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
@@ -311,7 +307,11 @@ nav {
     max-width: 600px;
     width: 100%;
     background-color: #ffffff;
-    background: linear-gradient(135deg, #ffffff, #f0f7ff); /* default gradient */
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f0f7ff
+    ); /* default gradient */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
     border: 2px solid #ccc; /* nanti diubah per paket */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -356,7 +356,6 @@ nav {
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-
 
 .program-item.premium {
     position: relative;
@@ -452,11 +451,9 @@ footer {
         font-size: 1rem;
     }
 
-    
     .program h2 {
         font-size: 1.6rem;
     }
-
 
     .program-item p {
         font-size: 1rem;
@@ -619,9 +616,12 @@ body {
 
 /* Section Gallery */
 .gallery {
+    background-color: #060017;
     width: 100%;
-    margin: 50px 0;
     text-align: center;
+
+    padding-top: 40px;
+    padding-bottom: 60px;
 }
 
 .gallery h2 {
@@ -631,23 +631,23 @@ body {
 }
 
 /* .gallery-wrapper {
-    position: relative;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10%,
-        black 90%,
-        transparent
-    );
-} */
+        position: relative;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent,
+            black 10%,
+            black 90%,
+            transparent
+        );
+        mask-image: linear-gradient(
+            to right,
+            transparent,
+            black 10%,
+            black 90%,
+            transparent
+        );
+    } */
 
 .gallery-wrapper {
     overflow-x: scroll;
@@ -658,7 +658,6 @@ body {
     -webkit-overflow-scrolling: touch;
     cursor: grab;
 }
-
 
 .gallery-wrapper.dragging {
     cursor: grabbing;
@@ -673,8 +672,10 @@ body {
 .gallery-container {
     display: flex;
     width: fit-content;
-    /* animation: scroll-gallery 40s linear infinite; */
     gap: 20px;
+
+    min-width: 100%; /* ⬅️ Tambahan ini agar gak pernah lebih kecil dari wrapper */
+    box-sizing: border-box; /* ⬅️ Biar padding/margin gak ganggu ukuran sebenarnya */
 }
 
 .gallery-wrapper:hover .gallery-container {
@@ -772,16 +773,11 @@ body {
     padding: 0 1rem;
 }
 
-
 .program-row .program-item {
     flex: 1 1 300px;
     max-width: 260px;
 }
-.about-us-section {
-    background-color: #2c3e50;
-    color: #e0e0e0;
-    padding: 80px 0;
-}
+
 .container {
     max-width: 1140px;
     margin: 0 auto;
@@ -789,21 +785,25 @@ body {
 }
 
 /* === STYLE BARU UNTUK JUDUL SECTION (GRADIENT) === */
-.section-title {
+.about-section-title {
     text-align: center;
-    font-size: 2.8rem; /* Sedikit diperbesar agar efek lebih terlihat */
+    font-size: 2.8rem;
     margin-bottom: 50px;
     text-transform: uppercase;
-    font-weight: 800; /* Font lebih tebal */
+    font-weight: 800;
 
-    /* --- Efek Warna Gradient --- */
-    /* Gradasi warna: Oranye -> Putih -> Biru Dongker */
-    background: linear-gradient(45deg, #f39c12, #ffffff, #002D62);
-    -webkit-background-clip: text; /* Untuk browser webkit (Chrome, Safari) */
+    background: linear-gradient(
+        45deg,
+        #2196f3,
+        #0d47a1,
+        #2c3e50
+    ); /* 🔄 Biru cerah → biru dongker → biru gelap */
+    -webkit-background-clip: text;
     background-clip: text;
-    color: transparent; /* Membuat warna asli teks menjadi transparan */
+    color: transparent;
 }
-/* ================================================= */
+
+/* =============================================== */
 
 .about-grid {
     display: grid;
@@ -816,12 +816,15 @@ body {
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: #0d47a1; /* warna biru dongker yang tegas */
 }
+
 .about-intro p {
     font-size: 1rem;
     line-height: 1.7;
+    color: #444444; /* lebih halus dari hitam murni */
 }
+
 .features-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -829,19 +832,20 @@ body {
 }
 .feature-item .icon {
     font-size: 2rem;
-    color: #f39c12; 
+    color: #d35400; /* oranye gelap */
     margin-bottom: 15px;
 }
+
 .feature-item h3 {
     font-size: 1.25rem;
-    color: #ffffff;
+    color: #0d47a1; /* konsisten dengan heading utama */
     margin-top: 0;
     margin-bottom: 10px;
 }
 .feature-item p {
     font-size: 0.9rem;
     line-height: 1.6;
-    color: #b0b0b0;
+    color: #555555; /* abu yang lembut dan mudah dibaca */
     margin: 0;
 }
 @media (max-width: 992px) {
@@ -869,21 +873,26 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
+/* Program Section */
 .program-section {
     padding: 80px 0;
     text-align: center;
     background-color: #ffffff;
 }
 .program-section h2 {
-    color: #0d47a1;
     font-size: 2.8rem;
     text-transform: uppercase;
     font-weight: 800;
+    margin-bottom: 1rem;
+    color: #0d47a1;
 }
 .program-section .section-subtitle {
     font-size: 1.1rem;
     color: #555;
     margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .program-tabs {
     display: flex;
@@ -893,9 +902,6 @@ body {
     margin-bottom: 50px;
 }
 .program-tabs .tab-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
     padding: 12px 25px;
     font-size: 1rem;
     font-weight: 600;
@@ -915,51 +921,78 @@ body {
     border-color: #f39c12;
     color: #fff;
 }
-
-/* --- CSS BARU UNTUK KONTEN INTERAKTIF --- */
+/* 1. Sembunyikan SEMUA detail program secara default */
 .program-detail {
-    display: none; /* Semua detail disembunyikan secara default */
-    grid-template-columns: 1fr 1fr;
+    display: none;
+    grid-template-columns: 1.2fr 1fr;
     gap: 50px;
-    align-items: center;
+    align-items: start;
     text-align: left;
+    padding: 60px 0; /* ⬅️ Tambahkan ruang atas & bawah */
 }
+
+/* 2. Tampilkan hanya yang active */
 .program-detail.active {
-    display: grid; /* Hanya yang aktif yang ditampilkan sebagai grid */
+    display: grid;
 }
-/* ------------------------------------------- */
+
+/* Tata letak terbalik untuk program dengan ID genap */
+.program-detail.layout-reversed .content-text {
+    order: 2;
+}
+.program-detail.layout-reversed .content-image {
+    order: 1;
+}
+
+/* STRUKTUR KONTEN PROGRAM */
+.content-text h2 {
+    font-size: 2.5rem;
+    color: #e0f7fa;
+}
 
 .content-text h3 {
     font-size: 2rem;
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #111;
+    color: #e0f7fa;
 }
+
 .content-text .description {
     font-size: 1rem;
     line-height: 1.7;
-    margin-bottom: 25px;
+    color: #f0f0f0;
 }
+
+.benefits-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: #f0f0f0;
+}
+
 .benefits-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 30px 0;
+    margin: 0;
 }
+
 .benefits-list li {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 12px;
-    font-size: 1rem;
+    color: #f0f0f0;
 }
+
 .benefits-list li .fa-check-circle {
     color: #28a745;
     font-size: 1.2rem;
 }
+
+/* Tombol */
 .action-buttons {
     display: flex;
     gap: 15px;
+    margin-top: 1rem;
 }
+
 .action-buttons .btn {
     padding: 12px 25px;
     font-size: 1rem;
@@ -968,32 +1001,180 @@ body {
     border-radius: 8px;
     transition: all 0.3s ease;
 }
+
 .action-buttons .btn-primary {
     background-color: #f39c12;
     color: #fff;
 }
+
 .action-buttons .btn-secondary {
     background-color: #fff;
     color: #f39c12;
     border: 2px solid #f39c12;
 }
+
 .action-buttons .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
+/* Gambar */
+.content-image {
+    margin-top: 2.5rem;
+}
+
 .content-image img {
     width: 100%;
-    height: auto;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 992px) {
-    .program-detail {
-        grid-template-columns: 1fr;
-    }
+
+/*alur pendaftaran*/
+.registration-flow-section {
+    padding: 60px 0;
+    background-color: #2c3e50; /* 💡 latar biru gelap */
 }
-@media (max-width: 768px) {
-    .program-section h2 {
-        font-size: 2.2rem;
-    }
+
+.flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.08); /* 🔄 lebih cerah dari sebelumnya */
+    border-left: 6px solid #00bcd4; /* 💧 biru cerah kontras */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); /* 🔄 sedikit lebih gelap agar menyatu */
+}
+
+.step-number {
+    background: #00bcd4;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* 🔄 efek 3D ringan */
+}
+
+.step-content h3 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #e0f7fa; /* 🔄 putih kebiruan agar lebih lembut */
+}
+
+.step-content p {
+    margin: 0;
+    color: #d0e0e3; /* 🔄 abu terang dengan sentuhan biru */
+}
+
+.registration-section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 20px; /* 🔄 Sedikit dikurangi agar tidak terlalu renggang dengan subtitle */
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #e0f7fa; /* 🔄 Biru muda terang agar kontras dan lembut */
+}
+
+.registration-section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #d0e0e3; /* 🔄 Abu terang kebiruan */
+    max-width: 600px;
+    margin: 0 auto 40px auto; /* 🔄 Auto center + spacing bawah */
+    line-height: 1.6;
+}
+
+/* gelombang */
+.wave-divider {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #ffffff; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider .shape-fill {
+    fill: #2c3e50; /* Warna atas gelombang */
+}
+
+.wave-divider2 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #2c3e50; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider2 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider2 .shape-fill2 {
+    fill: #ffffff; /* Warna atas gelombang */
+}
+
+.wave-divider3 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #ffffff; /* Warna awal */
+    margin-top: -1px;
+    margin-bottom: -1px;
+    /* transition: background-color 0.5s ease; Efek transisi halus */
+}
+
+.wave-divider3 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider3 .shape-fill3 {
+    fill: #060017;
+}
+
+.wave-divider4 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #2c3e50; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+    display: none; /* SEMBUNYIKAN DI AWAL */
+}
+
+.wave-divider4 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider4 .shape-fill4 {
+    fill: #060017; /* Warna atas gelombang */
 }
