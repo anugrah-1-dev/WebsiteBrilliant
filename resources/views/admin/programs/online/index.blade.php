@@ -65,9 +65,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{-- <a href="{{ route('admin.program_online.edit', $program->id) }}" class="btn btn-info btn-sm" title="Edit">
+                                            <a href="{{ route('admin.online.edit', $program->id) }}" class="btn btn-info btn-sm" title="Edit">
                                                 <i class="fas fa-edit"></i>
-                                            </a> --}}
+                                            </a>
                                             <form action="{{ route('admin.online.destroy', $program->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus program ini?');">
                                                 @csrf
                                                 @method('DELETE')

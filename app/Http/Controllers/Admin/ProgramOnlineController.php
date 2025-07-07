@@ -53,38 +53,45 @@ class ProgramOnlineController extends Controller
         return redirect()->route('admin.online.index')->with('success', 'Program online berhasil ditambahkan.');
     }
 
-    public function edit(ProgramOnline $program_online)
+
+    public function edit(ProgramOnline $online)
     {
-        return view('admin.programs.online.edit', ['program' => $program_online]);
+        return view('admin.programs.online.edit', ['online' => $online]);
     }
 
-    public function update(Request $request, ProgramOnline $program_online)
+    public function update(Request $request, ProgramOnline $online)
     {
         $validated = $request->validate([
-            'nama' => ['required', 'string', 'max:255', \Illuminate\Validation\Rule::unique('program_online')->ignore($program_online->id)],
+            'nama' => ['required', 'string', 'max:255', \Illuminate\Validation\Rule::unique('program_online')->ignore($online->id)],
             'lama_program' => 'nullable|string|max:255',
             'kategori' => 'nullable|string|max:255',
             'harga' => 'required|integer|min:0',
             'features_program' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'is_active' => 'required|in:0,1',
         ]);
 
         $validated['slug'] = Str::slug($validated['nama']);
 
+        // Proses thumbnail baru
         if ($request->hasFile('thumbnail')) {
-            if ($program_online->thumbnail) {
-                Storage::disk('public')->delete($program_online->thumbnail);
+            if ($online->thumbnail) {
+                Storage::disk('public')->delete($online->thumbnail);
             }
-            $path = $request->file('thumbnail')->store('public/program_online/thumbnails');
-            $validated['thumbnail'] = str_replace('public/', '', $path);
+
+            $path = $request->file('thumbnail')->store('program_online/thumbnails', 'public');
+            $validated['thumbnail'] = $path;
         }
 
-        $validated['is_active'] = $request->has('is_active');
-        $validated['features_program'] = json_decode($validated['features_program'], true) ?? [];
+        // Cast fitur ke array dari textarea
+        $validated['features_program'] = array_filter(array_map('trim', explode("\n", $validated['features_program'] ?? '')));
 
-        $program_online->update($validated);
+        // Status aktif (0/1)
+        $validated['is_active'] = (int) $request->input('is_active');
 
-        return redirect()->route('admin.programs.online.index')->with('success', 'Program Online berhasil diperbarui.');
+        $online->update($validated);
+
+        return redirect()->route('admin.online.index')->with('success', 'Program Online berhasil diperbarui.');
     }
 
     public function destroy($id)

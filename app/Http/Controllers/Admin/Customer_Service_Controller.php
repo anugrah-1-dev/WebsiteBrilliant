@@ -34,18 +34,12 @@ class Customer_Service_Controller extends Controller
         return redirect()->route('admin.customer_services.index')->with('success', 'Kontak CS berhasil ditambahkan.');
     }
 
-    // Menampilkan detail contact person tertentu
-    public function show($id)
-    {
-        $contact = Customer_Service::findOrFail($id);
-        return view('admin.customer_services.show', compact('contact'));
-    }
 
     // Menampilkan form edit contact person
     public function edit($id)
     {
         $contact = Customer_Service::findOrFail($id);
-        return view('admin.customer_services.edit', compact('contact'));
+        return view('admin.customer_service.edit', compact('contact'));
     }
 
     // Menyimpan perubahan data contact person
@@ -62,12 +56,14 @@ class Customer_Service_Controller extends Controller
         return redirect()->route('admin.customer_services.index')->with('success', 'Contact person berhasil diperbarui.');
     }
 
-    // Menghapus contact person
     public function destroy($id)
     {
         $contact = Customer_Service::findOrFail($id);
+
+        // Soft delete jika model pakai SoftDeletes, atau hard delete
         $contact->delete();
 
-        return redirect()->route('admin.customer_services.index')->with('success', 'Contact person berhasil dihapus.');
+        return redirect()->route('admin.customer_services.index')
+            ->with('success', 'Contact person berhasil dihapus.');
     }
 }

@@ -25,23 +25,42 @@ use App\Http\Controllers\Admin\GaleriController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
+//Landing page
 Auth::routes();
 Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
-
 Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->group(function () {
 
+    //dashboard admin
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    //roles
     Route::resource('roles', RoleController::class);
+    //permissions
     Route::resource('permissions', PermissionController::class);
+    //users
     Route::resource('users', UserController::class);
+    //banks
     Route::resource('banks', BankController::class);
+    //transports
     Route::resource('transports', TransportsController::class);
+    //cs
     Route::resource('customer_services', Customer_Service_Controller::class);
-    Route::resource('pamflet_programs', ProgramController::class);
+
+    // Pamflet
+    Route::get('pamflet_programs', [ProgramController::class, 'index'])->name('pamflet_programs.index');
+    Route::get('pamflet_programs/create', [ProgramController::class, 'create'])->name('pamflet_programs.create');
+    Route::post('pamflet_programs', [ProgramController::class, 'store'])->name('pamflet_programs.store');
+    Route::get('pamflet_programs/{program}', [ProgramController::class, 'show'])->name('pamflet_programs.show');
+    Route::get('pamflet_programs/{program}/edit', [ProgramController::class, 'edit'])->name('pamflet_programs.edit');
+    Route::put('pamflet_programs/{program}', [ProgramController::class, 'update'])->name('pamflet_programs.update');
+    Route::delete('pamflet_programs/{program}', [ProgramController::class, 'destroy'])->name('pamflet_programs.destroy');
+
+    //program offline
     Route::resource('programs/offline', ProgramOfflineController::class);
+    Route::delete('admin/programs/offline/{id}', [ProgramOfflineController::class, 'destroy'])->name('admin.offline.destroy');
+
+    //program online
     Route::resource('programs/online', ProgramOnlineController::class);
     Route::resource('galeri', GaleriController::class);
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

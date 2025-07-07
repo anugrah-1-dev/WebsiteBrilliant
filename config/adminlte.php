@@ -363,34 +363,6 @@ return [
         ],
 
         [
-            'header' => 'Data Master ',
-        ],
-
-
-        [
-            'text' => 'Transport',
-            'url'  => '/admin/transports',
-            'icon' => 'fas fa-shuttle-van',
-        ],
-
-            [
-            'text' => 'Galeri',
-            'url'  => '/admin/galeri',
-            'icon' => 'fas fa-images',
-        ],
-
-        [
-            'text' => 'Bank',
-            'url'  => '/admin/banks',
-            'icon' => 'fas fa-university',
-        ],
-        [
-            'text' => 'Customer Service',
-            'url'  => '/admin/customer_services',
-            'icon' => 'fas fa-headset',
-        ],
-
-        [
             'header' => 'Program ',
         ],
 
@@ -420,6 +392,37 @@ return [
                 ],
             ],
         ],
+
+        [
+            'header' => 'Data Master ',
+        ],
+
+
+        [
+            'text' => 'Transport',
+            'url'  => '/admin/transports',
+            'icon' => 'fas fa-shuttle-van',
+        ],
+
+            [
+            'text' => 'Galeri',
+            'url'  => '/admin/galeri',
+            'icon' => 'fas fa-images',
+        ],
+
+        [
+            'text' => 'Bank',
+            'url'  => '/admin/banks',
+            'icon' => 'fas fa-university',
+        ],
+        [
+            'text' => 'Customer Service',
+            'url'  => '/admin/customer_services',
+            'icon' => 'fas fa-headset',
+        ],
+
+
+
 
 
         // ===== SPACER SECTION BAWAH ==========

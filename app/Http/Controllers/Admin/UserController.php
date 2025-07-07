@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -19,25 +20,30 @@ class UserController extends Controller
         return view('admin.users.index', compact('users', 'roles'));
     }
 
-    // Show the form for creating a new user.
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
-    // Store a newly created user in storage.
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6',
+            'roles' => 'required|array'
         ]);
 
-        $validated['password'] = bcrypt($validated['password']);
-        User::create($validated);
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+        $user->assignRole($validated['roles']);
+
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan.');
     }
 
     // Display the specified user.
@@ -48,10 +54,10 @@ class UserController extends Controller
     }
 
     // Show the form for editing the specified user.
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all(); // atau bisa juga pakai permission package
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     // Update the specified user in storage.
@@ -82,6 +88,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
 }

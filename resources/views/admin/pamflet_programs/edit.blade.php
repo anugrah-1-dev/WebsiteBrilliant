@@ -1,68 +1,114 @@
 @extends('adminlte::page')
 
-@section('title', 'Edit Pamflet')
+@section('title', 'Edit Pamflet Program')
 
 @section('content_header')
-    <h1>Edit Program: {{ $program->judul }}</h1>
+    {{-- <h1 class="m-0 text-dark">Edit Program: {{ $program->judul_konten }}</h1> --}}
 @stop
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Formulir Edit Program</h3>
-    </div>
-    <div class="card-body">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('admin.pamflet_programs.update', $program->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
 
-        <form action="{{ route('admin.programs.update', $program->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+                        <label for="judul">Judul Program</label>
+                        <input type="text" name="judul" id="judul"
+                            class="form-control @error('judul') is-invalid @enderror"
+                            value="{{ old('judul', $program->judul) }}">
+                        @error('judul')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 
-            <div class="form-group mb-3">
-                <label for="judul">Judul Program</label>
-                <input type="text" id="judul" name="judul" class="form-control" value="{{ old('judul', $program->judul) }}" required>
-            </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi Program</label>
+                            <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="5">{{ old('deskripsi', $program->deskripsi) }}</textarea>
+                            @error('deskripsi')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-            <div class="form-group mb-3">
-                <label for="deskripsi">Deskripsi Lengkap Program</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4" required>{{ old('deskripsi', $program->deskripsi) }}</textarea>
-            </div>
+                        <div class="form-group">
+                            <label for="keunggulan">Keunggulan Program</label>
+                            <textarea name="keunggulan" id="keunggulan" class="form-control @error('keunggulan') is-invalid @enderror"
+                                rows="5">{{ old('keunggulan', $program->keunggulan) }}</textarea>
+                            @error('keunggulan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-            <div class="form-group mb-3">
-                <label for="keunggulan">Keunggulan Program (Satu keunggulan per baris)</label>
-                <textarea id="keunggulan" name="keunggulan" class="form-control" rows="5" required>{{ old('keunggulan', $program->keunggulan) }}</textarea>
-            </div>
+                        <div class="form-group">
+                            <label for="gambar">Gambar Pamflet</label>
+                            @if ($program->gambar)
+                                <div class="mb-2">
+                                    <img src="{{ asset('uploads/programs/' . $program->gambar) }}" width="150"
+                                        class="img-thumbnail">
+                                    <div class="form-check mt-2">
+                                        <input type="checkbox" name="hapus_gambar" id="hapus_gambar"
+                                            class="form-check-input">
+                                        <label for="hapus_gambar" class="form-check-label">
+                                            Hapus gambar saat disimpan
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
+                            <input type="file" name="gambar" id="gambar"
+                                class="form-control-file @error('gambar') is-invalid @enderror">
+                            <small class="form-text text-muted">
+                                Format: jpeg,png,jpg,gif,svg | Maks: 5MB
+                            </small>
+                            @error('gambar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-            <div class="form-group mb-3">
-                <label for="gambar">Ganti Gambar (Kosongkan jika tidak ingin diubah)</label>
-                <input type="file" id="gambar" name="gambar" class="form-control">
-                <div class="mt-2">
-                    <label>Gambar Saat Ini:</label><br>
-                    <img src="{{ asset('uploads/programs/' . $program->gambar) }}" alt="Current Image" class="img-thumbnail" width="150">
+                        <div class="form-group">
+                            <label for="status">Status Program</label>
+                            <select name="status" id="status"
+                                class="form-control @error('status') is-invalid @enderror">
+                                <option value="aktif" {{ $program->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="nonaktif" {{ $program->status == 'nonaktif' ? 'selected' : '' }}>Nonaktif
+                                </option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Simpan Perubahan
+                            </button>
+                            <a href="{{ route('admin.pamflet_programs.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="form-group mb-3">
-                <label for="status">Status Program</label>
-                <select name="status" id="status" class="form-control" required>
-                    <option value="aktif" {{ old('status', $program->status) === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="nonaktif" {{ old('status', $program->status) === 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                </select>
-            </div>
-
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('admin.pamflet_programs.index') }}" class="btn btn-secondary">Batal</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+@stop
+
+@section('css')
+    <style>
+        .img-thumbnail {
+            max-height: 200px;
+            object-fit: cover;
+        }
+    </style>
 @stop

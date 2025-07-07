@@ -8,22 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
-
 class ProgramOfflineController extends Controller
 {
     public function index()
     {
         $programs = ProgramOffline::latest()->paginate(10);
-        // Ganti 'admin.program_offline.index' dengan path view Anda
         return view('admin.programs.offline.index', compact('programs'));
     }
 
     public function create()
     {
-        // Ganti 'admin.program_offline.create' dengan path view Anda
         return view('admin.programs.offline.create');
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,7 +29,7 @@ class ProgramOfflineController extends Controller
             'lama_program'     => 'required|string|max:255',
             'kategori'         => 'required|string|max:100',
             'harga'            => 'required|numeric|min:0',
-            'features_program' => 'required|string',
+            'features_program' => 'required',
             'lokasi'           => 'required|string|max:255',
             'jadwal_mulai'     => 'required|date',
             'jadwal_selesai'   => 'required|date|after_or_equal:jadwal_mulai',
@@ -41,9 +38,14 @@ class ProgramOfflineController extends Controller
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Konversi fitur dari teks ke array
-        $features = array_filter(array_map('trim', explode("\n", $validated['features_program'])));
-        $validated['features_program'] = $features;
+        // Convert features_program ke string jika bentuknya array (misalnya dari checkbox atau textarea multiline)
+        if (is_array($request->features_program)) {
+            $validated['features_program'] = implode(', ', $request->features_program);
+        } else {
+            // kalau berupa textarea dipisah newline
+            $lines = array_filter(array_map('trim', explode("\n", $request->features_program)));
+            $validated['features_program'] = implode(', ', $lines);
+        }
 
         // Upload thumbnail
         if ($request->hasFile('thumbnail')) {
@@ -55,34 +57,68 @@ class ProgramOfflineController extends Controller
 
         return redirect()->route('admin.offline.index')->with('success', 'Program offline berhasil ditambahkan.');
     }
-
-
-    public function edit(ProgramOffline $program_offline)
+    public function edit(ProgramOffline $offline)
     {
-        // Ganti 'admin.program_offline.edit' dengan path view Anda
-        return view('admin.offline.edit', ['program' => $program_offline]);
+        return view('admin.programs.offline.edit', ['offline' => $offline]);
     }
 
-    // public function update(UpdateRequest $request, ProgramOffline $program_offline)
-    // {
-    //     $validated = $request->validated();
+    public function update(Request $request, ProgramOffline $offline)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:program_offline,slug,' . $offline->id,
+            'lama_program' => 'required|string|max:100',
+            'kategori' => 'required|string|max:100',
+            'harga' => 'required|numeric|min:0',
+            'features_program' => 'nullable|string',
+            'lokasi' => 'required|string|max:255',
+            'jadwal_mulai' => 'required|date',
+            'jadwal_selesai' => 'required|date|after_or_equal:jadwal_mulai',
+            'kuota' => 'required|integer|min:1',
+            'is_active' => 'required|in:0,1',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
 
-    //     if ($request->hasFile('thumbnail')) {
-    //         // Hapus thumbnail lama jika ada
-    //         if ($program_offline->thumbnail) {
-    //             Storage::disk('public')->delete($program_offline->thumbnail);
-    //         }
-    //         $path = $request->file('thumbnail')->store('public/program_offline/thumbnails');
-    //         $validated['thumbnail'] = str_replace('public/', '', $path);
-    //     }
+        $data = $request->only([
+            'nama',
+            'slug',
+            'lama_program',
+            'kategori',
+            'harga',
+            'features_program',
+            'lokasi',
+            'jadwal_mulai',
+            'jadwal_selesai',
+            'kuota',
+            'is_active',
+        ]);
 
-    //     $validated['is_active'] = $request->has('is_active');
-    //     $validated['features_program'] = json_decode($validated['features_program'], true) ?? [];
+        // Hapus thumbnail jika dicentang
+        if ($request->has('hapus_thumbnail')) {
+            if ($offline->thumbnail && file_exists(public_path('uploads/thumbnails/' . $offline->thumbnail))) {
+                unlink(public_path('uploads/thumbnails/' . $offline->thumbnail));
+            }
+            $data['thumbnail'] = null;
+        }
 
-    //     $program_offline->update($validated);
+        // Upload thumbnail baru jika ada
+        if ($request->hasFile('thumbnail')) {
+            // Hapus thumbnail lama jika ada
+            if ($offline->thumbnail && file_exists(public_path('uploads/thumbnails/' . $offline->thumbnail))) {
+                unlink(public_path('uploads/thumbnails/' . $offline->thumbnail));
+            }
 
-    //     return redirect()->route('admin.program_offline.index')->with('success', 'Program Offline berhasil diperbarui.');
-    // }
+            $file = $request->file('thumbnail');
+            $namaFile = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/thumbnails'), $namaFile);
+            $data['thumbnail'] = $namaFile;
+        }
+
+        $offline->update($data);
+
+        return redirect()->route('admin.offline.index')->with('success', 'Program berhasil diperbarui.');
+    }
+
 
     public function destroy($id)
     {
@@ -93,7 +129,7 @@ class ProgramOfflineController extends Controller
             Storage::disk('public')->delete($program->thumbnail);
         }
 
-        // Soft delete (jika pakai SoftDeletes)
+        // Hapus permanen (bukan soft delete)
         $program->delete();
 
         return redirect()->route('admin.offline.index')->with('success', 'Program offline berhasil dihapus.');

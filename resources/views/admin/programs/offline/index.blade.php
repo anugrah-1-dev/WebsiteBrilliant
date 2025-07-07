@@ -58,8 +58,10 @@
                                         <td>{{ $program->nama }}</td>
                                         <td>Rp {{ number_format($program->harga, 0, ',', '.') }}</td>
                                         <td>
-                                            {{ $program->jadwal_mulai->format('d M Y') }} -
-                                            {{ $program->jadwal_selesai->format('d M Y') }}
+                                            {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M Y') }} -
+                                            {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
+
+
                                         </td>
                                         <td>{{ $program->kuota }}</td>
                                         <td>

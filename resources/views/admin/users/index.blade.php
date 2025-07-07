@@ -5,7 +5,9 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="m-0">Daftar User</h1>
-        <x-adminlte-button label="Tambah User" theme="primary" icon="fas fa-plus" data-toggle="modal" data-target="#createUserModal" />
+        <a href="{{ route('admin.users.create') }}">
+            <x-adminlte-button label="Tambah User" theme="primary" icon="fas fa-plus" />
+        </a>
     </div>
 @stop
 
@@ -73,8 +75,6 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        <x-adminlte-button theme="info" icon="fas fa-eye"
-                                            onclick="window.location='{{ route('admin.users.show', $user->id) }}'" title="Detail"/>
                                         <x-adminlte-button theme="warning" icon="fas fa-edit"
                                             onclick="window.location='{{ route('admin.users.edit', $user->id) }}'" title="Edit"/>
                                         <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="d-inline">
@@ -113,37 +113,6 @@
             </x-adminlte-card>
         </div>
     </div>
-
-    <!-- Create User Modal -->
-    <x-adminlte-modal id="createUserModal" title="Tambah User Baru" theme="lightblue" size="lg">
-        <form action="{{ route('admin.users.store') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-md-6">
-                    <x-adminlte-input name="name" label="Nama" placeholder="Masukkan nama user" required/>
-                </div>
-                <div class="col-md-6">
-                    <x-adminlte-input name="email" label="Email" type="email" placeholder="Masukkan email user" required/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <x-adminlte-input name="password" label="Password" type="password" placeholder="Password" required/>
-                </div>
-                <div class="col-md-6">
-                    <x-adminlte-select name="roles[]" label="Role" multiple>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
-                        @endforeach
-                    </x-adminlte-select>
-                </div>
-            </div>
-            <x-slot name="footerSlot">
-                <x-adminlte-button theme="secondary" label="Batal" data-dismiss="modal"/>
-                <x-adminlte-button type="submit" theme="primary" label="Simpan" icon="fas fa-save"/>
-            </x-slot>
-        </form>
-    </x-adminlte-modal>
 @stop
 
 @section('css')
