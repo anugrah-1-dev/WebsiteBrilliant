@@ -12,7 +12,7 @@ class ProgramCampSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'Camp VVIP Putra Putri',
+                'nama' => 'BIE+ Camp [VVIP] ',
                 'slug' => Str::slug('Camp VVIP Putra Putri'),
                 'kategori' => 'VVIP',
                 'stok' => 10,
@@ -30,7 +30,7 @@ class ProgramCampSeeder extends Seeder
                 'thumbnail' => null,
             ],
             [
-                'nama' => 'Camp VIP Putra',
+                'nama' => 'BIE+ Camp [VIP]',
                 'slug' => Str::slug('Camp VIP Putra'),
                 'kategori' => 'VIP',
                 'stok' => 134,
@@ -48,7 +48,7 @@ class ProgramCampSeeder extends Seeder
                 'thumbnail' => null,
             ],
             [
-                'nama' => 'Camp Barack Putra Putri',
+                'nama' => 'BIE+ Camp [Barack]',
                 'slug' => Str::slug('Camp Barack Putra Putri'),
                 'kategori' => 'Barack',
                 'stok' => 2,

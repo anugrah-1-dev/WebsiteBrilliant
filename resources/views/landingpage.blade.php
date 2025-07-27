@@ -403,10 +403,50 @@
                             <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
                         </div>
                         <div class="camp-card-body">
-                            <h3 class="camp-card-title">{{ $camp->nama }}</h3>
-                            <p class="camp-card-description">
-                                {{ $camp->deskripsi ?? 'Pilihan terbaik dengan fasilitas modern dan kenyamanan optimal untuk pengalaman belajar yang maksimal.' }}
-                            </p>
+                            <h3 class="camp-card-title text-center fw-bold text-decoration-underline fs-4" style="color: #0d47a1;">
+                                {{ $camp->nama }}
+                            </h3>
+                            <div class="camp-card-description">
+
+                                {{-- ============================== --}}
+                                {{-- Deskripsi Berdasarkan Urutan Index --}}
+                                {{-- ============================== --}}
+                                @php
+                                    $posisi = $loop->index % 3; // 0,1,2 berulang
+                                @endphp
+                            
+                                @switch($posisi)
+                                    @case(0)
+                                        <p style="text-align: justify;">
+                                            <strong>BIE+ Camp (VVIP)</strong> adalah pilihan premium kami yang dirancang khusus untuk memberikan privasi dan kenyamanan maksimal bagi peserta. Cocok bagi Anda yang ingin fokus belajar dengan fasilitas terbaik.
+                                        </p>
+                                        @break
+                            
+                                    @case(1)
+                                        <p style="text-align: justify;">
+                                            <strong>BIE+ Camp (VIP)</strong> menawarkan perpaduan ideal antara fasilitas modern dan kenyamanan. Pilihan ini cocok bagi peserta yang ingin belajar secara intensif dengan suasana nyaman.
+                                        </p>
+                                        @break
+                            
+                                    @case(2)
+                                        <p style="text-align: justify;">
+                                            <strong>BIE+ Camp (Barack)</strong> adalah solusi ekonomis bagi peserta yang mengutamakan kebersamaan dan efisiensi. Fasilitas memadai untuk menunjang proses belajar di Kampung Inggris.
+                                        </p>
+                                        @break
+                                @endswitch
+                            
+                                {{-- ============================== --}}
+                                {{-- Fasilitas Dinamis --}}
+                                {{-- ============================== --}}
+                                <strong>Fasilitas:</strong>
+                                <ul>
+                                    @foreach(explode(',', $camp->fasilitas) as $fasilitas)
+                                        <li>{{ trim($fasilitas) }}</li>
+                                    @endforeach
+                                </ul>
+                            
+                            </div>
+                            
                             <div class="promo-banner">
                                 <i class="fas fa-star"></i> Special Promo Available <i class="fas fa-fire"></i>
                             </div>
