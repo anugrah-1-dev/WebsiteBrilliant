@@ -17,6 +17,8 @@ class RoomController extends Controller
         $programCamps = ProgramCamp::all();
         $rooms = Rooms::all();
 
+        $pendaftar = PendaftaranProgramCamp::whereNotNull('room_id')->get();
+
         $durasiToDays = [
             'perhari' => 1,
             'satu_minggu' => 7,
@@ -29,8 +31,7 @@ class RoomController extends Controller
         ];
 
         $penghuniExpired = [];
-
-        $pendaftar = PendaftaranProgramCamp::whereNotNull('room_id')->get();
+        $penghuniAktifPerRoom = [];
 
         foreach ($pendaftar as $p) {
             $durasi = $durasiToDays[$p->durasi_paket] ?? 0;
@@ -45,11 +46,18 @@ class RoomController extends Controller
                     'durasi' => $p->durasi_paket,
                     'expired_at' => $endDate->format('d M Y')
                 ];
+            } else {
+                $penghuniAktifPerRoom[$p->room_id] = ($penghuniAktifPerRoom[$p->room_id] ?? 0) + 1;
             }
         }
 
-        return view('admin.rooms.index', compact('rooms', 'programCamps', 'penghuniExpired'));
+        $rooms->each(function ($room) use ($penghuniAktifPerRoom) {
+            $room->penghuni = $penghuniAktifPerRoom[$room->id] ?? 0;
+        });
+
+        return view('admin.rooms.index', compact('rooms', 'programCamps', 'penghuniExpired', 'penghuniAktifPerRoom'));
     }
+
 
 
     public function edit(Rooms $room)
@@ -104,7 +112,8 @@ class RoomController extends Controller
                 'no_hp',
                 'gender',
                 'period_id',
-                'updated_at'
+                'updated_at',
+                'nama_kamar'
             ]);
 
         return response()->json($penghuni);
@@ -147,11 +156,17 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Peserta tidak ditemukan.']);
         }
 
-        $peserta->room_id = $request->room_id_baru;
+        $roomBaru = Rooms::find($request->room_id_baru);
+
+        $peserta->room_id = $roomBaru->id;
+        $peserta->nama_kamar = $roomBaru->nomor_kamar;
         $peserta->save();
+
 
         return response()->json(['success' => true]);
     }
+
+
 
     public function getPesertaDetail($roomId)
     {

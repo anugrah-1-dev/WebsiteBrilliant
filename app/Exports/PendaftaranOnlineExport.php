@@ -15,20 +15,36 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMapping, WithEvents, WithDrawings
 {
+    protected $startDate;
+    protected $endDate;
     protected $pendaftarans;
     // --- PENGATURAN TAMPILAN ---
     protected $row_height = 80;
-    protected $column_H_width = 20; // 2. Kolom gambar sekarang H
-    // ----------------------------
+    protected $column_H_width = 20;
 
-    public function __construct()
+    public function __construct($startDate, $endDate)
     {
-        $this->pendaftarans = PendaftaranProgramOnline::with(['program', 'period'])->get();
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+
     }
 
     public function collection()
     {
-        return $this->pendaftarans;
+        return PendaftaranProgramOnline::select([
+            'trx_id',
+            'nama_lengkap',
+            'email',
+            'no_hp',
+            'asal_kota',
+            'program_id',
+            'period_id',
+            'bukti_pembayaran',
+            'status',
+        ])
+            ->whereDate('created_at', '>=', $this->startDate)
+            ->whereDate('created_at', '<=', $this->endDate)
+            ->get();
     }
 
     public function headings(): array
@@ -104,26 +120,30 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                 $highestRow = $sheet->getDelegate()->getHighestRow();
                 $highestColumn = $sheet->getDelegate()->getHighestColumn();
                 $cellRange = 'A1:' . $highestColumn . $highestRow;
-                
-                $sheet->getStyle($cellRange)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-                $sheet->getStyle('A1:' . $highestColumn.'1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A1:' . $highestColumn.'1')->getFont()->setBold(true);
 
-                foreach ($this->pendaftarans as $key => $pendaftaran) {
-                    $rowNumber = $key + 2;
-                    if ($pendaftaran->bukti_pembayaran && file_exists(public_path('storage/' . $pendaftaran->bukti_pembayaran))) {
-                        $sheet->getDelegate()->getRowDimension($rowNumber)->setRowHeight($this->row_height);
-                    } else {
-                        $sheet->getDelegate()->getRowDimension($rowNumber)->setRowHeight(25);
-                    }
+                $sheet->getStyle($cellRange)->applyFromArray([
+                    'borders' => [
+                        'allBorders' => ['borderStyle' => Border::BORDER_THIN],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                        'wrapText' => true,
+                    ],
+                ]);
+
+                for ($row = 1; $row <= $highestRow; $row++) {
+                    $sheet->getDelegate()->getRowDimension($row)->setRowHeight(25);
                 }
 
-                // 6. Pengaturan lebar kolom disesuaikan
-                foreach (range('A', 'G') as $col) { $sheet->getDelegate()->getColumnDimension($col)->setAutoSize(true); }
-                $sheet->getDelegate()->getColumnDimension('I')->setAutoSize(true);
-                $sheet->getDelegate()->getColumnDimension('H')->setWidth($this->column_H_width);
+                foreach (range('A', $highestColumn) as $col) {
+                    $sheet->getDelegate()->getColumnDimension($col)->setAutoSize(true);
+                }
 
-                 $sheet->getStyle($cellRange)->applyFromArray(['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]]]);
+                $sheet->getStyle('A1:' . $highestColumn . '1')->applyFromArray([
+                    'font' => ['bold' => true],
+                ]);
+                $sheet->getDelegate()->getRowDimension(1)->setRowHeight(30);
             },
         ];
     }

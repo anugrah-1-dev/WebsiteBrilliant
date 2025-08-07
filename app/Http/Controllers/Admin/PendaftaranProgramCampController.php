@@ -64,20 +64,44 @@ class PendaftaranProgramCampController extends Controller
     }
 
 
-    public function exportCsv()
+
+    public function exportCamp(Request $request)
     {
-        return Excel::download(new PendaftaranCampExport, 'pendaftaran.camp.xlsx');
+        $start = $request->input('start_date');
+        $end = $request->input('end_date');
+
+        if (!$start || !$end) {
+            return redirect()->back()->with('error', 'Tanggal mulai dan akhir wajib diisi.');
+        }
+
+        $filename = "pendaftaran_camp_{$start}_to_{$end}.xlsx";
+
+        return Excel::download(new PendaftaranCampExport($start, $end), $filename);
     }
 
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,diterima,ditolak',
+            'status' => 'required|in:pending,validasi,diterima,ditolak',
         ]);
 
-        $data = PendaftaranProgramCamp::findOrFail($id);
-        $data->status = $request->status;
-        $data->save();
+        $pendaftar = PendaftaranProgramCamp::findOrFail($id);
+        $oldStatus = $pendaftar->status;
+        $newStatus = $request->status;
+
+        // Jika status diubah menjadi ditolak dan peserta sebelumnya sudah pilih kamar
+        if ($newStatus === 'ditolak' && $pendaftar->room_id) {
+            $room = Rooms::find($pendaftar->room_id);
+            if ($room && $room->penghuni > 0) {
+                $room->decrement('penghuni');
+            }
+
+            $pendaftar->room_id = null;
+            $pendaftar->nama_kamar = null;
+        }
+
+        $pendaftar->status = $newStatus;
+        $pendaftar->save();
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui.');
     }
@@ -87,7 +111,6 @@ class PendaftaranProgramCampController extends Controller
         $peserta = PendaftaranProgramCamp::findOrFail($id);
 
         $newRoomId = $request->input('target_room_id');
-
         $newRoom = Rooms::findOrFail($newRoomId);
 
         // Validasi jika kamar masih tersedia
@@ -98,12 +121,13 @@ class PendaftaranProgramCampController extends Controller
         // Update room lama: -1 penghuni
         $oldRoom = Rooms::find($peserta->room_id);
         if ($oldRoom) {
-            $oldRoom->penghuni -= 1;
+            $oldRoom->penghuni = max(0, $oldRoom->penghuni - 1); // hindari negatif
             $oldRoom->save();
         }
 
         // Pindahkan peserta
         $peserta->room_id = $newRoomId;
+        $peserta->nama_kamar = $newRoom->nomor_kamar; // ✅ update nama kamar juga
         $peserta->save();
 
         // Update room baru: +1 penghuni

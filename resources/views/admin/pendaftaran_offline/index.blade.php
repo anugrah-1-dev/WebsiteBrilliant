@@ -14,12 +14,15 @@
                     </button>
                 </span>
             </div>
-            <a href="{{ route('admin.pendaftaran.offline.export') }}" class="btn btn-success btn-sm ml-md-2">
+            <button class="btn btn-success btn-sm ml-md-2" data-toggle="modal" data-target="#exportModal">
                 <i class="fas fa-file-csv mr-1"></i> Export CSV
-            </a>
+            </button>
+
         </div>
     </div>
 @stop
+
+
 
 @section('content')
     @if (session('success'))
@@ -30,7 +33,37 @@
             </button>
         </div>
     @endif
+    <!-- Modal Export -->
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('admin.pendaftaran.offline.export') }}" method="GET">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportModalLabel">Export Berdasarkan Tanggal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Dari Tanggal:</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Sampai Tanggal:</label>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Export</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">Data Pendaftar</h3>
@@ -97,23 +130,23 @@
                                     @endif
                                 </td>
                                 <td>
-    <div class="btn-group btn-group-sm">
-        <a href="{{ route('admin.pendaftaran.offline.edit', $data->id) }}"
-            class="btn btn-primary btn-action" title="Edit Status">
-            <i class="fas fa-pencil-alt"></i>
-        </a>
-        <form action="{{ route('admin.pendaftaran.offline.destroy', $data->id) }}"
-            method="POST"
-            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini secara permanen?');"
-            class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
-                <i class="fas fa-trash"></i>
-            </button>
-        </form>
-    </div>
-</td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ route('admin.pendaftaran.offline.edit', $data->id) }}"
+                                            class="btn btn-primary btn-action" title="Edit Status">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <form action="{{ route('admin.pendaftaran.offline.destroy', $data->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini secara permanen?');"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
 
                             </tr>
                         @empty
@@ -135,6 +168,9 @@
     </div>
 @stop
 
+
+
+
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <style>
@@ -143,19 +179,21 @@
         }
 
         .table-responsive {
-    min-height: 480px; /* TINGGI MINIMAL agar tabel tampak penuh */
-    max-height: 500px; /* tetap boleh scroll kalau data banyak */
-    overflow-y: auto;
-    overflow-x: auto;
-}
+            min-height: 480px;
+            /* TINGGI MINIMAL agar tabel tampak penuh */
+            max-height: 500px;
+            /* tetap boleh scroll kalau data banyak */
+            overflow-y: auto;
+            overflow-x: auto;
+        }
 
-.table-placeholder {
-    height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    color: #aaa;
-    font-style: italic;
-}
+        .table-placeholder {
+            height: 100px;
+            text-align: center;
+            vertical-align: middle;
+            color: #aaa;
+            font-style: italic;
+        }
 
 
 
@@ -173,14 +211,13 @@
         }
 
         .btn-action {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-}
-
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
     </style>
 @stop
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

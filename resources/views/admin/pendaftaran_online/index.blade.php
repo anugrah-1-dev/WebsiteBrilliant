@@ -14,9 +14,9 @@
                     </button>
                 </span>
             </div>
-            <a href="{{ route('admin.pendaftaran.online.export') }}" class="btn btn-success btn-sm ml-md-2">
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#exportModalOnline">
                 <i class="fas fa-file-csv mr-1"></i> Export CSV
-            </a>
+            </button>
         </div>
     </div>
 @stop
@@ -30,6 +30,37 @@
             </button>
         </div>
     @endif
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exportModalOnline" tabindex="-1" role="dialog" aria-labelledby="exportModalOnlineLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('admin.pendaftaran.online.export') }}" method="GET">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Export Pendaftaran Online</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="start_date">Dari Tanggal</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date">Sampai Tanggal</label>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Export</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="card card-outline card-primary">
         <div class="card-header">
@@ -99,23 +130,23 @@
                                     @endif
                                 </td>
                                 <td>
-    <div class="btn-group btn-group-sm">
-        <a href="{{ route('admin.pendaftaran.online.edit', $data->id) }}"
-            class="btn btn-primary btn-action" title="Edit Status">
-            <i class="fas fa-pencil-alt"></i>
-        </a>
-        <form action="{{ route('admin.pendaftaran.online.destroy', $data->id) }}"
-            method="POST"
-            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini?');"
-            class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
-                <i class="fas fa-trash"></i>
-            </button>
-        </form>
-    </div>
-</td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ route('admin.pendaftaran.online.edit', $data->id) }}"
+                                            class="btn btn-primary btn-action" title="Edit Status">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <form action="{{ route('admin.pendaftaran.online.destroy', $data->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini?');"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
 
                             </tr>
                         @empty
@@ -184,13 +215,13 @@
         }
 
         .btn-action {
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
     </style>
 @stop
 

@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
+
 class PendaftaranOfflineController extends Controller
 {
     public function index()
@@ -29,7 +30,7 @@ class PendaftaranOfflineController extends Controller
     /**
      * Menampilkan halaman untuk mengedit status pendaftaran.
      */
- 
+
 
     /**
      * Menampilkan halaman untuk mengedit status pendaftaran.
@@ -62,12 +63,21 @@ class PendaftaranOfflineController extends Controller
         $data->delete();
 
         return redirect()->route('admin.pendaftaran.offline.index')->with('success', 'Data pendaftaran berhasil dihapus.');
-   
+
     }
 
-    public function exportCsvOffline()
+    public function export(Request $request)
     {
-        return Excel::download(new PendaftaranOfflineExport, 'pendaftaran_program_offline.xlsx');
+        $start = $request->input('start_date');
+        $end = $request->input('end_date');
+
+        if (!$start || !$end) {
+            return redirect()->back()->with('error', 'Tanggal harus diisi!');
+        }
+
+        $filename = "pendaftaran_offline_{$start}_to_{$end}.xlsx";
+
+        return Excel::download(new PendaftaranOfflineExport($start, $end), $filename);
     }
 
     /**

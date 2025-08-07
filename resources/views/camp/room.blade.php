@@ -162,19 +162,23 @@
                                 @foreach (RD::filter($rooms, 'A', 19, 23) as $kamar)
                                     @if ($kamar->gender === 'putri' && $kamar->nomor_kamar !== 'A-12A')
                                         @php
-                                            $isFull = $kamar->penghuni >= $kamar->kapasitas;
+                                            $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                            $isFull = $penghuniAktif >= $kamar->kapasitas;
+                                            $isInactive = $kamar->status === 'nonaktif';
                                         @endphp
-                                        <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                        <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
                                             data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
                                             data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
                                             data-kategori="{{ $kamar->kategori }}"
                                             data-kapasitas="{{ $kamar->kapasitas }}"
                                             data-penghuni="{{ $kamar->penghuni }}"
-                                            @unless ($isFull) onclick="selectRoom(this)" role="button" @endunless
-                                            style="{{ $isFull ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+                                            @unless ($isFull || $isInactive) onclick="selectRoom(this)" role="button" @endunless
+                                            style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
 
                                             <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                            <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                            <span
+                                                class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+
                                         </div>
                                     @endif
                                 @endforeach
@@ -190,19 +194,24 @@
                                 @foreach (RD::filter($rooms, 'A', 24, 28) as $kamar)
                                     @if ($kamar->gender === 'putra')
                                         @php
-                                            $isFull = $kamar->penghuni >= $kamar->kapasitas;
+                                            $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                            $isFull = $penghuniAktif >= $kamar->kapasitas;
+                                            $isInactive = $kamar->status === 'nonaktif';
+
                                         @endphp
-                                        <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                        <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
                                             data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
                                             data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
                                             data-kategori="{{ $kamar->kategori }}"
                                             data-kapasitas="{{ $kamar->kapasitas }}"
                                             data-penghuni="{{ $kamar->penghuni }}"
-                                            @unless ($isFull) onclick="selectRoom(this)" role="button" @endunless
-                                            style="{{ $isFull ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+                                            @unless ($isFull || $isInactive) onclick="selectRoom(this)" role="button" @endunless
+                                            style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
 
                                             <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                            <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                            <span
+                                                class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+
                                         </div>
                                     @endif
                                 @endforeach
@@ -256,17 +265,22 @@
 
                             @foreach ($vipRooms->unique('nomor_kamar') as $kamar)
                                 @php
-                                    $isFull = $kamar->penghuni >= $kamar->kapasitas;
+                                    $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                    $isFull = $penghuniAktif >= $kamar->kapasitas;
+                                    $isInactive = $kamar->status === 'nonaktif';
                                 @endphp
-                                <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
-                                    data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
-                                    data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
-                                    data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
-                                    @unless ($isFull) onclick="selectRoom(this)" role="button" @endunless
-                                    style="{{ $isFull ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+                                <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
+                                    data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
+                                    data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
+                                    data-kategori="{{ $kamar->kategori }}" data-kapasitas="{{ $kamar->kapasitas }}"
+                                    data-penghuni="{{ $kamar->penghuni }}"
+                                    @unless ($isFull || $isInactive) onclick="selectRoom(this)" role="button" @endunless
+                                    style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+
 
                                     <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                    <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                    <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+
                                 </div>
                             @endforeach
                         </div>
@@ -286,26 +300,32 @@
                         <div class="gender-column">
                             <div class="gender-title">Putri</div>
                             <div class="room-grid">
-                                @php $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A'); @endphp
                                 @php
                                     $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A');
-                                    $kamar = $kamarPutriBarack;
-                                    $isFull = $kamar ? $kamar->penghuni >= $kamar->kapasitas : false;
                                 @endphp
 
-
                                 @if ($kamarPutriBarack)
-                                    <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
-                                        data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
-                                        data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
-                                        data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
-                                        @unless ($isFull) onclick="selectRoom(this)" role="button" @endunless
-                                        style="{{ $isFull ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+                                    @php
+                                        $kamar = $kamarPutriBarack;
+                                        $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                        $isFull = $penghuniAktif >= $kamar->kapasitas;
+                                        $isInactive = $kamar->status === 'nonaktif';
+                                    @endphp
+
+                                    <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
+                                        data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
+                                        data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
+                                        data-kategori="{{ $kamar->kategori }}" data-kapasitas="{{ $kamar->kapasitas }}"
+                                        data-penghuni="{{ $kamar->penghuni }}"
+                                        @unless ($isFull || $isInactive) onclick="selectRoom(this)" role="button" @endunless
+                                        style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
 
                                         <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                        <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                        <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+
                                     </div>
                                 @endif
+
                             </div>
                         </div>
                     </div>
@@ -316,26 +336,29 @@
                         <div class="gender-column">
                             <div class="gender-title">Putra</div>
                             <div class="room-grid">
-                                @php $kamarPutraBarack = $rooms->firstWhere('nomor_kamar', 'A-35'); @endphp
                                 @php
                                     $kamarPutraBarack = $rooms->firstWhere('nomor_kamar', 'A-35');
-                                    $kamar = $kamarPutraBarack;
-
-                                    $isFull = $kamar ? $kamar->penghuni >= $kamar->kapasitas : false;
                                 @endphp
 
-
                                 @if ($kamarPutraBarack)
-                                    <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                    @php
+                                        $kamar = $kamarPutraBarack;
+                                        $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                        $isFull = $penghuniAktif >= $kamar->kapasitas;
+                                        $isInactive = $kamar->status === 'nonaktif'; //
+                                    @endphp
+
+                                    <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
                                         data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
                                         data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
                                         data-kategori="{{ $kamar->kategori }}" data-kapasitas="{{ $kamar->kapasitas }}"
                                         data-penghuni="{{ $kamar->penghuni }}"
-                                        @unless ($isFull) onclick="selectRoom(this)" role="button" @endunless
-                                        style="{{ $isFull ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
+                                        @unless ($isFull || $isInactive) onclick="selectRoom(this)" role="button" @endunless
+                                        style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
 
                                         <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                        <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                        <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+
                                     </div>
                                 @endif
                             </div>

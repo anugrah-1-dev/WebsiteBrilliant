@@ -53,37 +53,68 @@ class RoomDummy
         });
     }
 
-    public static function getStatusClass($room)
+    // public static function getStatusClass($room)
+    // {
+    //     if ($room->status === 'nonaktif') {
+    //         return 'room-nonaktif'; // Misal ini warna abu-abu di CSS-mu
+    //     }
+
+    //     $penghuni = $room->penghuni ?? 0;
+    //     $kapasitas = $room->kapasitas ?? 1;
+
+    //     return match (true) {
+    //         $penghuni >= $kapasitas => 'room-full',
+    //         $penghuni > 0 => 'room-partial',
+    //         default => 'room-empty'
+    //     };
+    // }
+    public static function getStatusClass($room, $penghuniAktif = 0)
     {
         if ($room->status === 'nonaktif') {
-            return 'room-nonaktif'; // Misal ini warna abu-abu di CSS-mu
+            return 'room-nonaktif'; // Warna abu-abu
         }
 
-        $penghuni = $room->penghuni ?? 0;
         $kapasitas = $room->kapasitas ?? 1;
 
         return match (true) {
-            $penghuni >= $kapasitas => 'room-full',
-            $penghuni > 0 => 'room-partial',
+            $penghuniAktif >= $kapasitas => 'room-full',
+            $penghuniAktif > 0 => 'room-partial',
             default => 'room-empty'
         };
     }
 
-    public static function getStatusText($room)
+
+    // public static function getStatusText($room)
+    // {
+    //     if ($room->status === 'nonaktif') {
+    //         return 'Dalam Perbaikan';
+    //     }
+
+    //     $penghuni = $room->penghuni ?? 0;
+    //     $kapasitas = $room->kapasitas ?? 1;
+
+    //     return match (true) {
+    //         $penghuni >= $kapasitas => 'Penuh',
+    //         $penghuni > 0 => 'Hampir Penuh',
+    //         default => 'Kosong'
+    //     };
+    // }
+    public static function getStatusText($room, $penghuniAktif = 0)
     {
         if ($room->status === 'nonaktif') {
             return 'Dalam Perbaikan';
         }
 
-        $penghuni = $room->penghuni ?? 0;
         $kapasitas = $room->kapasitas ?? 1;
 
         return match (true) {
-            $penghuni >= $kapasitas => 'Penuh',
-            $penghuni > 0 => 'Hampir Penuh',
+            $penghuniAktif >= $kapasitas => 'Penuh',
+            $penghuniAktif > 0 => 'Hampir Penuh',
             default => 'Kosong'
         };
     }
+
+
 
 
 

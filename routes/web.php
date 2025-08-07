@@ -185,15 +185,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 
     //CSV Export
-    Route::get('/pendaftaran-online/export', [PendaftaranOnlineController::class, 'exportCsv'])
-        ->name('pendaftaran.online.export');
+    Route::get('/pendaftaran/online/export', [PendaftaranOnlineController::class, 'exportOnline'])->name('pendaftaran.online.export');
 
     //CSV Export
-    Route::get('/pendaftaran-offline/export', [PendaftaranOfflineController::class, 'exportCsvOffline'])
-        ->name('pendaftaran.offline.export');
-    //csv export camp
-    Route::get('/pendaftaran-camp/export', [PendaftaranProgramCampController::class, 'exportCsv'])
-        ->name('camp.export');
+    Route::get('/pendaftaran/offline/export', [PendaftaranOfflineController::class, 'export'])->name('pendaftaran.offline.export');
+
+    Route::get('/pendaftaran/camp/export', [PendaftaranProgramCampController::class, 'exportCamp'])->name('pendaftaran.camp.export');
+
     // Pembayaran
     // Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
     // Route::post('/upload-bukti', [PembayaranController::class, 'uploadBukti'])->name('bukti.upload');

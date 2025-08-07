@@ -91,12 +91,42 @@ class PendaftranCampController extends Controller
         $pendaftar = PendaftaranProgramCamp::where('trx_id', $trx_id)->firstOrFail();
         $rooms = Rooms::where('program_camp_id', $pendaftar->program_camp_id)->get();
 
+        // Ambil semua pendaftar di program camp ini
+        $allPendaftar = PendaftaranProgramCamp::whereNotNull('room_id')
+            ->where('program_camp_id', $pendaftar->program_camp_id)
+            ->get();
+
+        // Durasi paket ke hari
+        $durasiToDays = [
+            'perhari' => 1,
+            'satu_minggu' => 7,
+            'dua_minggu' => 14,
+            'tiga_minggu' => 21,
+            'empat_minggu' => 28,
+            'lima_minggu' => 35,
+            'enam_minggu' => 42,
+        ];
+
+        // Hitung penghuni aktif per kamar
+        $penghuniAktifPerRoom = [];
+
+        foreach ($allPendaftar as $p) {
+            $durasi = $durasiToDays[$p->durasi_paket] ?? 0;
+            $endDate = Carbon::parse($p->updated_at)->addDays($durasi);
+
+            if (now()->lessThanOrEqualTo($endDate)) {
+                $penghuniAktifPerRoom[$p->room_id] = ($penghuniAktifPerRoom[$p->room_id] ?? 0) + 1;
+            }
+        }
+
         return view('camp.room', [
             'rooms' => $rooms,
             'pendaftar' => $pendaftar,
             'trx_id' => $trx_id,
+            'penghuniAktifPerRoom' => $penghuniAktifPerRoom, // dikirim ke blade
         ]);
     }
+
 
 
     public static function filter($rooms, $prefix, $start, $end, $gender = null)
@@ -122,22 +152,42 @@ class PendaftranCampController extends Controller
         $pendaftar = PendaftaranProgramCamp::where('trx_id', $request->trx_id)->firstOrFail();
         $room = Rooms::findOrFail($request->kamar_id);
 
-        // Cek apakah kamar sudah penuh
-        if ($room->penghuni >= $room->kapasitas) {
+        // Cek penghuni aktif di kamar ini (berdasarkan durasi paket)
+        $durasiToDays = [
+            'perhari' => 1,
+            'satu_minggu' => 7,
+            'dua_minggu' => 14,
+            'tiga_minggu' => 21,
+            'empat_minggu' => 28,
+            'lima_minggu' => 35,
+            'enam_minggu' => 42,
+        ];
+
+        $penghuniAktif = PendaftaranProgramCamp::where('room_id', $room->id)
+            ->get()
+            ->filter(function ($p) use ($durasiToDays) {
+                $durasi = $durasiToDays[$p->durasi_paket] ?? 0;
+                $endDate = Carbon::parse($p->updated_at)->addDays($durasi);
+                return now()->lessThanOrEqualTo($endDate);
+            })
+            ->count();
+
+        // Jika penuh, tolak
+        if ($penghuniAktif >= $room->kapasitas) {
             return redirect()->back()->with('error', 'Kamar sudah penuh!');
         }
 
-        // Update data pendaftaran dengan kamar terpilih
+        // Update data pendaftar
         $pendaftar->update([
             'room_id'    => $room->id,
             'nama_kamar' => $room->nomor_kamar,
         ]);
 
-        // Tambah jumlah penghuni kamar
-        $room->increment('penghuni');
+        // Tidak perlu increment kolom penghuni secara manual,
+        // karena kita sekarang pakai hitungan dinamis berbasis waktu
 
-        // Jika penghuni == kapasitas, kurangi stok program_camp
-        if ($room->penghuni >= $room->kapasitas) {
+        // Kurangi stok jika setelah ditambahkan jumlah penghuni = kapasitas
+        if ($penghuniAktif + 1 >= $room->kapasitas) {
             $program = ProgramCamp::findOrFail($room->program_camp_id);
             if ($program->stok > 0) {
                 $program->decrement('stok');
@@ -147,6 +197,7 @@ class PendaftranCampController extends Controller
         return redirect()->route('camp.pembayaran', ['trx_id' => $request->trx_id])
             ->with('success', 'Kamar berhasil dipilih!');
     }
+
 
 
     public function halamanPembayaran($trx_id)
@@ -162,7 +213,7 @@ class PendaftranCampController extends Controller
     {
         $pendaftaran = PendaftaranProgramCamp::with('programCamp')->findOrFail($id);
         return view('camp.pembayaran', compact('pendaftaran'));
-      
+
     }
     public function uploadBukti(Request $request)
 {
@@ -189,7 +240,7 @@ class PendaftranCampController extends Controller
         ->with('trx_id', $pendaftaran->trx_id);
 }
 
-    
+
 
 
 }

@@ -14,9 +14,9 @@
                     </button>
                 </span>
             </div>
-            <a href="{{ route('admin.camp.export') }}" class="btn btn-success btn-sm ml-md-2">
-                <i class="fas fa-file-csv mr-1"></i> Export CSV
-            </a>
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#exportModalCamp">
+                <i class="fas fa-file-csv mr-1"></i> Export Camp
+            </button>
         </div>
     </div>
 @stop
@@ -30,6 +30,37 @@
             </button>
         </div>
     @endif
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exportModalCamp" tabindex="-1" role="dialog" aria-labelledby="exportModalCampLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('admin.pendaftaran.camp.export') }}" method="GET">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Export Pendaftaran Camp</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="start_date">Dari Tanggal</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date">Sampai Tanggal</label>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Export</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="card card-outline card-primary">
         <div class="card-header">

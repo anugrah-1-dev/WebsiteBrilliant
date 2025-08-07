@@ -73,15 +73,21 @@
                                 <div class="room-grid">
                                     @foreach (RD::filter($rooms, 'A', 19, 23) as $kamar)
                                         @if ($kamar->nomor_kamar != 'A-12A')
-                                            <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                            @php
+                                                $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                            @endphp
+
+                                            <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
                                                 data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
                                                 data-kamar="{{ $kamar->nomor_kamar }}"
                                                 data-gender="{{ $kamar->gender }}"
                                                 data-kategori="{{ $kamar->kategori }}"
                                                 data-kapasitas="{{ $kamar->kapasitas }}"
-                                                data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
+                                                data-penghuni="{{ $penghuniAktif }}" onclick="openEditModal(this)">
+
                                                 <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                                <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                                <span
+                                                    class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
                                             </div>
                                         @endif
                                     @endforeach
@@ -96,14 +102,20 @@
                                 <div class="gender-title">Putra</div>
                                 <div class="room-grid">
                                     @foreach (RD::filter($rooms, 'A', 24, 28) as $kamar)
-                                        <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                        @php
+                                            $penghuniAktif = $penghuniAktifPerRoom[$kamar->id] ?? 0;
+                                        @endphp
+
+                                        <div class="room-card {{ RD::getStatusClass($kamar, $penghuniAktif) }}"
                                             data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
                                             data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
                                             data-kategori="{{ $kamar->kategori }}"
                                             data-kapasitas="{{ $kamar->kapasitas }}"
-                                            data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
+                                            data-penghuni="{{ $penghuniAktif }}" onclick="openEditModal(this)">
+
                                             <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                            <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                            <span
+                                                class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -112,84 +124,84 @@
                     </div>
                 </div>
 
-                {{-- ================= VIP SECTION ================= --}}
-                <div class="room-section">
-                    <h3 class="section-title">Kamar VIP</h3>
+                    {{-- ================= VIP SECTION ================= --}}
+                    <div class="room-section">
+                        <h3 class="section-title">Kamar VIP</h3>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="gender-column">
-                                <div class="gender-title">Putri</div>
-                                <div class="room-grid">
-                                    @php
-                                        $vipPutri = collect()
-                                            ->merge(RD::filter($rooms, 'A', 1, 18))
-                                            ->merge(RD::filter($rooms, 'B', 1, 25))
-                                            ->merge(RD::filter($rooms, 'C', 1, 25))
-                                            ->reject(function ($kamar) {
-                                                return $kamar->nomor_kamar === 'A-12A' ||
-                                                    strtoupper($kamar->kategori) !== 'VIP';
-                                            });
-                                    @endphp
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="gender-column">
+                                    <div class="gender-title">Putri</div>
+                                    <div class="room-grid">
+                                        @php
+                                            $vipPutri = collect()
+                                                ->merge(RD::filter($rooms, 'A', 1, 18))
+                                                ->merge(RD::filter($rooms, 'B', 1, 25))
+                                                ->merge(RD::filter($rooms, 'C', 1, 25))
+                                                ->reject(function ($kamar) {
+                                                    return $kamar->nomor_kamar === 'A-12A' ||
+                                                        strtoupper($kamar->kategori) !== 'VIP';
+                                                });
+                                        @endphp
 
-                                    @foreach ($vipPutri->unique('nomor_kamar') as $kamar)
-                                        <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                            data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                            data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
-                                            data-kategori="{{ $kamar->kategori }}"
-                                            data-kapasitas="{{ $kamar->kapasitas }}"
-                                            data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
-                                            <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                            <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
-                                        </div>
-                                    @endforeach
+                                        @foreach ($vipPutri->unique('nomor_kamar') as $kamar)
+                                            <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                                data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
+                                                data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
+                                                data-kategori="{{ $kamar->kategori }}"
+                                                data-kapasitas="{{ $kamar->kapasitas }}"
+                                                data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
+                                                <span class="room-number">{{ $kamar->nomor_kamar }}</span>
+                                                <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                            </div>
+                                        @endforeach
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="gender-column">
-                                <div class="gender-title">Putra</div>
-                                <div class="room-grid">
-                                    @php
-                                        $vipPutra = collect()
-                                            ->merge(
-                                                RD::filter($rooms, 'A', 29, 46, 'putra')->reject(function ($k) {
-                                                    return $k->nomor_kamar === 'A-35' ||
-                                                        ($k->nomor_kamar >= 'A-24' && $k->nomor_kamar <= 'A-28') ||
-                                                        strtoupper($k->kategori) !== 'VIP';
-                                                }),
-                                            )
-                                            ->merge(
-                                                RD::filter($rooms, 'B', 26, 50, 'putra')->reject(
-                                                    fn($k) => strtoupper($k->kategori) !== 'VIP',
-                                                ),
-                                            )
-                                            ->merge(
-                                                RD::filter($rooms, 'C', 26, 50, 'putra')->reject(
-                                                    fn($k) => strtoupper($k->kategori) !== 'VIP',
-                                                ),
-                                            );
-                                    @endphp
+                            <div class="col-md-6">
+                                <div class="gender-column">
+                                    <div class="gender-title">Putra</div>
+                                    <div class="room-grid">
+                                        @php
+                                            $vipPutra = collect()
+                                                ->merge(
+                                                    RD::filter($rooms, 'A', 29, 46, 'putra')->reject(function ($k) {
+                                                        return $k->nomor_kamar === 'A-35' ||
+                                                            ($k->nomor_kamar >= 'A-24' && $k->nomor_kamar <= 'A-28') ||
+                                                            strtoupper($k->kategori) !== 'VIP';
+                                                    }),
+                                                )
+                                                ->merge(
+                                                    RD::filter($rooms, 'B', 26, 50, 'putra')->reject(
+                                                        fn($k) => strtoupper($k->kategori) !== 'VIP',
+                                                    ),
+                                                )
+                                                ->merge(
+                                                    RD::filter($rooms, 'C', 26, 50, 'putra')->reject(
+                                                        fn($k) => strtoupper($k->kategori) !== 'VIP',
+                                                    ),
+                                                );
+                                        @endphp
 
-                                    @foreach ($vipPutra->unique('nomor_kamar') as $kamar)
-                                        <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                            data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                            data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
-                                            data-kategori="{{ $kamar->kategori }}"
-                                            data-kapasitas="{{ $kamar->kapasitas }}"
-                                            data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
-                                            <span class="room-number">{{ $kamar->nomor_kamar }}</span>
-                                            <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
-                                        </div>
-                                    @endforeach
+                                        @foreach ($vipPutra->unique('nomor_kamar') as $kamar)
+                                            <div class="room-card {{ RD::getStatusClass($kamar) }}"
+                                                data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
+                                                data-kamar="{{ $kamar->nomor_kamar }}" data-gender="{{ $kamar->gender }}"
+                                                data-kategori="{{ $kamar->kategori }}"
+                                                data-kapasitas="{{ $kamar->kapasitas }}"
+                                                data-penghuni="{{ $kamar->penghuni }}" onclick="openEditModal(this)">
+                                                <span class="room-number">{{ $kamar->nomor_kamar }}</span>
+                                                <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
+                                            </div>
+                                        @endforeach
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 {{-- ================= BARACK SECTION ================= --}}
                 <div class="room-section">

@@ -32,7 +32,7 @@ class PendaftaranOnlineController extends Controller
     {
         $programs = ProgramOnline::where('is_active', 1)->get();
         // Program online mungkin tidak memerlukan periode, sesuaikan jika perlu
-        // $periods = Period::orderBy('date')->get(); 
+        // $periods = Period::orderBy('date')->get();
 
         return view('admin.pendaftaran_online.create', compact('programs'));
     }
@@ -125,8 +125,18 @@ class PendaftaranOnlineController extends Controller
     /**
      * Mengekspor data ke CSV.
      */
-    public function exportCsv()
+
+    public function exportOnline(Request $request)
     {
-        return Excel::download(new PendaftaranOnlineExport, 'pendaftaran_program_online.xlsx');
+        $start = $request->input('start_date');
+        $end = $request->input('end_date');
+
+        if (!$start || !$end) {
+            return redirect()->back()->with('error', 'Tanggal mulai dan akhir wajib diisi.');
+        }
+
+        $filename = "pendaftaran_online_{$start}_to_{$end}.xlsx";
+
+        return Excel::download(new PendaftaranOnlineExport($start, $end), $filename);
     }
 }
