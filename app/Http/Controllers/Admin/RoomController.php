@@ -100,6 +100,21 @@ class RoomController extends Controller
     }
 
 
+    public function updateByKategori(Request $request)
+    {
+        $request->validate([
+            'kategori' => 'required|in:vvip,vip,barack',
+            'kapasitas' => 'required|integer|min:1',
+        ]);
+
+        $updated = Rooms::where('kategori', $request->kategori)->update([
+            'kapasitas' => $request->kapasitas,
+        ]);
+
+        return redirect()->back()->with('success', "$updated kamar kategori {$request->kategori} berhasil diupdate kapasitasnya ke {$request->kapasitas}.");
+    }
+
+
     public function getPenghuni($id)
     {
         $penghuni = PendaftaranProgramCamp::with('period') // penting untuk akses period.created_at

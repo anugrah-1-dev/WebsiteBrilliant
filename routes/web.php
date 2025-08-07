@@ -146,6 +146,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/rooms/list-aktif', [RoomController::class, 'listAktif']);
     Route::get('/rooms/{id}/peserta-detail', [RoomController::class, 'getPesertaDetail']);
     Route::post('/peserta/{id}/pindah-kamar', [PendaftaranProgramCampController::class, 'pindahKamar']);
+    Route::post('/rooms/update-by-kategori', [RoomController::class, 'updateByKategori'])
+        ->name('rooms.update-by-kategori');
 
 
     // Pendaftaran Program Online
@@ -234,5 +236,4 @@ Route::middleware(['auth', 'role:officer'])->prefix('officer')->name('officer.')
     Route::get('pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
     Route::put('pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
     Route::get('pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
-
 });

@@ -125,22 +125,37 @@ class ProgramCampController extends Controller
         $program = ProgramCamp::findOrFail($id);
         return view('admin.programs.camp.show', compact('program'));
     }
+
+    
     public function syncAllStokFromRoomsAjax()
     {
+        // Ambil data stok berdasarkan kapasitas dan penghuni
         $stokData = DB::table('rooms')
-            ->select('program_camp_id', DB::raw('SUM(kapasitas) as total_stok'))
+            ->select(
+                'program_camp_id',
+                DB::raw('SUM(kapasitas) as total_kapasitas'),
+                DB::raw('SUM(penghuni) as total_penghuni')
+            )
             ->groupBy('program_camp_id')
-            ->pluck('total_stok', 'program_camp_id');
+            ->get();
 
-        foreach ($stokData as $programCampId => $totalStok) {
-            ProgramCamp::where('id', $programCampId)->update(['stok' => $totalStok]);
+        foreach ($stokData as $data) {
+            $stok = $data->total_kapasitas - $data->total_penghuni;
+
+            ProgramCamp::where('id', $data->program_camp_id)->update([
+                'stok' => $stok
+            ]);
         }
 
         // Return updated stok ke frontend
         $programs = ProgramCamp::select(['id', 'stok'])->get();
 
-        return response()->json(['success' => true, 'programs' => $programs]);
+        return response()->json([
+            'success' => true,
+            'programs' => $programs
+        ]);
     }
+
 
 
 
