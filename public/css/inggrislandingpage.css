@@ -1,0 +1,415 @@
+/* General */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f0f2f5; /* Latar belakang abu-abu muda yang netral */
+    color: #333;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Carousel */
+.carousel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slides {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(60%); /* Sedikit lebih gelap untuk kontras teks */
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.prev {
+    left: 20px;
+}
+.next {
+    right: 20px;
+}
+
+/* Hero Text */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #FFFFFF; /* Putih terang */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #FFFFFF; /* Putih terang */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* CTA Button */
+.cta-button {
+    background: #C8102E; /* Merah bendera Inggris */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #A00C24; /* Merah lebih gelap saat hover */
+}
+
+/* About Section */
+.about {
+    padding: 90px 20px;
+    background: #FFFFFF; /* Latar belakang putih bersih */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.about h2 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+    color: #012169; /* Biru tua bendera Inggris */
+    font-weight: 700;
+}
+
+.about h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #C8102E; /* Garis aksen merah */
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.about p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about .highlight {
+    color: #C8102E; /* Warna highlight merah */
+    font-weight: bold;
+}
+
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.about-card {
+    background: #fdfdff;
+    padding: 35px 25px;
+    border-radius: 14px;
+    border-top: 4px solid #012169; /* Aksen biru tua */
+    box-shadow: 0 6px 18px rgba(0, 33, 105, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 26px rgba(0, 33, 105, 0.12);
+}
+
+.about-card h3 {
+    font-size: 1.4rem;
+    color: #012169; /* Biru tua */
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.about-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Alur Section */
+.alur {
+    padding: 90px 20px;
+    background: #012169; /* Latar belakang biru tua */
+    color: #fff;
+    text-align: center;
+}
+
+.alur .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.alur h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #FFFFFF; /* Putih */
+}
+
+.alur p {
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    color: #e0e0e0;
+}
+
+/* Timeline Style */
+.alur-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.alur-timeline::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 5%;
+    right: 5%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5); /* Garis putih transparan */
+    z-index: 0;
+}
+
+.step {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #C8102E; /* Lingkaran merah */
+    color: #FFFFFF; /* Teks putih */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid #fff;
+}
+
+.step h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.step p {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+/* Wave Divider */
+.wave-divider {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #FFFFFF; /* Bagian bawah putih */
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider .shape-fill {
+    fill: #012169; /* Warna gelombang biru tua */
+}
+
+/* Program Section */
+.program-section {
+    background-color: #f0f2f5; /* Latar abu-abu muda */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #012169; /* Biru tua */
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.program-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 33, 105, 0.15);
+}
+
+.program-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.program-card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 15px 0 10px;
+    color: #012169; /* Biru tua */
+}
+
+.program-card p {
+    font-size: 0.95rem;
+    color: #555;
+    padding: 0 15px 15px;
+}
+
+.program-btn {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 8px 16px;
+    background: #C8102E; /* Merah */
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.program-btn:hover {
+    background: #A00C24; /* Merah lebih gelap */
+}
+
+.filter-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.filter-btn:hover:not(.active) {
+    background: #f8f9fa;
+}
+
+.program-item {
+    transition: all 0.3s ease;
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+

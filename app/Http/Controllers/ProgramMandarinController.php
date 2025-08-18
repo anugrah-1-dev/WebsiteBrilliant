@@ -19,6 +19,6 @@ class ProgramMandarinController extends Controller
             ->where('is_active', 1)
             ->get();
 
-        return view('Landingpage.inggris', compact('onlinePrograms', 'offlinePrograms'));
+        return view('Landingpage.mandarin', compact('onlinePrograms', 'offlinePrograms'));
     }
 }
