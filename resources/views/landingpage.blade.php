@@ -53,18 +53,44 @@
                     </div>
                     
                     <div class="program1-grid">
-                        <a href="{{ route('program.inggris') }}" class="program1-card">
+                        <div class="program1-card">
+                            <div class="program1-icon icon-inggris">
+                                <img src="{{ asset('asset/img/bendera inggris.jpg') }}" 
+                                     alt="Bendera Inggris" 
+                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                            </div>
                             <h3>Bahasa Inggris</h3>
-                        </a>
-                        <a href="{{ route('program.jerman') }}" class="program1-card">
+                            <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
+                        </div>
+    
+                        <div class="program1-card"> 
+                            <div class="program1-icon icon-jerman">
+                                <img src="{{ asset('asset/img/bendera jerman.jpg') }}" 
+                                     alt="Bendera Jerman" 
+                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                            </div>
                             <h3>Bahasa Jerman</h3>
-                        </a>
-                        <a href="{{ route('program.arab') }}" class="program1-card">
-                            <h3>Bahasa Arab</h3>
-                        </a>
-                        <a href="{{ route('program.mandarin') }}" class="program1-card">
+                            <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
+                        </div>
+      
+                        <div class="program1-card">
+                            <div class="program1-icon icon-mandarin">
+                                <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" 
+                                     alt="Bendera Mandarin" 
+                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                            </div>
                             <h3>Bahasa Mandarin</h3>
-                        </a>
+                            <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
+                        </div>
+                        <div class="program1-card">
+                            <div class="program1-icon icon-arab">
+                                <img src="{{ asset('asset/img/bendera arab.jpg') }}" 
+                                     alt="Bendera Arab" 
+                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                            </div>
+                            <h3>Bahasa Arab</h3>
+                            <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
+                        </div>
                     </div>
                     </div>
                 </div>
