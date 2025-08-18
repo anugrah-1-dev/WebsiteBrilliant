@@ -25,7 +25,7 @@
                     <img src="{{ asset('asset/img/jerman.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
                 </div>
                 <div class="slide">
-                    <img src="{{ asset('asset/img/jerman1.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
+                    {{-- <img src="{{ asset('asset/img/jerman1.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif"> --}}
                 </div>
                 <div class="slide">
                     <img src="{{ asset('asset/img/jerman2.jpg') }}" alt="Pemandangan Kastil Jerman">
@@ -230,7 +230,7 @@
     </div> -->
     <!-- Program ini -->
 
-    
+
 
     {{-- Footer Section --}}
     <footer class="footer">
@@ -297,7 +297,7 @@
         // Auto-slide
         setInterval(nextSlide, 5000);
     </script>
-    
+
     {{-- Script untuk Inisialisasi AOS --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

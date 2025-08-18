@@ -119,7 +119,7 @@
 
     {{-- JS filter program sama seperti versi Inggris --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const programItems = document.querySelectorAll('.program-item');
 
@@ -130,7 +130,7 @@
             });
 
             filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const filterValue = this.getAttribute('data-filter');
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
@@ -148,6 +148,36 @@
     </script>
 
 
+    {{-- About Section --}}
+    <section class="about py-5" id="tentang">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="mb-4">Mengapa Memilih Kami?</h2>
+            <p class="mb-5">
+                Di <strong>Brilliant English Course</strong>, kami percaya bahwa belajar Bahasa Mandarin adalah
+                sebuah petualangan seru. Kami menggabungkan metode pengajaran <span class="highlight">terbaik</span>
+                dengan pendekatan interaktif untuk menciptakan pengalaman belajar yang efektif dan tak terlupakan.
+            </p>
+            <div class="about-grid">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper"><i class="fas fa-rocket"></i></div>
+                    <h3>Kurikulum Terstruktur</h3>
+                    <p>Materi kami disusun sesuai standar internasional (HSK) untuk memastikan kemajuan Anda terukur.
+                    </p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper"><i class="fas fa-user-tie"></i></div>
+                    <h3>Pengajar Profesional</h3>
+                    <p>Belajar dari instruktur (Laoshi) berpengalaman, baik native speaker maupun lokal yang
+                        bersertifikasi.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-wrapper"><i class="fas fa-users"></i></div>
+                    <h3>Komunitas Aktif</h3>
+                    <p>Bergabung dengan komunitas suportif untuk berlatih percakapan dan mendalami budaya bersama.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="wave-divider">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill"
@@ -155,6 +185,8 @@
             </path>
         </svg>
     </div>
+
+
     <!-- Registration Flow Mandarin -->
 
     <section class="alur-mandarin" id="alur-mandarin">

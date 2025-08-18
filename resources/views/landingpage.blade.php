@@ -37,105 +37,101 @@
                     Brilliant English Course, tempat di mana potensi Anda menjadi lebih gemilang!
                 </p>
 
-              
+
                 <a href="#" id="openPopupBtn" class="cta-button" data-aos="fade-up" data-aos-delay="200">
                     DAFTAR SEKARANG
                 </a>
             </div>
             <button class="nav prev">&#10094;</button>
             <button class="nav next">&#10095;</button>
-            </div>
-            <div id="programPopup" class="popup1-overlay">
-                <div class="popup1-content">
-                    <div class="popup1-header">
-                        <h2>Pilih Program</h2>
-                        <button id="closePopupBtn" class="close1-button">&times;</button>
+        </div>
+        <div id="programPopup" class="popup1-overlay">
+            <div class="popup1-content">
+                <div class="popup1-header">
+                    <h2>Pilih Program</h2>
+                    <button id="closePopupBtn" class="close1-button">&times;</button>
+                </div>
+
+                <div class="program1-grid">
+                    <div class="program1-card">
+                        <div class="program1-icon icon-inggris">
+                            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
+                                class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        </div>
+                        <h3>Bahasa Inggris</h3>
+                        <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
                     </div>
-                    
-                    <div class="program1-grid">
-                        <div class="program1-card">
-                            <div class="program1-icon icon-inggris">
-                                <img src="{{ asset('asset/img/bendera inggris.jpg') }}" 
-                                     alt="Bendera Inggris" 
-                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
-                            </div>
-                            <h3>Bahasa Inggris</h3>
-                            <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
+
+                    <div class="program1-card">
+                        <div class="program1-icon icon-jerman">
+                            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
+                                class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
                         </div>
-    
-                        <div class="program1-card"> 
-                            <div class="program1-icon icon-jerman">
-                                <img src="{{ asset('asset/img/bendera jerman.jpg') }}" 
-                                     alt="Bendera Jerman" 
-                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
-                            </div>
-                            <h3>Bahasa Jerman</h3>
-                            <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
-                        </div>
-      
-                        <div class="program1-card">
-                            <div class="program1-icon icon-mandarin">
-                                <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" 
-                                     alt="Bendera Mandarin" 
-                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
-                            </div>
-                            <h3>Bahasa Mandarin</h3>
-                            <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
-                        </div>
-                        <div class="program1-card">
-                            <div class="program1-icon icon-arab">
-                                <img src="{{ asset('asset/img/bendera arab.jpg') }}" 
-                                     alt="Bendera Arab" 
-                                     class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
-                            </div>
-                            <h3>Bahasa Arab</h3>
-                            <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
-                        </div>
+                        <h3>Bahasa Jerman</h3>
+                        <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
                     </div>
+
+                    <div class="program1-card">
+                        <div class="program1-icon icon-mandarin">
+                            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
+                                class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        </div>
+                        <h3>Bahasa Mandarin</h3>
+                        <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
+                    </div>
+                    <div class="program1-card">
+                        <div class="program1-icon icon-arab">
+                            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
+                                class="w-[5px] h-[3.5px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        </div>
+                        <h3>Bahasa Arab</h3>
+                        <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
                     </div>
                 </div>
             </div>
-           
-            <script>
-                // Get the necessary elements
-                const openPopupButton = document.getElementById('openPopupBtn');
-                const closePopupButton = document.getElementById('closePopupBtn');
-                const programPopup = document.getElementById('programPopup');
-                const pilihButtons = document.querySelectorAll('.pilih-button');
-        
-                // Function to show the popup
-                function showPopup() {
-                    programPopup.classList.add('show');
+        </div>
+        </div>
+
+        <script>
+            // Get the necessary elements
+            const openPopupButton = document.getElementById('openPopupBtn');
+            const closePopupButton = document.getElementById('closePopupBtn');
+            const programPopup = document.getElementById('programPopup');
+            const pilihButtons = document.querySelectorAll('.pilih-button');
+
+            // Function to show the popup
+            function showPopup() {
+                programPopup.classList.add('show');
+            }
+
+            // Function to hide the popup
+            function hidePopup() {
+                programPopup.classList.remove('show');
+            }
+
+            // --- Event Listeners ---
+
+            // Open popup when "DAFTAR SEKARANG" is clicked
+            openPopupButton.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents the page from jumping to the top
+                showPopup();
+            });
+
+            // Close popup when the 'X' button is clicked
+            closePopupButton.addEventListener('click', hidePopup);
+
+            // Close popup when clicking on the dark overlay background
+            programPopup.addEventListener('click', function(event) {
+                if (event.target === programPopup) {
+                    hidePopup();
                 }
-        
-                // Function to hide the popup
-                function hidePopup() {
-                    programPopup.classList.remove('show');
-                }
-        
-                // --- Event Listeners ---
-        
-                // Open popup when "DAFTAR SEKARANG" is clicked
-                openPopupButton.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevents the page from jumping to the top
-                    showPopup();
-                });
-        
-                // Close popup when the 'X' button is clicked
-                closePopupButton.addEventListener('click', hidePopup);
-        
-                // Close popup when clicking on the dark overlay background
-                programPopup.addEventListener('click', function(event) {
-                    if (event.target === programPopup) {
-                        hidePopup();
-                    }
-                });
-        
-                // Close popup when any of the "Pilih" buttons are clicked
-                pilihButtons.forEach(function(button) {
-                    button.addEventListener('click', hidePopup);
-                });
-            </script>
+            });
+
+            // Close popup when any of the "Pilih" buttons are clicked
+            pilihButtons.forEach(function(button) {
+                button.addEventListener('click', hidePopup);
+            });
+        </script>
     </section>
 
     {{-- ✅ Section "Tentang Kami" dengan animasi --}}
@@ -305,88 +301,6 @@
         @endforeach
     </div>
 
-    <section class="program-section bg-light py-5" id="program">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2>PILIHAN PROGRAM</h2>
-                <p class="lead text-muted">Temukan program yang paling sesuai dengan tujuan Anda.</p>
-            </div>
-
-            {{-- Tombol Filter diberi animasi --}}
-            <div class="filter-buttons-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="offline">Program Offline</button>
-                <button class="filter-btn" data-filter="online">Program Online</button>
-            </div>
-
-            {{-- Container Grid Utama --}}
-            <div class="program-grid">
-
-                {{-- Loop untuk Program OFFLINE --}}
-                @forelse ($offlinePrograms as $index => $program)
-                    {{-- Setiap kartu diberi animasi fade-up dengan delay yang berbeda --}}
-                    <div class="program-item" data-filter="offline" data-aos="fade-up"
-                        data-aos-delay="{{ 100 * ($index + 1) }}">
-                        <div class="program-card">
-                            <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
-                                @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Tersedia</span>
-                                @endif
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="fas fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} -
-                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
-                                </p>
-                                <p class="card-text program-card-price mb-3">Rp
-                                    {{ number_format($program->harga, 0, ',', '.') }}
-                                </p>
-                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                    class="btn btn-success mt-auto">Lihat Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                @endforelse
-
-                {{-- Loop untuk Program ONLINE --}}
-                @forelse ($onlinePrograms as $index => $program)
-                    <div class="program-item" data-filter="online" data-aos="fade-up"
-                        data-aos-delay="{{ 100 * ($index + 1) }}">
-                        <div class="program-card">
-                            <div class="position-relative">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
-                                @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Tersedia</span>
-                                @endif
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="fas fa-tag me-1"></i>
-                                    Kategori: {{ $program->kategori ?? '-' }}
-                                </p>
-                                <p class="card-text program-card-price mb-3">Rp
-                                    {{ number_format($program->harga, 0, ',', '.') }}
-                                </p>
-                                <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                    class="btn btn-success mt-auto">Lihat Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                @endforelse
-            </div>
-
-            <div id="no-program-message" class="text-center text-muted mt-5" style="display: none;">
-                <p>Tidak ada program yang tersedia untuk kategori ini.</p>
-            </div>
-        </div>
-    </section>
 
     <div class="wave-divider4">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -622,11 +536,18 @@
                                 {{-- Fasilitas Dinamis --}}
                                 {{-- ============================== --}}
                                 <strong>Fasilitas:</strong>
-                                <ul>
-                                    @foreach (array_slice(explode(',', $camp->fasilitas), 0, 6) as $fasilitas)
-                                        <li>{{ trim($fasilitas) }}</li>
+                                @php
+                                    $fasilitasList = json_decode($camp->fasilitas, true) ?? [];
+                                @endphp
+
+                                <ul class="list-unstyled">
+                                    @foreach (array_slice($fasilitasList, 0, 4) as $fasilitas)
+                                        <li>✅ {{ $fasilitas }}</li>
                                     @endforeach
                                 </ul>
+
+
+
 
 
                             </div>
