@@ -42,7 +42,7 @@
                 <a href="{{ route('program.jerman') }}">Bahasa Jerman</a>
                 <a href="{{ route('program.mandarin') }}">Bahasa Mandarin</a>
                 <a href="{{ route('program.arab') }}">Bahasa Arab</a>
-                <a href="{{ url('/program/coming-soon') }}">NHC</a>
+               
             </div>
         </div>
 

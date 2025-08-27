@@ -175,51 +175,9 @@
         <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
     </div>
 
-    <div class="program1-card">
-        <div class="program1-icon icon-nhc">
-            <img src="{{ asset('asset/img/QuestionMark.png') }}" alt="Bendera NHC" class="program1-img">
-        </div>
-        <h3>NHC</h3>
-        <a href="{{ url('/program/coming-soon') }}" class="pilih1-button">Pilih</a>
-    </div>
+    
 </div>
-<style>.program1-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Default: 2 kolom */
-    grid-auto-rows: auto;
-    gap: 20px;
-    justify-items: center;
-    align-items: center;
-}
 
-/* Letakkan card tengah di tengah */
-.center-card {
-    grid-column: 1 / -1; /* Ambil semua kolom */
-    justify-self: center;
-}
-
-.program1-img {
-    width: 50px;
-    height: 35px;
-    object-fit: cover;
-    transition: transform 0.3s;
-}
-
-.program1-img:hover {
-    transform: scale(1.1);
-}
-
-/* Responsive untuk mobile */
-@media (max-width: 768px) {
-    .program1-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .center-card {
-        grid-column: auto;
-    }
-}
-</style>
             </div>
         </div>
         </div>
