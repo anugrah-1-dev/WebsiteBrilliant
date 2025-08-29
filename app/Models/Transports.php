@@ -14,6 +14,8 @@ class Transports extends Model
 
     protected $casts = [
         'price' => 'float',
-       
+
     ];
+
+    
 }

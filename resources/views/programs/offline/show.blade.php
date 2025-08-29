@@ -11,7 +11,7 @@
     <!-- jQuery UI Autocomplete Stylesheet -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     @if (session('success'))
         <script>
@@ -175,74 +175,292 @@
                                         </div>
 
                                         <div class="mb-3">
+                                            <label class="form-label">
+                                                <i class="bi bi-house-fill"></i> Akomodasi (Camp Reguler) - Optional
+                                            </label>
+                                            <select name="akomodasi" class="form-select" id="campSelect">
+                                                <option value="" data-harga="0">Pilih Akomodasi (Opsional)
+                                                </option>
 
+                                                {{-- Static Reguler --}}
+                                                <option value="reguler" data-harga="180000">Reguler (Rp 180.000)
+                                                </option>
+
+                                                {{-- Camp VIP dari database --}}
+                                                {{-- @foreach ($camps as $camp)
+                                                    @if ($camp->kategori === 'VIP')
+                                                        <option value="camp-{{ $camp->id }}"
+                                                            data-harga="{{ $camp->harga }}">
+                                                            {{ $camp->nama }} (VIP) - Rp
+                                                            {{ number_format($camp->harga, 0, ',', '.') }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+
+                                        {{-- Tempat tampil harga
+                                        <div id="akomodasi-harga" class="mt-2 fw-bold text-success"></div>
+ --}}
+
+
+
+                                        {{-- <div class="duration-options-container" id="durasiContainer"
+                                            style="display:none;">
+                                            @php
+                                                $durasiOptions = [
+                                                    'perhari' => [
+                                                        'label' => 'Per Day',
+                                                        'harga' => $camp->harga_perhari ?? 0,
+                                                    ],
+                                                    'satu_minggu' => [
+                                                        'label' => '1 Week',
+                                                        'harga' => $camp->harga_satu_minggu ?? 0,
+                                                    ],
+                                                    'dua_minggu' => [
+                                                        'label' => '2 Weeks',
+                                                        'harga' => $camp->harga_dua_minggu ?? 0,
+                                                    ],
+                                                    'satu_bulan' => [
+                                                        'label' => '1 Month',
+                                                        'harga' => $camp->harga_satu_bulan ?? 0,
+                                                    ],
+                                                    'dua_bulan' => [
+                                                        'label' => '2 Months',
+                                                        'harga' => $camp->harga_dua_bulan ?? 0,
+                                                    ],
+                                                    'tiga_bulan' => [
+                                                        'label' => '3 Months',
+                                                        'harga' => $camp->harga_tiga_bulan ?? 0,
+                                                    ],
+                                                    'enam_bulan' => [
+                                                        'label' => '6 Months',
+                                                        'harga' => $camp->harga_enam_bulan ?? 0,
+                                                    ],
+                                                    'satu_tahun' => [
+                                                        'label' => '1 Year',
+                                                        'harga' => $camp->harga_satu_tahun ?? 0,
+                                                    ],
+                                                ];
+                                            @endphp
+                                            <select name="durasi" class="form-select" id="durasiSelect">
+                                                <option value="">Pilih Durasi</option>
+                                                @foreach ($durasiOptions as $key => $option)
+                                                    <option value="{{ $key }}"
+                                                        data-harga="{{ $option['harga'] }}">
+                                                        {{ $option['label'] }} -
+                                                        Rp.{{ number_format($option['harga'], 0, ',', '.') }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        {{-- <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                const campSelect = document.getElementById("campSelect");
+                                                const durasiContainer = document.getElementById("durasiContainer");
+
+                                                campSelect.addEventListener("change", function() {
+                                                    if (this.value) {
+                                                        durasiContainer.style.display = "block"; // tampilkan jika ada camp dipilih
+                                                    } else {
+                                                        durasiContainer.style.display = "none"; // sembunyikan jika kosong
+                                                    }
+                                                });
+                                            });
+                                        </script> --}}
+
+
+                                        <br>
+
+
+
+
+                                        <div class="mb-3">
                                             <label class="form-label"><i class="bi bi-bus-front-fill"></i> Transportasi
                                                 (Optional)</label>
-                                            <select name="transport_id" class="form-select">
-                                                <option value="">Pilih Transportasi </option>
+                                            <select name="transport_id" class="form-select" id="transportSelect">
+                                                <option value="" data-harga="0">Pilih Transportasi </option>
                                                 @foreach ($transports as $transport)
-                                                    <option value="{{ $transport->id }}">{{ $transport->name }}
+                                                    <option value="{{ $transport->id }}"
+                                                        data-harga="{{ $transport->price }}">
+                                                        {{ $transport->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
+
+
+                                        {{-- Preview total --}}
+                                        <div class="d-flex align-items-center border rounded p-2 bg-light mt-2">
+                                            <strong>Total:</strong>
+                                            <span id="totalPreview"
+                                                class="ms-2">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+
+                                            <a href="javascript:void(0)" id="btnLihatTotal"
+                                                class="ms-auto btn btn-sm btn-link" style="text-decoration:none;">
+                                                Lihat lebih lanjut
+                                            </a>
+                                        </div>
+
+                                        {{-- Modal struk --}}
+                                        <div class="modal fade" id="modalTotal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content shadow-sm">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Rincian Pembayaran</h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Harga Program</span>
+                                                            <span
+                                                                id="hargaProgram">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Transportasi</span>
+                                                            <span id="hargaTransport">Rp0</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Akomodasi Camp (Reguler)</span>
+                                                            <span id="hargaCamp">Rp0</span>
+                                                        </div>
+
+                                                        {{-- <div class="d-flex justify-content-between mb-2">
+                                                            <span>Camp (VIP/Reguler)</span>
+                                                            <span id="hargaCamp">Rp0</span>
+                                                        </div> --}}
+                                                        <hr>
+                                                        <div class="d-flex justify-content-between fw-bold fs-5">
+                                                            <span>Total</span>
+                                                            <span
+                                                                id="totalModal">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                let basePrice = {{ $program->harga }};
+                                                let selectTransport = document.getElementById("transportSelect");
+                                                let selectCamp = document.getElementById("campSelect");
+                                                let btnLihatTotal = document.getElementById("btnLihatTotal");
+
+                                                let hargaProgram = document.getElementById("hargaProgram");
+                                                let hargaTransport = document.getElementById("hargaTransport");
+                                                let hargaCamp = document.getElementById("hargaCamp");
+                                                let totalPreview = document.getElementById("totalPreview");
+                                                let totalModal = document.getElementById("totalModal");
+
+                                                function updateTotal() {
+                                                    let transportPrice = selectTransport?.selectedOptions[0]?.dataset.harga ?
+                                                        parseInt(selectTransport.selectedOptions[0].dataset.harga) :
+                                                        0;
+
+                                                    let campPrice = selectCamp?.selectedOptions[0]?.dataset.harga ?
+                                                        parseInt(selectCamp.selectedOptions[0].dataset.harga) :
+                                                        0;
+
+                                                    let total = basePrice + transportPrice + campPrice;
+
+                                                    // update preview total
+                                                    totalPreview.textContent = "Rp" + total.toLocaleString('id-ID');
+
+                                                    // update detail modal
+                                                    hargaProgram.textContent = "Rp" + basePrice.toLocaleString('id-ID');
+                                                    hargaTransport.textContent = "Rp" + transportPrice.toLocaleString('id-ID');
+                                                    hargaCamp.textContent = "Rp" + campPrice.toLocaleString('id-ID');
+                                                    totalModal.textContent = "Rp" + total.toLocaleString('id-ID');
+                                                }
+
+                                                // trigger saat pilih transport / camp
+                                                if (selectTransport) selectTransport.addEventListener("change", updateTotal);
+                                                if (selectCamp) selectCamp.addEventListener("change", updateTotal);
+
+                                                // buka modal
+                                                btnLihatTotal.addEventListener("click", function() {
+                                                    new bootstrap.Modal(document.getElementById('modalTotal')).show();
+                                                });
+                                            });
+                                        </script>
+
+
+
+
+
+                                        <br>
+
+
                                         {{-- ====================================================== --}}
                                         {{-- PERUBAHAN DIMULAI: Tambah Pilihan Bank --}}
                                         {{-- ====================================================== --}}
 
-                                         {{-- ====================================================== --}}
-                                         <!-- Tambahkan sebelum </body> -->
-{{-- Metode Pembayaran --}}
-<div class="mb-3">
-    <label class="form-label fw-bold"><i class="bi bi-wallet2"></i> Metode Pembayaran</label>
-    <div class="d-flex flex-wrap gap-3">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="payment_type" id="pay_tunai" value="tunai" 
-                   {{ old('payment_type') == 'tunai' ? 'checked' : '' }} required>
-            <label class="form-check-label" for="pay_tunai">Bayar Tunai (Cash)</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="payment_type" id="pay_transfer" value="transfer"
-                   {{ old('payment_type') == 'transfer' ? 'checked' : '' }} required>
-            <label class="form-check-label" for="pay_transfer">Transfer Bank</label>
-        </div>
-    </div>
-</div>
+                                        {{-- ====================================================== --}}
+                                        <!-- Tambahkan sebelum </body> -->
+                                        {{-- Metode Pembayaran --}}
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold"><i class="bi bi-wallet2"></i> Metode
+                                                Pembayaran</label>
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="payment_type" id="pay_tunai" value="tunai"
+                                                        {{ old('payment_type') == 'tunai' ? 'checked' : '' }} required>
+                                                    <label class="form-check-label" for="pay_tunai">Bayar Tunai
+                                                        (Cash)</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="payment_type" id="pay_transfer" value="transfer"
+                                                        {{ old('payment_type') == 'transfer' ? 'checked' : '' }}
+                                                        required>
+                                                    <label class="form-check-label" for="pay_transfer">Transfer
+                                                        Bank</label>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<div class="mb-3" id="bankDropdown" style="display: none;">
-    <label class="form-label fw-bold"><i class="bi bi-bank"></i> Pilih Bank Tujuan</label>
-    <select name="bank_id" class="form-select" {{ old('payment_type') == 'transfer' ? 'required' : '' }}>
-        <option value="">-- Pilih Bank --</option>
-        @if (isset($banks) && $banks->isNotEmpty())
-            @foreach ($banks as $bank)
-                <option value="{{ $bank->id }}" {{ old('bank_id') == $bank->id ? 'selected' : '' }}>
-                    {{ $bank->name }}
-                </option>
-            @endforeach
-        @endif
-    </select>
-</div>
+                                        <div class="mb-3" id="bankDropdown" style="display: none;">
+                                            <label class="form-label fw-bold"><i class="bi bi-bank"></i> Pilih Bank
+                                                Tujuan</label>
+                                            <select name="bank_id" class="form-select"
+                                                {{ old('payment_type') == 'transfer' ? 'required' : '' }}>
+                                                <option value="">-- Pilih Bank --</option>
+                                                @if (isset($banks) && $banks->isNotEmpty())
+                                                    @foreach ($banks as $bank)
+                                                        <option value="{{ $bank->id }}"
+                                                            {{ old('bank_id') == $bank->id ? 'selected' : '' }}>
+                                                            {{ $bank->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
 
-<script>
-$(document).ready(function(){
-    toggleBankDropdown();
+                                        <script>
+                                            $(document).ready(function() {
+                                                toggleBankDropdown();
 
-    $('input[name="payment_type"]').change(function(){
-        toggleBankDropdown();
-    });
+                                                $('input[name="payment_type"]').change(function() {
+                                                    toggleBankDropdown();
+                                                });
 
-    function toggleBankDropdown(){
-        if($('input[name="payment_type"]:checked').val() === 'transfer'){
-            $('#bankDropdown').slideDown();
-            $('select[name="bank_id"]').attr('required', true);
-        } else {
-            $('#bankDropdown').slideUp();
-            $('select[name="bank_id"]').removeAttr('required');
-        }
-    }
-});
-</script>
+                                                function toggleBankDropdown() {
+                                                    if ($('input[name="payment_type"]:checked').val() === 'transfer') {
+                                                        $('#bankDropdown').slideDown();
+                                                        $('select[name="bank_id"]').attr('required', true);
+                                                    } else {
+                                                        $('#bankDropdown').slideUp();
+                                                        $('select[name="bank_id"]').removeAttr('required');
+                                                    }
+                                                }
+                                            });
+                                        </script>
 
 
 
@@ -330,7 +548,10 @@ $(document).ready(function(){
             });
         });
     </script>
-    <script>
+
+
+
+    {{-- <script>
 document.addEventListener("DOMContentLoaded", function() {
     Swal.fire({
         icon: 'warning',
@@ -340,7 +561,7 @@ document.addEventListener("DOMContentLoaded", function() {
         confirmButtonColor: '#d33'
     });
 });
-</script>
+</script> --}}
 
 
 </body>

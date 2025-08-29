@@ -21,11 +21,15 @@ class PendaftaranProgramOffline extends Model
         'program_id',
         'period_id',
         'transport_id',
+        'bank_id',
+        'payment_type',
         'bukti_pembayaran',
         'status',
-        'bank_id',
-        'payment_type', // <-- Kolom baru tetap ada di sini
+        'subtotal',
+        'akomodasi_tipe',   // <--- baru
+        'akomodasi_harga',  // <--- baru
     ];
+
 
     // Relasi ke program offline
     public function program()
@@ -59,4 +63,7 @@ class PendaftaranProgramOffline extends Model
     {
         return $this->belongsTo(\App\Models\ProgramOffline::class, 'program_offline_id');
     }
+
+
+
 }

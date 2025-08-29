@@ -12,6 +12,7 @@ use App\Models\Customer_Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Models\ProgramCamp;
 
 class ProgramOfflinePublicController extends Controller
 {
@@ -24,8 +25,10 @@ class ProgramOfflinePublicController extends Controller
         $periods = Period::where('is_active', 1)->get();
         $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();
+        $camps = ProgramCamp::all(); // atau filter khusus VIP/VVIP
 
-        return view('programs.offline.show', compact('program', 'transports', 'periods', 'banks', 'contactServices'));
+
+        return view('programs.offline.show', compact('program', 'transports', 'periods', 'banks', 'contactServices', 'camps'));
     }
 
     /**
@@ -44,6 +47,7 @@ class ProgramOfflinePublicController extends Controller
             'transport_id' => 'nullable|exists:transports,id',
             'payment_type' => 'required|in:tunai,transfer',
             'bank_id' => 'required_if:payment_type,transfer|nullable|exists:banks,id',
+            'akomodasi' => 'nullable|string', // <-- validasi akomodasi
         ]);
 
         // Cek kuota
@@ -58,7 +62,36 @@ class ProgramOfflinePublicController extends Controller
         $nextSequence = $lastRegistration ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1 : 1;
         $newTrxId = $prefix . $nextSequence;
 
-        // Simpan data pendaftaran
+        $programPrice = $program->harga;
+        $transportPrice = 0;
+
+        if (!empty($validated['transport_id'])) {
+            $transport = Transports::find($validated['transport_id']);
+            $transportPrice = $transport ? $transport->price : 0;
+        }
+
+        // === Logika akomodasi (VIP / Reguler) ===
+        $akomodasiTipe = null;
+        $akomodasiHarga = 0;
+
+        if (!empty($validated['akomodasi'])) {
+            if (str_starts_with($validated['akomodasi'], 'camp-')) {
+                // Ambil camp dari DB
+                $campId = str_replace('camp-', '', $validated['akomodasi']);
+                //sementeara di comment dulu
+                // // $camp = Camps::find($campId);
+                // if ($camp) {
+                //     $akomodasiTipe = $camp->kategori; // VIP
+                //     $akomodasiHarga = $camp->harga;   // ambil harga camp dari DB
+                // }
+            } elseif ($validated['akomodasi'] === 'reguler') {
+                $akomodasiTipe = 'Reguler';
+                $akomodasiHarga = 180000; // static
+            }
+        }
+
+        $subtotal = $programPrice + $transportPrice + $akomodasiHarga;
+
         $pendaftaran = PendaftaranProgramOffline::create([
             'trx_id' => $newTrxId,
             'program_id' => $program->id,
@@ -72,21 +105,23 @@ class ProgramOfflinePublicController extends Controller
             'status' => 'pending',
             'payment_type' => $validated['payment_type'],
             'bank_id' => $validated['bank_id'] ?? null,
+            'akomodasi_tipe' => $akomodasiTipe,    // disimpan
+            'akomodasi_harga' => $akomodasiHarga,  // disimpan
+            'subtotal' => $subtotal,
         ]);
 
         // Kurangi kuota
         $program->decrement('kuota');
 
-        // --- PERUBAHAN LOGIKA PENGALIHAN (REDIRECT) ---
+        // Redirect
         if ($pendaftaran->payment_type === 'tunai') {
-            // Jika memilih Bayar Tunai, arahkan ke halaman sukses khusus untuk tunai
             return redirect()->route('public.pendaftaran.offline.sukses.tunai', ['trx_id' => $pendaftaran->trx_id]);
         } else {
-            // Jika memilih Transfer Bank, arahkan ke halaman pembayaran seperti sebelumnya
             return redirect()->route('public.pendaftaran.offline.pembayaran', ['trx_id' => $newTrxId])
                 ->with('success_message', 'Pendaftaran awal berhasil! Silakan lanjutkan ke tahap pembayaran.');
         }
     }
+
 
     /**
      * Menampilkan halaman pembayaran berdasarkan trx_id.
@@ -97,7 +132,7 @@ class ProgramOfflinePublicController extends Controller
         $pendaftaran = PendaftaranProgramOffline::with(['program', 'bank'])
             ->where('trx_id', $trx_id)
             ->firstOrFail();
-        
+
         if ($pendaftaran->payment_type === 'tunai') {
             return redirect()->route('public.pendaftaran.sukses.tunai', ['trx_id' => $pendaftaran->trx_id]);
         }
