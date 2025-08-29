@@ -42,7 +42,7 @@ class DashboardController extends Controller
         foreach ($pendaftaranOffline as $item) {
             if ($item->status !== 'diterima') continue;
             $date = Carbon::parse($item->created_at);
-            $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
+            $monthlyProfit[$date->year][$date->month] += $this->calculateOfflinePrice($item);
         }
 
         // Hitung keuntungan camp
@@ -67,11 +67,12 @@ class DashboardController extends Controller
             0
         ) + array_reduce(
             $pendaftaranOffline->all(),
-            fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
+            fn($sum, $p) => $sum + (($p->status === 'diterima') ? $this->calculateOfflinePrice($p) : 0),
             0
-        ) + array_reduce($pendaftaranCamp->all(), function ($sum, $p) {
-            return $sum + (($p->status === 'diterima') ? $this->calculateCampPrice($p) : 0);
-        }, 0);
+        )
+            + array_reduce($pendaftaranCamp->all(), function ($sum, $p) {
+                return $sum + (($p->status === 'diterima') ? $this->calculateCampPrice($p) : 0);
+            }, 0);
 
         $totalMediaSosial = 20;
         $sosmedList = Sosmed::latest()->take(12)->get();
@@ -140,5 +141,15 @@ class DashboardController extends Controller
             default:
                 return $program->harga_perhari ?? 0;
         }
+    }
+    protected function calculateOfflinePrice($pendaftaranOffline)
+    {
+        if (!$pendaftaranOffline->program) return 0;
+
+        $hargaProgram   = $pendaftaranOffline->program->harga ?? 0;
+        $hargaTransport = $pendaftaranOffline->transport->price ?? 0;
+        $hargaAkomodasi = $pendaftaranOffline->akomodasi_harga ?? 0;
+
+        return $hargaProgram + $hargaTransport + $hargaAkomodasi;
     }
 }

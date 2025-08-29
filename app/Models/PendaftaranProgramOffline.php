@@ -64,6 +64,13 @@ class PendaftaranProgramOffline extends Model
         return $this->belongsTo(\App\Models\ProgramOffline::class, 'program_offline_id');
     }
 
+    // Hitung total harga (program + transport + akomodasi)
+    public function getTotalHargaAttribute()
+    {
+        $hargaProgram   = $this->program->harga ?? 0;
+        $hargaTransport = $this->transport->price ?? 0;
+        $hargaAkomodasi = $this->akomodasi_harga ?? 0;
 
-
+        return $hargaProgram + $hargaTransport + $hargaAkomodasi;
+    }
 }

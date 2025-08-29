@@ -35,6 +35,55 @@
         </div>
     </section>
 
+
+    <section class="pamflet-section">
+        <div class="container">
+            <!-- Bagian kiri: Foto pamflet -->
+            <div class="pamflet">
+                <img src={{ asset('asset/img/ARABPAM.jpg') }} alt="Pamflet Program Brilliant Alsaeid">
+            </div>
+
+            <!-- Bagian kanan: Deskripsi program -->
+            <div class="program-info">
+                <h2>Program Brilliant Alsaeid</h2>
+                <p>
+                    Brilliant Alsaeid Arabic Course membuka kesempatan bagi Anda yang ingin
+                    dibimbing dari dasar hingga mahir dalam berbahasa Arab. Program ini
+                    mencakup <strong>Mufrodat, Muhadatsah, Qowaid, Istima', Fasohah, Ibaroh/Uslub</strong>
+                    dan banyak lagi.
+                </p>
+
+                <h3>Program Kelas</h3>
+                <ul>
+                    <li><strong>I’dad</strong> – 2 pekan, Rp.165.000 (dasar bahasa Arab, qowaid, qira’ah, muhadatsah,
+                        target 600 kosakata)</li>
+                    <li><strong>Mustawa Awwal</strong> – 1 bulan, Rp.460.000 (latihan percakapan, penyusunan kalimat
+                        sederhana, target 1500 kosakata)</li>
+                    <li><strong>Mustawa Tsani</strong> – 1 bulan, Rp.460.000 (pendalaman kaidah, percakapan lancar,
+                        target 2100 kosakata)</li>
+                    <li><strong>Mustawa Tsalits</strong> – 1 bulan, Rp.460.000 (penekanan fashohah, insya’ (mengarang),
+                        target 3000+ kosakata)</li>
+                </ul>
+
+                <h3>Program Online</h3>
+                <ul>
+                    <li><strong>2 Minggu</strong>: Private (Rp.400.000), VIP (Rp.250.000), Reguler (Rp.150.000)</li>
+                    <li><strong>1 Bulan</strong>: Private (Rp.650.000), VIP (Rp.450.000), Reguler (Rp.350.000)</li>
+                </ul>
+
+                <p><em>Fasilitas: Kelas & suasana belajar yang nyaman, tutor friendly, dan area instagramable.</em></p>
+            </div>
+        </div>
+    </section>
+
+    <div class="wave-divider5">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill5"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+
     <!-- PROGRAM SECTION WITH FILTERING -->
     <section class="program-section bg-light py-5" id="program">
         <div class="container">
