@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-      <link rel="icon" href="{{ asset('favicon-v2.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('favicon-v2.png') }}" type="image/png">
 
 </head>
 
@@ -43,7 +43,6 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            /* agak lebih gelap */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -53,22 +52,25 @@
         }
 
         .pamflet-content {
-            background: #fff;
-            padding: 10px;
+            /* background: #fff; */
+            padding: 12px;
+            /* agak tipis biar nggak jauh dari poster */
             border-radius: 12px;
             text-align: center;
-            max-width: 90%;
-            /* responsif */
-            max-height: 90%;
-            /* biar gak keluar layar */
+            width: 450px;
+            /* lebih kecil dari 595px */
+            height: 620px;
+            /* lebih kecil dari 842px */
+            max-width: 100%;
+            max-height: 100%;
             position: relative;
-            overflow: auto;
-            /* kalau konten panjang bisa scroll */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         .pamflet-content img {
             max-width: 100%;
+            max-height: 100%;
             height: auto;
             border-radius: 8px;
             display: block;
@@ -77,11 +79,11 @@
 
         .btn-close-custom {
             position: absolute;
-            top: 8px;
-            right: 12px;
+            top: 5px;
+            right: 19px;
             background: none;
             border: none;
-            font-size: 28px;
+            font-size: 38px;
             font-weight: bold;
             color: #444;
             cursor: pointer;
@@ -137,46 +139,50 @@
         <div id="programPopup" class="popup1-overlay">
             <div class="popup1-content">
                 <div class="popup1-header">
-    <h2>Pilih Program</h2>
-    <button id="closePopupBtn" class="close1-button">&times;</button>
-</div>
+                    <h2>Pilih Program</h2>
+                    <button id="closePopupBtn" class="close1-button">&times;</button>
+                </div>
 
-<div class="program1-grid">
-    <div class="program1-card">
-        <div class="program1-icon icon-inggris">
-            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris" class="program1-img">
-        </div>
-        <h3>Bahasa Inggris</h3>
-        <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
-    </div>
+                <div class="program1-grid">
+                    <div class="program1-card">
+                        <div class="program1-icon icon-inggris">
+                            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
+                                class="program1-img">
+                        </div>
+                        <h3>Bahasa Inggris</h3>
+                        <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
+                    </div>
 
-    <div class="program1-card">
-        <div class="program1-icon icon-jerman">
-            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman" class="program1-img">
-        </div>
-        <h3>Bahasa Jerman</h3>
-        <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
-    </div>
+                    <div class="program1-card">
+                        <div class="program1-icon icon-jerman">
+                            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
+                                class="program1-img">
+                        </div>
+                        <h3>Bahasa Jerman</h3>
+                        <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
+                    </div>
 
-    <!-- Program tengah -->
-    <div class="program1-card center-card">
-        <div class="program1-icon icon-mandarin">
-            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin" class="program1-img">
-        </div>
-        <h3>Bahasa Mandarin</h3>
-        <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
-    </div>
+                    <!-- Program tengah -->
+                    <div class="program1-card center-card">
+                        <div class="program1-icon icon-mandarin">
+                            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
+                                class="program1-img">
+                        </div>
+                        <h3>Bahasa Mandarin</h3>
+                        <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
+                    </div>
 
-    <div class="program1-card">
-        <div class="program1-icon icon-arab">
-            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab" class="program1-img">
-        </div>
-        <h3>Bahasa Arab</h3>
-        <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
-    </div>
+                    <div class="program1-card">
+                        <div class="program1-icon icon-arab">
+                            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
+                                class="program1-img">
+                        </div>
+                        <h3>Bahasa Arab</h3>
+                        <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
+                    </div>
 
-    
-</div>
+
+                </div>
 
             </div>
         </div>
@@ -840,29 +846,29 @@
         </div>
 
         <section id="kontak" class="kontak-section">
-        <div class="container">
-            <h2 class="section-title">Kontak Kami</h2>
-            <p class="kontak-subtitle">
-                Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
-            </p>
+            <div class="container">
+                <h2 class="section-title">Kontak Kami</h2>
+                <p class="kontak-subtitle">
+                    Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
+                </p>
 
-            <div class="kontak-info">
-                <p><strong>Instagram:</strong> <a
-                        href="https://www.instagram.com/biecast_brilliankampunginggris?igsh=bzdhMGVyemIxZGQ="
-                        target="_blank">@biecast_brilliankampunginggris</a></p>
-                <p><strong>YouTube:</strong> <a
-                        href="https://youtube.com/@bieplusbrilliantenglishcourse?si=VxZw3YfiD4t5LciM"
-                        target="_blank">BIECAST Brilliant English Course</a></p>
-            </div>
+                <div class="kontak-info">
+                    <p><strong>Instagram:</strong> <a
+                            href="https://www.instagram.com/biecast_brilliankampunginggris?igsh=bzdhMGVyemIxZGQ="
+                            target="_blank">@biecast_brilliankampunginggris</a></p>
+                    <p><strong>YouTube:</strong> <a
+                            href="https://youtube.com/@bieplusbrilliantenglishcourse?si=VxZw3YfiD4t5LciM"
+                            target="_blank">BIECAST Brilliant English Course</a></p>
+                </div>
 
-            <div class="kontak-maps">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
-                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-                </iframe>
+                <div class="kontak-maps">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
+                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
 

@@ -52,18 +52,17 @@ class PendaftaranOfflineController extends Controller
 
         $pendaftaran = PendaftaranProgramOffline::findOrFail($id);
 
-$statusMapping = [
-        'approved' => 'diterima',
-        'rejected' => 'ditolak',
-        'pending' => 'pending',
-    ];
+        $statusMapping = [
+            'approved' => 'diterima',
+            'rejected' => 'ditolak',
+            'pending' => 'pending',
+        ];
 
-    $pendaftaran->status = $statusMapping[$request->status] ?? 'pending';
-    $pendaftaran->save();
+        $pendaftaran->status = $statusMapping[$request->status] ?? 'pending';
+        $pendaftaran->save();
 
-    return redirect()->route('admin.pendaftaran.offline.index')
-        ->with('success', 'Status pendaftaran ' . $pendaftaran->trx_id . ' berhasil diperbarui.');
-       
+        return redirect()->route('admin.pendaftaran.offline.index')
+            ->with('success', 'Status pendaftaran ' . $pendaftaran->trx_id . ' berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -72,7 +71,6 @@ $statusMapping = [
         $data->delete();
 
         return redirect()->route('admin.pendaftaran.offline.index')->with('success', 'Data pendaftaran berhasil dihapus.');
-
     }
 
     public function export(Request $request)
@@ -94,21 +92,21 @@ $statusMapping = [
      */
 
 
- public function showBukti($id)
-{
-    $pendaftaran = PendaftaranProgramOffline::findOrFail($id);
+    public function showBukti($id)
+    {
+        $pendaftaran = PendaftaranProgramOffline::findOrFail($id);
 
-    if (empty($pendaftaran->bukti_pembayaran_path) || !Storage::disk('public')->exists($pendaftaran->bukti_pembayaran_path)) {
-        abort(404, 'Bukti pembayaran tidak ditemukan.');
+        if (empty($pendaftaran->bukti_pembayaran_path) || !Storage::disk('public')->exists($pendaftaran->bukti_pembayaran_path)) {
+            abort(404, 'Bukti pembayaran tidak ditemukan.');
+        }
+
+        // Ambil file dari storage
+        $path = storage_path('app/public/' . $pendaftaran->bukti_pembayaran_path);
+        $mimeType = mime_content_type($path);
+
+        return response()->file($path, [
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline; filename="bukti-' . $pendaftaran->trx_id . '"'
+        ]);
     }
-
-    // Ambil file dari storage
-    $path = storage_path('app/public/' . $pendaftaran->bukti_pembayaran_path);
-    $mimeType = mime_content_type($path);
-
-    return response()->file($path, [
-        'Content-Type' => $mimeType,
-        'Content-Disposition' => 'inline; filename="bukti-'.$pendaftaran->trx_id.'"'
-    ]);
-}
 }
