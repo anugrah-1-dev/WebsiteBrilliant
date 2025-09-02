@@ -253,10 +253,10 @@
     height: 100%;
     background: rgba(0,0,0,0.6);
     display: none;
-    align-items: flex-start;   /* dorong popup ke atas (awal) */
+    align-items: center;   /* tengah layar */
     justify-content: center;
     z-index: 9999;
-    padding-top: 60px;         /* jarak dari atas layar */
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -269,43 +269,108 @@
     background: #fff;
     border-radius: 10px;
     padding: 20px;
-    width: 92%;
-    max-width: clamp(500px, 85%, 650px); /* sedikit lebih kecil */
-    max-height: 80vh;                   /* batasi tinggi */
-    overflow-y: auto;                   /* biar scroll kalau kepanjangan */
+    width: 90%;                  /* lebar popup lebih besar */
+    max-width: 900px;
+    height: auto;                /* menyesuaikan konten */
+    overflow: hidden;            /* hilangkan scroll */
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    position: relative;
+    position: fixed;             /* posisi tetap */
     animation: popupFade 0.25s ease;
-    margin-top: 20px;                   /* geser turun */
 }
 
-
-@keyframes popupFade {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+/* Grid */
+.program1-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* 3 kolom */
+    grid-template-rows: repeat(2, 1fr);     /* 2 baris */
+    gap: 10px;                              /* lebih rapat */
+    width: 100%;
 }
 
-/* Header */
-.popup1-header {
+/* Card */
+.program1-card {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+    border-radius: 9px;
+    background: #f8f9fa;
+    font-size: 13px;
+    text-align: center;
 }
 
-.popup1-header h2 {
-    font-size: 18px;
-    margin: 0;
+.program1-card h3 {
+    font-size: 14px;
+    margin: 6px 0 4px;
 }
 
-.close1-button {
-    background: transparent;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    line-height: 1;
+.pilih1-button {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 5px 10px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: background 0.2s;
 }
 
+.pilih1-button:hover {
+    background: #0056b3;
+}
+
+/* Icon Image */
+.program1-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* ===== Responsif untuk Mobile ===== */
+@media (max-width: 600px) {
+
+    /* Popup Content */
+    .popup1-content {
+        width: 95%;          /* hampir full-width di layar kecil */
+        max-width: none;     /* hapus batas max-width */
+        padding: 15px;       /* dikurangi sedikit agar muat */
+    }
+
+    /* Grid */
+    .program1-grid {
+        grid-template-columns: 1fr;   /* 1 kolom supaya muat di layar sempit */
+        grid-template-rows: auto;     /* baris mengikuti konten */
+        gap: 8px;                     /* jarak lebih kecil */
+    }
+
+    /* Card */
+    .program1-card {
+        padding: 8px;                 /* lebih ringkas */
+        font-size: 12px;
+    }
+
+    .program1-card h3 {
+        font-size: 13px;
+        margin: 5px 0 3px;
+    }
+
+    .pilih1-button {
+        padding: 4px 8px;
+        font-size: 11px;
+        margin-top: 4px;
+    }
+
+    /* Gambar */
+    .program1-img {
+        width: 50px;
+        height: 50px;
+    }
+}
+    
 </style>
 
 
