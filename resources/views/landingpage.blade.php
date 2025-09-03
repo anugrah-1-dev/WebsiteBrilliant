@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brilliant English Course</title>
+    <title>BIEPLUS Kampung Inggris Pare</title>
 
     <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
     <script src="{{ asset('js/landingpage.js') }}"></script>
@@ -113,19 +113,22 @@
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
-                <img src="{{ asset('asset/img/bie.jpg') }}" class="slide" alt="Slide 1">
-                <img src="{{ asset('asset/img/brilliant2.jpg') }}" class="slide" alt="Slide 2">
-                <img src="{{ asset('asset/img/bies.jpg') }}" class="slide" alt="Slide 3">
-                <img src="{{ asset('asset/img/brilliant1.jpg') }}" class="slide active" alt="Slide 4">
-                <img src="{{ asset('asset/img/brilliant3.jpg') }}" class="slide" alt="Slide 5">
+                <img src="{{ asset('asset/img/BIE1.jpg') }}" class="slide" alt="Slide 1">
+                <img src="{{ asset('asset/img/BIE2.jpg') }}" class="slide" alt="Slide 2">
+                <img src="{{ asset('asset/img/BIE3.jpg') }}" class="slide" alt="Slide 3">
+                <img src="{{ asset('asset/img/BIE4.jpg') }}" class="slide active" alt="Slide 4">
+                <img src="{{ asset('asset/img/BIE5.jpg') }}" class="slide" alt="Slide 5">
+                <img src="{{ asset('asset/img/BIE6.jpg') }}" class="slide" alt="Slide 6">
             </div>
             <div class="overlay"></div>
             <div class="carousel-text">
-                <h1 data-aos="fade-left" data-aos-delay="200">BRILLIANT ENGLISH COURSE</h1>
+                <h1 data-aos="fade-left" data-aos-delay="200">
+                    <span style="color: #007bff;">BRILLIANT INTERNATIONAL EDUCATION</span> <span style="color: #FFD700;">PLUS</span>
+                </h1>
 
                 <p data-aos="fade-right" data-aos-delay="200">
-                    Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di
-                    Brilliant English Course, tempat di mana potensi Anda menjadi lebih gemilang!
+                    Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di Brilliant International Education PLUS 
+                    serta nikmati tempat tinggal atau CAMP dengan kenyamanan, fasilitas lengkap untuk mendukung pengalaman belajar terbaik Anda. Nikmati tempat di mana potensi Anda menjadi lebih gemilang!
                 </p>
 
 
@@ -431,11 +434,11 @@
 
             <div class="about-grid">
                 <div class="about-intro" data-aos="fade-left" data-aos-delay="200">
-                    <h2>Brilliant English Course?</h2>
+                    <h2>Brilliant International Education PLUS</h2>
                     <p>
-                        Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara
-                        Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya
-                        efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
+                        Berlokasi di jantung Kampung Inggris Pare, Brilliant International Education PLUS menyediakan pengalaman belajar yang berkualitas di
+                        Brilliant International Education PLUS serta nikmati tempat tinggal atau CAMP dengan kenyamanan, fasilitas lengkap, dan lokasi
+                        strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare. Nikmati tempat di mana potensi Anda menjadi lebih gemilang!
                     </p>
                 </div>
 
@@ -484,8 +487,7 @@
     <section class="registration-flow-section" id="alur-pendaftaran">
         <div class="container">
             <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
-            <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English
-                Course:</p>
+            <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant International Education PLUS:</p>
 
             <div class="flow-steps">
                 {{-- Setiap langkah diberi animasi fade-up dengan delay yang meningkat --}}
@@ -519,7 +521,7 @@
                     <div class="step-content">
                         <h3>Daftar Ulang</h3>
                         <p>Melakukan daftar ulang secara langsung melalui Admin kami yang berada di Ruang Office
-                            Brilliant English Course.</p>
+                            Brilliant International Education PLUS.</p>
                     </div>
                 </div>
 
@@ -527,8 +529,7 @@
                     <div class="step-number">5</div>
                     <div class="step-content">
                         <h3>Siap Belajar!</h3>
-                        <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant English
-                            Course.</p>
+                        <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant International Education PLUS.</p>
                     </div>
                 </div>
             </div>
@@ -853,7 +854,7 @@
                                 @endphp
 
                                 <ul class="list-unstyled">
-                                    @foreach (array_slice($fasilitasList, 0, 4) as $fasilitas)
+                                    @foreach ($fasilitasList as $fasilitas)
                                         <li>✅ {{ $fasilitas }}</li>
                                     @endforeach
                                 </ul>
@@ -892,7 +893,7 @@
             <div class="container" data-aos="fade-up">
                 <h2 class="section-title">GALERI</h2>
                 <p class="section-subtitle text-center mb-4">
-                    Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
+                    Dokumentasi kegiatan dan momen-momen seru bersama Brilliant International Education PLUS.
                 </p>
 
                 <div class="gallery-slider-wrapper">
@@ -1118,7 +1119,7 @@
 
 
         <footer>
-            © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+            © 2025 Brilliant International Education PLUS. Hak Cipta Dilindungi Oleh Undang-Undang
         </footer>
 
 

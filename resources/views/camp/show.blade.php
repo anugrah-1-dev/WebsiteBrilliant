@@ -556,14 +556,7 @@
                                                 'label' => '3 Months',
                                                 'harga' => $program->harga_tiga_bulan,
                                             ],
-                                            'enam_bulan' => [
-                                                'label' => '6 Months',
-                                                'harga' => $program->harga_enam_bulan,
-                                            ],
-                                            'satu_tahun' => [
-                                                'label' => '1 Years',
-                                                'harga' => $program->harga_satu_tahun,
-                                            ],
+                                          
                                         ];
                                     @endphp
                                     @foreach ($durasiOptions as $key => $option)

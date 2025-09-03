@@ -132,10 +132,7 @@
                                                     {{ number_format($program->harga_dua_bulan, 0, ',', '.') }}</small><br>
                                                 <small>3 Bulan: Rp
                                                     {{ number_format($program->harga_tiga_bulan, 0, ',', '.') }}</small><br>
-                                                <small>6 Bulan: Rp
-                                                    {{ number_format($program->harga_enam_bulan, 0, ',', '.') }}</small><br>
-                                                <small>1 Tahun: Rp
-                                                    {{ number_format($program->harga_satu_tahun, 0, ',', '.') }}</small>
+                                               
                                             </div>
                                         </div>
                                     </td>
