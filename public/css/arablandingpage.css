@@ -607,18 +607,30 @@ body {
 .program-card .btn {
     font-weight: 600;
     border-radius: 8px;
-    padding: 10px;
+    padding: 10px 16px; /* lebih proporsional */
     text-align: center;
     border: 2px solid #0f5132;
     color: #fff;
     background: #0f5132; /* hijau default */
     transition: all 0.3s ease;
+    display: inline-block;
+    max-width: 100%; /* tombol tidak lebih besar dari kontainer */
+    box-sizing: border-box; /* padding ikut dihitung dalam lebar */
 }
 
 .program-card .btn:hover {
     background-color: #d4af37; /* emas saat hover */
     border-color: #d4af37;
     color: #fff;
+}
+
+/* === RESPONSIVE UNTUK MOBILE === */
+@media (max-width: 480px) {
+    .program-card .btn {
+        width: 100%; /* tombol full lebar container */
+        padding: 12px; /* lebih nyaman untuk jari */
+        font-size: 14px; /* sedikit lebih kecil agar pas */
+    }
 }
 
 /* keadaan awal */
