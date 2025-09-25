@@ -369,6 +369,7 @@
             duration: 800, // Durasi animasi
         });
     </script>
+        @include('partials.whatsapp-floating')
 
 
 

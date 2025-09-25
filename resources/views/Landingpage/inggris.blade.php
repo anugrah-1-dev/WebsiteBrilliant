@@ -287,12 +287,14 @@
             </div>
 
     </section>
+        @include('partials.whatsapp-floating')
 
 
     <!-- Footer -->
     <footer class="footer text-center">
         <p>© 2025 Brilliant English Course | Programming Bahasa Inggris</p>
     </footer>
+    
 
 
     <style>

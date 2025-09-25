@@ -279,6 +279,7 @@
             </div>
         </div>
     </section>
+        @include('partials.whatsapp-floating')
 
     {{-- Wave Divider 2 (dibalik) --}}
     <!-- <div class="wave-divider"">
