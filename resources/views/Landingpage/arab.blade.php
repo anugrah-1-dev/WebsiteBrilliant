@@ -41,39 +41,32 @@
         <div class="container">
             <!-- Bagian kiri: Foto pamflet -->
             <div class="pamflet">
-                <img src={{ asset('asset/img/ARABPAM.jpg') }} alt="Pamflet Program Brilliant Alsaeid">
+                <img src={{ asset('asset/img/arabbaru1.jpg') }} alt="Pamflet Program Brilliant Alsaeid">
             </div>
 
             <!-- Bagian kanan: Deskripsi program -->
             <div class="program-info">
-                <h2>Program Brilliant Alsaeid</h2>
+                <h2>Program Brilliant Alsaeid Arabic Course</h2>
                 <p>
-                    Brilliant Alsaeid Arabic Course membuka kesempatan bagi Anda yang ingin
-                    dibimbing dari dasar hingga mahir dalam berbahasa Arab. Program ini
-                    mencakup <strong>Mufrodat, Muhadatsah, Qowaid, Istima', Fasohah, Ibaroh/Uslub</strong>
-                    dan banyak lagi.
+                    Program ini dirancang bagi kamu yang ingin menguasai Bahasa Arab secara aktif maupun pasif dalam 1
+                    bulan.
+                    Tersedia kelas Muhadatsah (Mustawa Awwal, Tsani, Tsalits) dan Baca Kitab (Tamhid, Muthawassith,
+                    Mutaqaddim).
+                    Peserta akan mendapat 5 kali pertemuan sehari, dibimbing pengajar berpengalaman, belajar dengan
+                    metode menarik,
+                    dan mengikuti program tambahan seperti Khithobah, Diroasah Jama’iyyah, Musyahadah, dan Fashl
+                    Khoriji.
                 </p>
-
-                <h3>Program Kelas</h3>
                 <ul>
-                    <li><strong>I’dad</strong> – 2 pekan, Rp.165.000 (dasar bahasa Arab, qowaid, qira’ah, muhadatsah,
-                        target 600 kosakata)</li>
-                    <li><strong>Mustawa Awwal</strong> – 1 bulan, Rp.460.000 (latihan percakapan, penyusunan kalimat
-                        sederhana, target 1500 kosakata)</li>
-                    <li><strong>Mustawa Tsani</strong> – 1 bulan, Rp.460.000 (pendalaman kaidah, percakapan lancar,
-                        target 2100 kosakata)</li>
-                    <li><strong>Mustawa Tsalits</strong> – 1 bulan, Rp.460.000 (penekanan fashohah, insya’ (mengarang),
-                        target 3000+ kosakata)</li>
+                    <li><strong>Program Offline:</strong> Rp. 665.000</li>
+                    <li><strong>Program Online:</strong> Rp. 385.000</li>
                 </ul>
-
-                <h3>Program Online</h3>
-                <ul>
-                    <li><strong>2 Minggu</strong>: Private (Rp.400.000), VIP (Rp.250.000), Reguler (Rp.150.000)</li>
-                    <li><strong>1 Bulan</strong>: Private (Rp.650.000), VIP (Rp.450.000), Reguler (Rp.350.000)</li>
-                </ul>
-
-                <p><em>Fasilitas: Kelas & suasana belajar yang nyaman, tutor friendly, dan area instagramable.</em></p>
+                <p>
+                    Kontak kami via Instagram @Brilliant_alsaeid_arabic, TikTok Brilliantalsaeid
+                </p>
             </div>
+
+
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -94,8 +87,8 @@
                 elements.forEach(el => observer.observe(el));
             });
         </script>
-
     </section>
+
 
     <div class="wave-divider5">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -330,7 +323,8 @@
     <section class="alur" id="alur">
         <div class="container">
             <h2>Alur Pendaftaran</h2>
-            <p>Ikuti langkah-langkah berikut untuk mendaftar di <strong>Brilliant Alsaeid Arabic Course</strong>:</p>
+            <p class="intro">Ikuti langkah-langkah berikut untuk mendaftar di <strong>Brilliant Alsaeid Arabic
+                    Course</strong>:</p>
 
             <div class="alur-timeline">
                 <div class="step">
@@ -361,14 +355,14 @@
                         Course.</p>
                 </div>
             </div>
+        </div>
 
-        </div>
-        </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const steps = document.querySelectorAll(".step");
                 const title = document.querySelector(".alur h2");
-                const desc = document.querySelector(".alur p");
+                const desc = document.querySelector(".alur .intro");
+
 
                 // Observer untuk timeline steps
                 const stepsObserver = new IntersectionObserver((entries, observer) => {
@@ -386,7 +380,7 @@
                     stepsObserver.observe(step);
                 });
 
-                // Observer untuk judul & paragraf
+                // Observer untuk judul & paragraf pembuka
                 const headerObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -397,16 +391,14 @@
                     });
                 }, { threshold: 0.3 });
 
-                // cukup observe container atau section agar judul & paragraf muncul
                 const alurSection = document.querySelector("#alur");
                 headerObserver.observe(alurSection);
             });
-
-
         </script>
     </section>
 
-    </section>
+
+
     <div class="wave-divider2">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill2"
@@ -477,6 +469,7 @@
             <h2 class="section-title">Kontak Kami</h2>
             <p class="kontak-subtitle">
                 Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
+                Tim kami dengan senang hati siap membantu menjawab pertanyaan maupun kebutuhan Anda.
             </p>
 
             <div class="kontak-info">
@@ -526,7 +519,7 @@
     <footer>
         © 2025 Brilliant Alsaeid Arabic Course | Program Belajar Bahasa Arab
     </footer>
-
+    @include('partials.whatsapp-floating')
 </body>
 
 </html>

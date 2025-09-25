@@ -1,8 +1,8 @@
 <!-- Navbar -->
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 <script>
-    const logo1URL = "{{ asset('asset/img/bietest.png') }}";
-    const logo2URL = "{{ asset('asset/img/bietest.png') }}";
+    const logo1URL = "{{ asset('asset/img/LogoWebBrillaintPare.png') }}";
+    const logo2URL = "{{ asset('asset/img/LogoWebBrillaintPare.png') }}";
 </script>
 <script src="{{ asset('js/landingpage.js') }}"></script>
 <!-- Navbar css-->
@@ -12,7 +12,7 @@
 
 <nav id="navbar">
     <div class="logo">
-        <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo" id="navbarLogo" style="height: 90px;">
+        <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo" id="navbarLogo" style="height: 70px;">
 
     </div>
 
