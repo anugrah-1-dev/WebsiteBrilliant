@@ -97,7 +97,7 @@
                             <small class="text-muted">Tidak ada fasilitas tersedia</small>
                         @endif
                             <a href="{{ route('public.program.offline.show', $program->slug) }}" class="program-btn w-100 mt-auto">
-                                Lihat Detail
+                                Daftar Program
                             </a>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                             <small class="text-muted">Tidak ada fasilitas tersedia</small>
                         @endif
                             <a href="{{ route('public.program.online.show', $program->slug) }}" class="program-btn w-100 mt-auto">
-                                Lihat Detail
+                                Daftar Program
                             </a>
                         </div>
                     </div>

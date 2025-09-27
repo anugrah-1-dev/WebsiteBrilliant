@@ -106,7 +106,7 @@
                     </div>
                     <div class="modal-body d-flex justify-content-center">
                         <div class="sosmed-card-video" style="max-width: 560px; width: 100%;">
-                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/rMfdvef5os4"
+                            <iframe width="100%" height="315" src="https://youtu.be/sIAlnVkQTuc?si=xa4elMNoA2Uwgj7t"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
