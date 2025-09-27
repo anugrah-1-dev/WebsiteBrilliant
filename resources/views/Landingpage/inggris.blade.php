@@ -123,7 +123,7 @@
 
 
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                    class="btn btn-primary mt-auto">View Details</a>
+                                    class="btn btn-primary mt-auto"> Daftar Program</a>
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                                 @endif
                                 <br>
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                    class="btn btn-danger mt-auto">View Details</a>
+                                    class="btn btn-danger mt-auto"> Daftar Program</a>
                             </div>
                         </div>
                     </div>

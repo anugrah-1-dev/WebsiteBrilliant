@@ -14,17 +14,14 @@
     <section class="hero">
         <div class="carousel">
             <div class="slides">
-               <div class="slide active">
-                    <img src="{{ asset('asset/img/BrilliantArb.jpg') }}" alt="Belajar Bahasa Arab 1">
+                <div class="slide active">
+                    <img src="{{ asset('asset/img/BIE1.jpg') }}" alt="Belajar Bahasa Arab 1">
                 </div>
                 <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.3.jpg') }}" alt="Belajar Bahasa Arab 2">
+                    <img src="{{ asset('asset/img/BIE2.jpg') }}" alt="Belajar Bahasa Arab 2">
                 </div>
                 <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.1.jpg') }}" alt="Belajar Bahasa Arab 3">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.2.jpg') }}" alt="Belajar Bahasa Arab 4">
+                    <img src="{{ asset('asset/img/BIE3.jpg') }}" alt="Belajar Bahasa Arab 3">
                 </div>
             </div>
             <button class="prev">&#10094;</button>
@@ -163,7 +160,7 @@
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                    class="btn btn-primary mt-auto">Lihat Detail</a>
+                                    class="btn btn-primary mt-auto"> Daftar Program</a>
                             </div>
 
                         </div>
@@ -221,7 +218,7 @@
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                    class="btn btn-danger mt-auto">Lihat Detail</a>
+                                    class="btn btn-danger mt-auto"> Daftar Program</a>
                             </div>
                         </div>
                     </div>

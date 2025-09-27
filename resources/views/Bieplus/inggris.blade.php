@@ -37,7 +37,7 @@
         </div>
 
         <div class="hero-text">
-            <h1>BRILLIANT ENGLISH COURSE</h1>
+            <h1>BRILLIANT INTERNATIONAL EDUCATION PLUS</h1>
             <h2>(Kursus Bahasa Inggris)</h2>
             <p>Kuasai bahasa Inggris dengan metode interaktif dan pengajar berpengalaman.</p>
         </div>
@@ -66,7 +66,7 @@
                                 <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Available</span>
+                                    <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
                             </div>
                             <div class="card-body d-flex flex-column">
@@ -120,7 +120,7 @@
 
 
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                    class="btn btn-primary mt-auto">View Details</a>
+                                    class="btn btn-primary mt-auto">Daftar Program</a>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                                 <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Available</span>
+                                    <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
                             </div>
                             <div class="card-body d-flex flex-column">
@@ -187,7 +187,7 @@
                                 @endif
                                 <br>
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                    class="btn btn-danger mt-auto">View Details</a>
+                                    class="btn btn-danger mt-auto">Daftar Program</a>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
         <div class="container text-center" data-aos="fade-up">
             <h2 class="mb-4">Why Choose Us?</h2>
             <p class="mb-5">
-                At <strong>Brilliant English Course</strong>, we believe that learning Mandarin is an exciting
+                At <strong>Brilliant International Education PLUS</strong>, we believe that learning Mandarin is an exciting
                 adventure. We combine the <span class="highlight">best teaching methods</span> with an interactive
                 approach to create an effective and unforgettable learning experience.
             </p>
@@ -255,7 +255,7 @@
         <div class="alur py-5" id="alur">
             <div class="container text-center" data-aos="fade-up">
                 <h2 class="mb-4">Alur Pendaftaran</h2>
-                <p class="mb-5">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English Course.</p>
+                <p class="mb-5">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant International Education.</p>
                 <div class="alur-timeline">
                     <div class="step" data-aos="fade-up" data-aos-delay="50">
                         <div class="circle">1</div>
@@ -280,7 +280,7 @@
                     <div class="step" data-aos="fade-up" data-aos-delay="450">
                         <div class="circle">5</div>
                         <h3>Selamat Belajar!</h3>
-                        <p>Anda resmi menjadi bagian dari Brilliant English Course.</p>
+                        <p>Anda resmi menjadi bagian dari Brilliant International Education</p>
                     </div>
                 </div>
             </div>
@@ -290,7 +290,7 @@
 
     <!-- Footer -->
     <footer class="footer text-center">
-        <p>© 2025 Brilliant English Course | Programming Bahasa Inggris</p>
+        <p>© 2025 Brilliant International Education PLUS | Programming Bahasa Inggris</p>
     </footer>
 
 

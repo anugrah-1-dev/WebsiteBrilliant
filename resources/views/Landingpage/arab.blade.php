@@ -163,7 +163,7 @@
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                    class="btn btn-primary mt-auto">Lihat Detail</a>
+                                    class="btn btn-primary mt-auto"> Daftar Program</a>
                             </div>
 
                         </div>
@@ -221,7 +221,7 @@
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                    class="btn btn-danger mt-auto">Lihat Detail</a>
+                                    class="btn btn-danger mt-auto"> Daftar Program</a>
                             </div>
                         </div>
                     </div>
