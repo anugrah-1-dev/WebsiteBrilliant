@@ -42,8 +42,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="images">Upload Gambar (Bisa lebih dari satu)</label>
+                    <label for="images">Upload Foto <small class="text-muted">(bisa lebih dari satu, maks 5MB/foto)</small></label>
                     <input type="file" name="images[]" class="form-control" multiple accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label for="video_urls">Link Video YouTube <small class="text-muted">(opsional, satu link per baris)</small></label>
+                    <textarea name="video_urls" class="form-control" rows="4"
+                        placeholder="https://www.youtube.com/watch?v=xxxxx&#10;https://youtu.be/xxxxx">{{ old('video_urls') }}</textarea>
+                    <small class="text-muted">Masukkan URL YouTube, satu link per baris.</small>
                 </div>
 
             </div>

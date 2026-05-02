@@ -780,12 +780,34 @@ document.querySelectorAll('.program1-card').forEach(function(card){
                             @php $index = 0; @endphp
                             @foreach ($galleries as $gallery)
                                 @if ($gallery->images->isNotEmpty())
+                                    @php
+                                        $firstMedia = $gallery->images->first();
+                                        $thumbSrc = null;
+                                        $isVideoThumb = false;
+                                        if ($firstMedia->type === 'video') {
+                                            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
+                                            $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
+                                            $isVideoThumb = true;
+                                        } else {
+                                            $thumbSrc = asset('storage/' . $firstMedia->image_path);
+                                        }
+                                    @endphp
                                     {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
                                     <div class="gallery-frame text-center" data-index="{{ $index }}"
                                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                            alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                            onclick="openGalleryModal({{ $gallery->id }})">
+                                        <div style="position:relative; display:inline-block; width:100%;">
+                                            @if ($thumbSrc)
+                                                <img src="{{ $thumbSrc }}"
+                                                    alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                                    onclick="openGalleryModal({{ $gallery->id }})">
+                                            @endif
+                                            @if ($isVideoThumb)
+                                                <div onclick="openGalleryModal({{ $gallery->id }})"
+                                                    style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); cursor:pointer; background:rgba(0,0,0,0.5); border-radius:50%; width:50px; height:50px; display:flex; align-items:center; justify-content:center;">
+                                                    <i class="fas fa-play text-white" style="font-size:20px; margin-left:4px;"></i>
+                                                </div>
+                                            @endif
+                                        </div>
 
                                         <div class="gallery-caption">
                                             <h5>{{ $gallery->title }}</h5>
@@ -803,8 +825,20 @@ document.querySelectorAll('.program1-card').forEach(function(card){
                                                     onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
                                                 <div class="modal-slider" id="slider-{{ $gallery->id }}">
                                                     @foreach ($gallery->images as $image)
-                                                        <img src="{{ asset('storage/' . $image->image_path) }}"
-                                                            alt="Image">
+                                                        @if ($image->type === 'video' && $image->getYoutubeEmbedUrl())
+                                                            <div class="gallery-media-item">
+                                                                <iframe
+                                                                    src="{{ $image->getYoutubeEmbedUrl() }}"
+                                                                    frameborder="0"
+                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                    allowfullscreen
+                                                                    style="width:100%; height:400px; border-radius:8px;">
+                                                                </iframe>
+                                                            </div>
+                                                        @elseif ($image->image_path)
+                                                            <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                                alt="Foto Galeri">
+                                                        @endif
                                                     @endforeach
                                                 </div>
                                                 <button class="nav-btn right"

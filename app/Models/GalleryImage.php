@@ -11,9 +11,24 @@ class GalleryImage extends Model
 
     protected $fillable = [
         'gallery_id',
+        'type',
         'image_path',
+        'video_url',
         'caption',
     ];
+
+    public function isVideo(): bool
+    {
+        return $this->type === 'video';
+    }
+
+    public function getYoutubeEmbedUrl(): ?string
+    {
+        if (!$this->video_url) return null;
+        // Support format: https://youtu.be/ID atau https://www.youtube.com/watch?v=ID
+        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $this->video_url, $matches);
+        return isset($matches[1]) ? 'https://www.youtube.com/embed/' . $matches[1] : null;
+    }
 
     // Relasi: gambar ini milik satu galeri
     public function gallery()

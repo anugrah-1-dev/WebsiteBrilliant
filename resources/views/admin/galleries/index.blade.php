@@ -47,7 +47,7 @@
                                     <tr>
                                         <td class="text-center">{{ $index + $galleries->firstItem() }}</td>
                                         <td>{{ $gallery->title }}</td>
-                                        <td class="text-center">{{ $gallery->images_count }} foto</td>
+                                        <td class="text-center">{{ $gallery->images_count }} media</td>
                                         <td class="text-center">{{ $gallery->event_date ?? '-' }}</td>
                                         <td class="text-center">
                                             @if ($gallery->status)

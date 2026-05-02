@@ -44,9 +44,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="images">Upload Gambar Baru (Opsional)</label>
+                    <label for="images">Upload Foto Baru <small class="text-muted">(opsional, maks 5MB/foto)</small></label>
                     <input type="file" name="images[]" class="form-control" multiple accept="image/*">
-                    <small class="text-muted">Kosongkan jika tidak ingin menambah gambar baru.</small>
+                    <small class="text-muted">Kosongkan jika tidak ingin menambah foto baru.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="video_urls">Tambah Link Video YouTube Baru <small class="text-muted">(opsional, satu link per baris)</small></label>
+                    <textarea name="video_urls" class="form-control" rows="3"
+                        placeholder="https://www.youtube.com/watch?v=xxxxx&#10;https://youtu.be/xxxxx"></textarea>
+                    <small class="text-muted">Masukkan URL YouTube baru, satu link per baris.</small>
                 </div>
 
                 <div class="card-footer px-0">
@@ -59,14 +66,29 @@
 
     <div class="card mt-4">
         <div class="card-body">
-            <h5>Gambar Saat Ini</h5>
+            <h5>Media Saat Ini</h5>
             <div class="row">
                 @forelse ($gallery->images as $image)
                     <div class="col-md-3 mb-3">
                         <div class="card shadow-sm">
-                            <img src="{{ asset('storage/' . $image->image_path) }}" class="card-img-top rounded"
-                                alt="Gambar Galeri">
+                            @if ($image->type === 'video')
+                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center"
+                                    style="height: 140px;">
+                                    <div class="text-center text-white p-2">
+                                        <i class="fab fa-youtube fa-3x text-danger mb-1"></i>
+                                        <p class="mb-0" style="font-size:11px; word-break:break-all;">
+                                            {{ Str::limit($image->video_url, 40) }}</p>
+                                    </div>
+                                </div>
+                            @else
+                                <img src="{{ asset('storage/' . $image->image_path) }}"
+                                    class="card-img-top rounded" alt="Foto Galeri"
+                                    style="height:140px; object-fit:cover;">
+                            @endif
                             <div class="card-body p-2 text-center">
+                                <span class="badge {{ $image->type === 'video' ? 'badge-danger' : 'badge-info' }} mb-1">
+                                    {{ $image->type === 'video' ? 'Video' : 'Foto' }}
+                                </span>
                                 <button class="btn btn-sm btn-danger btn-block btn-delete-image"
                                     data-id="{{ $image->id }}"
                                     data-url="{{ route('admin.galleries.images.destroy', $image->id) }}">
@@ -77,7 +99,7 @@
                     </div>
                 @empty
                     <div class="col-12">
-                        <p class="text-muted">Belum ada gambar yang ditambahkan.</p>
+                        <p class="text-muted">Belum ada media yang ditambahkan.</p>
                     </div>
                 @endforelse
             </div>

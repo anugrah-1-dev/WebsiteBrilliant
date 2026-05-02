@@ -27,7 +27,8 @@ class GalleryController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status' => 'required|boolean',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'video_urls' => 'nullable|string',
         ]);
 
         $gallery = Gallery::create([
@@ -36,12 +37,28 @@ class GalleryController extends Controller
             'status' => $request->status,
         ]);
 
+        // Upload foto
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('galleries', 'public');
                 $gallery->images()->create([
+                    'type' => 'image',
                     'image_path' => $path,
                 ]);
+            }
+        }
+
+        // Simpan URL video YouTube (satu per baris)
+        if ($request->filled('video_urls')) {
+            $urls = array_filter(array_map('trim', explode("\n", $request->video_urls)));
+            foreach ($urls as $url) {
+                if ($url) {
+                    $gallery->images()->create([
+                        'type' => 'video',
+                        'image_path' => null,
+                        'video_url' => $url,
+                    ]);
+                }
             }
         }
 
@@ -68,7 +85,8 @@ class GalleryController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status' => 'required|boolean',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'video_urls' => 'nullable|string',
         ]);
 
         $gallery->update([
@@ -77,13 +95,28 @@ class GalleryController extends Controller
             'status' => $request->status,
         ]);
 
-        // Tambah gambar baru jika ada
+        // Tambah foto baru jika ada
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('galleries', 'public');
                 $gallery->images()->create([
+                    'type' => 'image',
                     'image_path' => $path,
                 ]);
+            }
+        }
+
+        // Tambah video YouTube baru jika ada
+        if ($request->filled('video_urls')) {
+            $urls = array_filter(array_map('trim', explode("\n", $request->video_urls)));
+            foreach ($urls as $url) {
+                if ($url) {
+                    $gallery->images()->create([
+                        'type' => 'video',
+                        'image_path' => null,
+                        'video_url' => $url,
+                    ]);
+                }
             }
         }
 
@@ -96,7 +129,7 @@ class GalleryController extends Controller
 
         // Hapus semua gambar terkait dari storage dan database
         foreach ($gallery->images as $image) {
-            if (Storage::disk('public')->exists($image->image_path)) {
+            if ($image->image_path && Storage::disk('public')->exists($image->image_path)) {
                 Storage::disk('public')->delete($image->image_path);
             }
             $image->delete();
@@ -112,13 +145,13 @@ class GalleryController extends Controller
     {
         $image = GalleryImage::findOrFail($id);
 
-        // Hapus file dari storage jika ada
-        if (Storage::disk('public')->exists($image->image_path)) {
+        // Hapus file dari storage jika ada (hanya untuk foto)
+        if ($image->image_path && Storage::disk('public')->exists($image->image_path)) {
             Storage::disk('public')->delete($image->image_path);
         }
 
         $image->delete();
 
-        return back()->with('success', 'Gambar berhasil dihapus.');
+        return back()->with('success', 'Media berhasil dihapus.');
     }
 }
