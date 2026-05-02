@@ -1756,9 +1756,12 @@ html {
    ============================================================ */
 
 /* 1. Section Galeri Erfan: background cream, teks harus gelap */
+#galeri-erfan h2.section-title,
 #galeri-erfan h2,
 #galeri-erfan .section-title {
-    color: #1a1a2e !important; /* gelap, kontras di cream */
+    color: #18005b !important; /* ungu gelap, kontras & mencolok di cream */
+    text-shadow: none !important;
+    -webkit-text-fill-color: #18005b !important;
 }
 #galeri-erfan .section-subtitle {
     color: #444444 !important;
