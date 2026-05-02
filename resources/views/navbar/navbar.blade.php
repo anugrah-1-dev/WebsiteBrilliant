@@ -85,44 +85,44 @@
         }
     })
     // Dropdown functionality (support multiple dropdowns)
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const dropdowns = document.querySelectorAll('.dropdown');
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdowns = document.querySelectorAll('.dropdown');
 
-    //     dropdowns.forEach(dropdown => {
-    //         const button = dropdown.querySelector('.dropbtn');
+        dropdowns.forEach(dropdown => {
+            const button = dropdown.querySelector('.dropbtn');
 
-    //         if (button) {
-    //             button.addEventListener('click', function (e) {
-    //                 e.preventDefault();
-    //                 e.stopPropagation();
+            if (button) {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-    //                 // Tutup semua dropdown lain dulu
-    //                 dropdowns.forEach(d => {
-    //                     if (d !== dropdown) d.classList.remove('active');
-    //                 });
+                    // Tutup semua dropdown lain dulu
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) d.classList.remove('active');
+                    });
 
-    //                 // Toggle dropdown yang diklik
-    //                 dropdown.classList.toggle('active');
-    //             });
-    //         }
-    //     });
+                    // Toggle dropdown yang diklik
+                    dropdown.classList.toggle('active');
+                });
+            }
+        });
 
-    //     // Close all dropdowns when clicking outside
-    //     document.addEventListener('click', function (e) {
-    //         dropdowns.forEach(dropdown => {
-    //             if (!dropdown.contains(e.target)) {
-    //                 dropdown.classList.remove('active');
-    //             }
-    //         });
-    //     });
+        // Close all dropdowns when clicking outside
+        document.addEventListener('click', function (e) {
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
 
-    //     // Close dropdown when item is selected
-    //     document.querySelectorAll('.dropdown-content a').forEach(item => {
-    //         item.addEventListener('click', function () {
-    //             dropdowns.forEach(d => d.classList.remove('active'));
-    //         });
-    //     });
-    // });
+        // Close dropdown when item is selected
+        document.querySelectorAll('.dropdown-content a').forEach(item => {
+            item.addEventListener('click', function () {
+                dropdowns.forEach(d => d.classList.remove('active'));
+            });
+        });
+    });
 
     // Mobile navbar toggle
     function toggleNavbar() {
