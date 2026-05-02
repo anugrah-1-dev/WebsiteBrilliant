@@ -800,7 +800,7 @@
                                     @if ($thumbSrc)
                                         <img src="{{ $thumbSrc }}" alt="{{ $gallery->title }}" class="gallery-thumbnail">
                                     @elseif ($isVideoThumb)
-                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:100%;">
+                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:240px;">
                                             <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
                                         </div>
                                     @endif
@@ -884,7 +884,7 @@
                                     @if ($thumbSrc)
                                         <img src="{{ $thumbSrc }}" alt="{{ $gallery->title }}" class="gallery-thumbnail">
                                     @elseif ($isVideoThumb)
-                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:100%;">
+                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:240px;">
                                             <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
                                         </div>
                                     @endif
