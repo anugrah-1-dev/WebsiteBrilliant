@@ -772,17 +772,10 @@
                 </p>
 
                 {{-- Tab buttons --}}
-                <div class="gallery-tabs text-center mb-4">
-                    <button class="gallery-tab-btn active" onclick="switchGalleryTab('bie', this)">
-                        <i class="fas fa-images me-2"></i>Galeri BIE
-                    </button>
-                    <button class="gallery-tab-btn" onclick="switchGalleryTab('erfan', this)">
-                        <i class="fas fa-star me-2"></i>Galeri Erfan
-                    </button>
-                </div>
 
-                {{-- ===== Tab Galeri BIE ===== --}}
+                {{-- ===== Galeri BIE ===== --}}
                 <div id="tab-bie" class="gallery-tab-pane">
+                    <h4 class="gallery-section-label"><i class="fas fa-images me-2"></i>Galeri BIE</h4>
                     <div class="gallery-grid">
                         @php $index = 0; @endphp
                         @foreach ($galleries as $gallery)
@@ -863,9 +856,10 @@
                         @endforeach
                     </div>
                 </div>
-                {{-- ===== Tab Galeri Erfan ===== --}}
-                <div id="tab-erfan" class="gallery-tab-pane" style="display:none;">
+                {{-- ===== Galeri Erfan ===== --}}
+                <div id="tab-erfan" class="gallery-tab-pane">
                     @if($galleriesErfan->isNotEmpty())
+                    <h4 class="gallery-section-label"><i class="fas fa-star me-2"></i>Galeri Erfan</h4>
                     <div class="gallery-grid">
                         @php $erfanIdx = 0; @endphp
                         @foreach ($galleriesErfan as $gallery)
@@ -954,13 +948,6 @@
         </div>
 
         <script>
-            // Tab switcher galeri
-            function switchGalleryTab(tab, btn) {
-                document.querySelectorAll('.gallery-tab-pane').forEach(function(p) { p.style.display = 'none'; });
-                document.querySelectorAll('.gallery-tab-btn').forEach(function(b) { b.classList.remove('active'); });
-                document.getElementById('tab-' + tab).style.display = 'block';
-                btn.classList.add('active');
-            }
 
             // Galeri BIE â€” modal & slider
             function openGalleryModal(id) {

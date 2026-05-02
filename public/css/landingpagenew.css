@@ -1652,4 +1652,17 @@ footer > * {
 }
 .gallery-tab-pane {
     display: block;
+    margin-bottom: 3rem;
+}
+
+.gallery-section-label {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid rgba(142, 36, 170, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
