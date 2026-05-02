@@ -47,8 +47,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="videos">Upload Video <small class="text-muted">(opsional, bisa lebih dari satu, maks 100MB/video, format: mp4, mov, avi, webm)</small></label>
-                    <input type="file" name="videos[]" class="form-control" multiple accept="video/*">
+                    <label>Upload Video Lokal <small class="text-muted">(opsional, maks 100MB/video, format: mp4, mov, avi, webm)</small></label>
+                    <div id="video-pairs-container"></div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="addVideoPair()">
+                        <i class="fas fa-plus"></i> Tambah Video
+                    </button>
                 </div>
 
                 <div class="form-group">
@@ -68,6 +71,31 @@
 @stop
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function addVideoPair() {
+    const container = document.getElementById('video-pairs-container');
+    const idx = container.querySelectorAll('.video-pair').length;
+    const html = `
+        <div class="video-pair border rounded p-2 mb-2 bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <strong class="small">Video ${idx + 1}</strong>
+                <button type="button" class="btn btn-sm btn-outline-danger py-0" onclick="this.closest('.video-pair').remove()">
+                    <i class="fas fa-times"></i> Hapus
+                </button>
+            </div>
+            <div class="form-group mb-1">
+                <label class="small mb-0">File Video <span class="text-danger">*</span></label>
+                <input type="file" name="videos[]" class="form-control-file" accept="video/*" required>
+            </div>
+            <div class="form-group mb-0">
+                <label class="small mb-0">Foto Cover <span class="text-muted">(opsional)</span></label>
+                <input type="file" name="video_covers[]" class="form-control-file" accept="image/*">
+                <small class="text-muted">Gambar yang tampil di galeri sebelum video diputar.</small>
+            </div>
+        </div>`;
+    container.insertAdjacentHTML('beforeend', html);
+}
+</script>
 
 @if (session('success'))
     <script>

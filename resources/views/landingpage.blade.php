@@ -785,7 +785,9 @@
                                     $thumbSrc = null;
                                     $isVideoThumb = false;
                                     if ($firstMedia->type === 'video') {
-                                        if ($firstMedia->video_url) {
+                                        if ($firstMedia->thumbnail_path) {
+                                            $thumbSrc = asset('storage/' . $firstMedia->thumbnail_path);
+                                        } elseif ($firstMedia->video_url) {
                                             preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
                                             $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
                                         }
@@ -869,7 +871,9 @@
                                     $thumbSrc = null;
                                     $isVideoThumb = false;
                                     if ($firstMedia->type === 'video') {
-                                        if ($firstMedia->video_url) {
+                                        if ($firstMedia->thumbnail_path) {
+                                            $thumbSrc = asset('storage/' . $firstMedia->thumbnail_path);
+                                        } elseif ($firstMedia->video_url) {
                                             preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
                                             $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
                                         }

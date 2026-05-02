@@ -13,6 +13,7 @@ class GalleryImage extends Model
         'gallery_id',
         'type',
         'image_path',
+        'thumbnail_path',
         'video_url',
         'caption',
     ];

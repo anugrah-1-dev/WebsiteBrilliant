@@ -29,6 +29,7 @@ class GalleryController extends Controller
             'status' => 'required|boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'videos.*' => 'nullable|mimes:mp4,mov,avi,mkv,webm|max:102400',
+            'video_covers.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'video_urls' => 'nullable|string',
         ]);
 
@@ -52,12 +53,18 @@ class GalleryController extends Controller
 
         // Upload file video
         if ($request->hasFile('videos')) {
-            foreach ($request->file('videos') as $video) {
+            $covers = $request->file('video_covers') ?? [];
+            foreach ($request->file('videos') as $idx => $video) {
                 $path = $video->store('galleries/videos', 'public');
+                $coverPath = null;
+                if (isset($covers[$idx]) && $covers[$idx]->isValid()) {
+                    $coverPath = $covers[$idx]->store('galleries/covers', 'public');
+                }
                 $gallery->images()->create([
                     'type' => 'video',
                     'image_path' => $path,
                     'video_url' => null,
+                    'thumbnail_path' => $coverPath,
                 ]);
             }
         }
@@ -101,6 +108,7 @@ class GalleryController extends Controller
             'status' => 'required|boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'videos.*' => 'nullable|mimes:mp4,mov,avi,mkv,webm|max:102400',
+            'video_covers.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'video_urls' => 'nullable|string',
         ]);
 
@@ -123,12 +131,18 @@ class GalleryController extends Controller
 
         // Tambah file video baru jika ada
         if ($request->hasFile('videos')) {
-            foreach ($request->file('videos') as $video) {
+            $covers = $request->file('video_covers') ?? [];
+            foreach ($request->file('videos') as $idx => $video) {
                 $path = $video->store('galleries/videos', 'public');
+                $coverPath = null;
+                if (isset($covers[$idx]) && $covers[$idx]->isValid()) {
+                    $coverPath = $covers[$idx]->store('galleries/covers', 'public');
+                }
                 $gallery->images()->create([
                     'type' => 'video',
                     'image_path' => $path,
                     'video_url' => null,
+                    'thumbnail_path' => $coverPath,
                 ]);
             }
         }
