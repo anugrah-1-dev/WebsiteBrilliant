@@ -32,7 +32,15 @@ class FeatureHelper
             'farewell party' => '🎉',
             'penjemputan'  => '🚌',
             'stasiun'      => '🚉',
-            'terminal'     => '🚍',
+            'camp vip'     => '✅',
+            'toefl'        => '✅',
+            'voucher'      => '🎫',
+            'tempat tinggal' => '🏠',
+            'competence'   => '📘',
+            'psychotraining' => '🧠',
+            'budi pekerti' => '🌟',
+            't-shirt'      => '👕',
+            'kaos'         => '🎁',
         ];
 
         foreach ($icons as $keyword => $icon) {
