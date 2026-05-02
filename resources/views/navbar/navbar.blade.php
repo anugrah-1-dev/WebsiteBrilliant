@@ -36,8 +36,8 @@
                 GALERI <span class="arrow">▼</span>
             </button>
             <div class="dropdown-content">
-                <a href="{{ url('#galeri') }}">Galeri</a>
-                <a href="{{ url('#sosmed') }}">Social Media</a>
+                <a href="#galeri">Galeri</a>
+                <a href="#sosmed">Social Media</a>
             </div>
         </div>
 
