@@ -814,49 +814,53 @@
                                         <p>{{ Str::limit($gallery->deskripsi ?? '', 60) }}</p>
                                     </div>
                                 </div>
-
-                                    <div id="modal-{{ $gallery->id }}" class="gallery-modal">
-                                        <div class="modal-content">
-                                            <span class="close-btn"
-                                                onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
-                                            <h3>{{ $gallery->title }}</h3>
-                                            <div class="modal-slider-wrapper">
-                                                <button class="nav-btn left"
-                                                    onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
-                                                <div class="modal-slider" id="slider-{{ $gallery->id }}">
-                                                    <div class="slide-track">
-                                                        @foreach ($gallery->images as $image)
-                                                            <div class="slide-item">
-                                                                @if ($image->isYoutubeVideo() && $image->getYoutubeEmbedUrl())
-                                                                    <iframe
-                                                                        src="{{ $image->getYoutubeEmbedUrl() }}"
-                                                                        frameborder="0"
-                                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                                        allowfullscreen
-                                                                        style="width:100%; height:400px; border-radius:8px;">
-                                                                    </iframe>
-                                                                @elseif ($image->isLocalVideo())
-                                                                    <video controls style="max-width:100%; max-height:65vh; border-radius:8px; background:#000;">
-                                                                        <source src="{{ asset('storage/' . $image->image_path) }}">
-                                                                        Browser Anda tidak mendukung pemutaran video.
-                                                                    </video>
-                                                                @elseif ($image->image_path)
-                                                                    <img src="{{ asset('storage/' . $image->image_path) }}"
-                                                                        alt="Foto Galeri">
-                                                                @endif
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <button class="nav-btn right"
-                                                    onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 @php $index++; @endphp
                             @endif
                         @endforeach
                     </div>
+                    {{-- Modal BIE di luar gallery-grid --}}
+                    @foreach ($galleries as $gallery)
+                        @if ($gallery->images->isNotEmpty())
+                            <div id="modal-{{ $gallery->id }}" class="gallery-modal">
+                                <div class="modal-content">
+                                    <span class="close-btn"
+                                        onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                                    <h3>{{ $gallery->title }}</h3>
+                                    <div class="modal-slider-wrapper">
+                                        <button class="nav-btn left"
+                                            onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
+                                        <div class="modal-slider" id="slider-{{ $gallery->id }}">
+                                            <div class="slide-track">
+                                                @foreach ($gallery->images as $image)
+                                                    <div class="slide-item">
+                                                        @if ($image->isYoutubeVideo() && $image->getYoutubeEmbedUrl())
+                                                            <iframe
+                                                                src="{{ $image->getYoutubeEmbedUrl() }}"
+                                                                frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen
+                                                                style="width:100%; height:400px; border-radius:8px;">
+                                                            </iframe>
+                                                        @elseif ($image->isLocalVideo())
+                                                            <video controls style="max-width:100%; max-height:65vh; border-radius:8px; background:#000;">
+                                                                <source src="{{ asset('storage/' . $image->image_path) }}">
+                                                                Browser Anda tidak mendukung pemutaran video.
+                                                            </video>
+                                                        @elseif ($image->image_path)
+                                                            <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                                alt="Foto Galeri">
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <button class="nav-btn right"
+                                            onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
                 {{-- ===== Galeri Erfan ===== --}}
                 <div id="tab-erfan" class="gallery-tab-pane">
@@ -900,44 +904,48 @@
                                         <p>{{ Str::limit($gallery->deskripsi ?? '', 60) }}</p>
                                     </div>
                                 </div>
-
-                                        <div id="erfan-modal-{{ $gallery->id }}" class="gallery-modal">
-                                            <div class="modal-content">
-                                                <span class="close-btn" onclick="closeErfanModal({{ $gallery->id }})">&times;</span>
-                                                <h3>{{ $gallery->title }}</h3>
-                                                <div class="modal-slider-wrapper">
-                                                    <button class="nav-btn left" onclick="slideErfan({{ $gallery->id }}, -1)">&#8592;</button>
-                                                    <div class="modal-slider" id="erfan-slider-{{ $gallery->id }}">
-                                                        <div class="slide-track">
-                                                            @foreach ($gallery->images as $image)
-                                                                <div class="slide-item">
-                                                                    @if ($image->isYoutubeVideo() && $image->getYoutubeEmbedUrl())
-                                                                        <iframe src="{{ $image->getYoutubeEmbedUrl() }}"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                                            allowfullscreen
-                                                                            style="width:100%; height:400px; border-radius:8px;">
-                                                                        </iframe>
-                                                                    @elseif ($image->isLocalVideo())
-                                                                        <video controls style="max-width:100%; max-height:65vh; border-radius:8px; background:#000;">
-                                                                            <source src="{{ asset('storage/' . $image->image_path) }}">
-                                                                            Browser Anda tidak mendukung pemutaran video.
-                                                                        </video>
-                                                                    @elseif ($image->image_path)
-                                                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Foto Galeri Erfan">
-                                                                    @endif
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                    <button class="nav-btn right" onclick="slideErfan({{ $gallery->id }}, 1)">&#8594;</button>
-                                                </div>
-                                            </div>
-                                        </div>
                                 @php $erfanIdx++; @endphp
                             @endif
                         @endforeach
                     </div>
+                    {{-- Modal Erfan di luar gallery-grid --}}
+                    @foreach ($galleriesErfan as $gallery)
+                        @if ($gallery->images->isNotEmpty())
+                            <div id="erfan-modal-{{ $gallery->id }}" class="gallery-modal">
+                                <div class="modal-content">
+                                    <span class="close-btn" onclick="closeErfanModal({{ $gallery->id }})">&times;</span>
+                                    <h3>{{ $gallery->title }}</h3>
+                                    <div class="modal-slider-wrapper">
+                                        <button class="nav-btn left" onclick="slideErfan({{ $gallery->id }}, -1)">&#8592;</button>
+                                        <div class="modal-slider" id="erfan-slider-{{ $gallery->id }}">
+                                            <div class="slide-track">
+                                                @foreach ($gallery->images as $image)
+                                                    <div class="slide-item">
+                                                        @if ($image->isYoutubeVideo() && $image->getYoutubeEmbedUrl())
+                                                            <iframe src="{{ $image->getYoutubeEmbedUrl() }}"
+                                                                frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen
+                                                                style="width:100%; height:400px; border-radius:8px;">
+                                                            </iframe>
+                                                        @elseif ($image->isLocalVideo())
+                                                            <video controls style="max-width:100%; max-height:65vh; border-radius:8px; background:#000;">
+                                                                <source src="{{ asset('storage/' . $image->image_path) }}">
+                                                                Browser Anda tidak mendukung pemutaran video.
+                                                            </video>
+                                                        @elseif ($image->image_path)
+                                                            <img src="{{ asset('storage/' . $image->image_path) }}" alt="Foto Galeri Erfan">
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <button class="nav-btn right" onclick="slideErfan({{ $gallery->id }}, 1)">&#8594;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                     @else
                         <p class="text-center text-muted mt-4">Belum ada galeri Erfan.</p>
                     @endif
