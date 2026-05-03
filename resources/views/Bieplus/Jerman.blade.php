@@ -57,8 +57,10 @@
                     <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
+                                @if ($program->thumbnail)
+                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                        alt="{{ $program->nama }}">
+                                @endif
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
@@ -112,8 +114,10 @@
                     <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
+                                @if ($program->thumbnail)
+                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                        alt="{{ $program->nama }}">
+                                @endif
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
@@ -307,33 +311,6 @@
         text-align: center;
     }
     </style>
-
-    {{-- Script untuk Carousel --}}
-    <script>
-        const slides = document.querySelectorAll(".slide");
-        const prevBtn = document.querySelector(".prev");
-        const nextBtn = document.querySelector(".next");
-        let current = 0;
-
-        function showSlide(index) {
-            slides.forEach((s, i) => s.classList.toggle("active", i === index));
-        }
-
-        function nextSlide() {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        }
-
-        nextBtn.addEventListener("click", nextSlide);
-
-        prevBtn.addEventListener("click", () => {
-            current = (current - 1 + slides.length) % slides.length;
-            showSlide(current);
-        });
-
-        // Auto-slide
-        setInterval(nextSlide, 5000);
-    </script>
 
     {{-- Script untuk Inisialisasi AOS --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

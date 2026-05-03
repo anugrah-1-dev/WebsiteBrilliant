@@ -66,8 +66,10 @@
                         <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                             <div class="program-card h-100 d-flex flex-column">
                                 <div class="program-card-image-wrapper">
-                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                        alt="{{ $program->nama }}">
+                                    @if ($program->thumbnail)
+                                        <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                            alt="{{ $program->nama }}">
+                                    @endif
                                 </div>
                                 <div class="program-card-content d-flex flex-column flex-grow-1">
                                     <h4 class="program-title">{{ $program->nama }}</h4>
@@ -113,8 +115,10 @@
                         <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                             <div class="program-card h-100 d-flex flex-column">
                                 <div class="program-card-image-wrapper">
-                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                        alt="{{ $program->nama }}">
+                                    @if ($program->thumbnail)
+                                        <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                            alt="{{ $program->nama }}">
+                                    @endif
                                 </div>
                                 <div class="program-card-content d-flex flex-column flex-grow-1">
                                     <h4 class="program-title">{{ $program->nama }}</h4>
@@ -304,36 +308,6 @@
             }
         }
     </style>
-
-    {{-- JS for Carousel --}}
-    <script>
-        const slides = document.querySelectorAll(".slide");
-        const prevBtn = document.querySelector(".prev");
-        const nextBtn = document.querySelector(".next");
-        let current = 0;
-
-        function showSlide(index) {
-            slides.forEach((s, i) => s.classList.toggle("active", i === index));
-        }
-
-        if (prevBtn && nextBtn) {
-            nextBtn.addEventListener("click", () => {
-                current = (current + 1) % slides.length;
-                showSlide(current);
-            });
-
-            prevBtn.addEventListener("click", () => {
-                current = (current - 1 + slides.length) % slides.length;
-                showSlide(current);
-            });
-
-            // Auto-slide
-            setInterval(() => {
-                current = (current + 1) % slides.length;
-                showSlide(current);
-            }, 5000);
-        }
-    </script>
 
     {{-- Filter Program JS --}}
     <script>

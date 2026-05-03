@@ -165,7 +165,6 @@ body {
     left: -50px;
     width: 300px;
     height: 300px;
-    background: url("pattern.svg") no-repeat center/cover;
     opacity: 0.05;
 }
 
@@ -176,7 +175,6 @@ body {
     right: -50px;
     width: 300px;
     height: 300px;
-    background: url("pattern.svg") no-repeat center/cover;
     opacity: 0.05;
 }
 
@@ -234,7 +232,9 @@ body {
     border-top: 4px solid #d4af37; /* aksen emas */
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(6px);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .about-card:hover {
@@ -260,7 +260,9 @@ body {
 .about .about-card {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
 .about h2.show,
@@ -419,7 +421,9 @@ body {
 
 /* Bonus: Animasi zoom-in untuk lingkaran */
 .circle {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 .step.show .circle {
@@ -543,7 +547,9 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     text-align: left; /* isi card tetap natural */
 }
 
@@ -639,7 +645,9 @@ body {
 .program-section .program-item {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
 }
 
 /* ketika sudah terlihat */
@@ -751,7 +759,9 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .kontak-section .kontak-maps iframe {
@@ -771,7 +781,9 @@ body {
 .kontak-section .kontak-maps {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
 .kontak-section .section-title.show,
@@ -852,7 +864,9 @@ footer {
     border-radius: 16px;
     border: 3px solid #ffd700; /* border emas */
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .pamflet img:hover {
@@ -864,7 +878,9 @@ footer {
 .program-info {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
 }
 
 /* keadaan saat terlihat */

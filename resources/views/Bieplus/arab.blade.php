@@ -118,8 +118,10 @@
                         style="display: none;">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
+                                @if ($program->thumbnail)
+                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                        alt="{{ $program->nama }}">
+                                @endif
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
@@ -283,34 +285,6 @@
             });
         });
     </script>
-
-    <script>
-        const slides = document.querySelectorAll(".slide");
-        const prevBtn = document.querySelector(".prev");
-        const nextBtn = document.querySelector(".next");
-        let current = 0;
-
-        function showSlide(index) {
-            slides.forEach((s, i) => s.classList.toggle("active", i === index));
-        }
-
-        nextBtn.addEventListener("click", () => {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        });
-
-        prevBtn.addEventListener("click", () => {
-            current = (current - 1 + slides.length) % slides.length;
-            showSlide(current);
-        });
-
-        // Auto-slide
-        setInterval(() => {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        }, 5000);
-    </script>
-
 
     <div class="wave-divider">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
