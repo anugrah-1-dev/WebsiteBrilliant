@@ -136,6 +136,7 @@
 
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         $('.btn-group .btn').hover(
@@ -152,15 +153,13 @@
         }, 5000);
     });
 </script>
-@stop
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (session('success'))
     <script>
         Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
-            text: '{{ session('success') }}',
+            text: '{{ session("success") }}',
             timer: 3000,
             showConfirmButton: false
         });
@@ -172,9 +171,10 @@
         Swal.fire({
             icon: 'error',
             title: 'Gagal!',
-            text: '{{ session('error') }}',
+            text: '{{ session("error") }}',
             timer: 3000,
             showConfirmButton: false
         });
     </script>
 @endif
+@stop
