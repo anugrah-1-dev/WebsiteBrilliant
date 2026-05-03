@@ -967,8 +967,13 @@
                 document.body.style.overflow = 'hidden';
             }
             function closeGalleryModal(id) {
-                document.getElementById('modal-' + id).classList.remove('active');
-                document.body.style.overflow = 'auto';
+                const modal = document.getElementById('modal-' + id);
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                const track = modal.querySelector('.slide-track');
+                if (track) track.style.transform = 'translateX(0)';
+                if (gallerySlidePos[id] !== undefined) gallerySlidePos[id] = 0;
+                modal.querySelectorAll('video').forEach(v => v.pause());
             }
             const gallerySlidePos = {};
             function slideGallery(id, direction) {
@@ -992,8 +997,13 @@
                 document.body.style.overflow = 'hidden';
             }
             function closeErfanModal(id) {
-                document.getElementById('erfan-modal-' + id).classList.remove('active');
-                document.body.style.overflow = 'auto';
+                const modal = document.getElementById('erfan-modal-' + id);
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                const track = modal.querySelector('.slide-track');
+                if (track) track.style.transform = 'translateX(0)';
+                if (erfanSlidePos[id] !== undefined) erfanSlidePos[id] = 0;
+                modal.querySelectorAll('video').forEach(v => v.pause());
             }
             const erfanSlidePos = {};
             function slideErfan(id, direction) {

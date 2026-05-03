@@ -1217,6 +1217,7 @@ body {
         transform 0.35s ease,
         box-shadow 0.35s ease;
     background: #0d0b1e;
+    min-height: 240px;
 }
 
 .gallery-frame:hover {
@@ -1226,9 +1227,11 @@ body {
 
 .gallery-thumbnail {
     width: 100%;
-    height: auto;
+    height: 240px;
+    object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
+    flex-shrink: 0;
 }
 
 .gallery-frame:hover .gallery-thumbnail {
