@@ -22,7 +22,7 @@ class ProgramOnlinePublicController extends Controller
         if (!$program->is_active) {
             abort(404);
         }
-        $periods = Period::where('is_active', 1)->get();
+        $periods = Period::where('is_active', 1)->orderBy('date', 'asc')->get();
         $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();
 

@@ -27,7 +27,7 @@ class ProgramOfflinePublicController extends Controller
     public function showOfflinePublic(ProgramOffline $program)
     {
         $transports = Transports::all();
-        $periods = Period::where('is_active', 1)->get();
+        $periods = Period::where('is_active', 1)->orderBy('date', 'asc')->get();
         $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get();
         $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();

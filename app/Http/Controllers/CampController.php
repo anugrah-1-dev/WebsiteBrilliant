@@ -23,7 +23,7 @@ class CampController extends Controller
     {
         $program = ProgramCamp::with('thumbnails')->where('slug', $slug)->firstOrFail();
         $facilities = !empty($program->fasilitas) ? explode(',', $program->fasilitas) : [];
-        $periods = Period::where('is_active', 1)->get();
+        $periods = Period::where('is_active', 1)->orderBy('date', 'asc')->get();
         $banks = Banks::all();
 
         $stokHabis = $program->stok == 0; // <--- cek stok di sini
